@@ -1,26 +1,31 @@
 #include <iostream>
-#include "../lib/httplib.h"
 #include "../lib/json.h"
-
-#define JSON_RESPONSE(json) res.set_content(json.dump(), "application/json")
+#include "../lib/httplib.h"
 
 using json = nlohmann::json;
 
-int counter = 0;
+#define JSON_RESPONSE(json) res.set_content(json.dump(), "application/json")
 
-int main() {  
-  httplib::Server app;
 
-  app.Post("/*", [](const httplib::Request& req, httplib::Response& res) {
+int main() {
+  httplib::Server srv;
+
+  srv.set_post_routing_handler([](const httplib::Request& req, httplib::Response& res) {
     res.set_header("Access-Control-Allow-Origin", "*");
     res.set_header("Access-Control-Allow-Headers", "*");
   });
 
-  app.Get("/ping", [](const httplib::Request &req, httplib::Response &res){ json r;
-    std::cout << "pong";   
+  srv.Get("/ping", [](const httplib::Request& req, httplib::Response& res) {
+    json response = {
+      {"ok", true}
+    };
+
+    JSON_RESPONSE(response);
   });
 
-  std::cout << "server start";
-  app.listen("0.0.0.0", 8080);
+  std::cout << "Server started" << std::endl;
+  srv.listen("localhost", 8080);
+
   return 0;
 }
+
