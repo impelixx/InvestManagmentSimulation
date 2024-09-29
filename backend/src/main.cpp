@@ -8,9 +8,7 @@ using json = nlohmann::json;
 
 int counter = 0;
 
-int main() {
-  std::cout << "Check!";
-  
+int main() {  
   httplib::Server app;
 
   app.set_post_routing_handler([](const auto& req, auto& res) {
