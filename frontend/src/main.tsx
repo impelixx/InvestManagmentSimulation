@@ -8,6 +8,8 @@ import axios from 'axios';
 
 axios.defaults.baseURL = process.env.NODE_ENV === "local" ? "http://localhost:8080" : "https://spotika4.difhel.dev";;
 
+// beb
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelloPage />
