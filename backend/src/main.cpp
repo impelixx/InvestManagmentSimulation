@@ -16,6 +16,8 @@ int main() {
     res.set_header("Access-Control-Allow-Headers", "*");
   });
 
+  // Oleg code
+
   app.listen("0.0.0.0", 8080);
 
   return 0;
