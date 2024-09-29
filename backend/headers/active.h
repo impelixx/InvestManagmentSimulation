@@ -19,9 +19,9 @@ public:
 
 	// get
 	std::vector<int> getIncomeGraph() const { return income_; }
-	std::string getName() const { return name_; 	}
+	std::string getName() const { return name_; }
 	double getAmount() const { return amount_; }
-	double getPrice() const { return price_; 	}
+	double getPrice() const { return price_; }
 	
 	
 private:
