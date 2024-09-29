@@ -12,9 +12,9 @@ Active::Active(std::string& name, std::vector<int>& income, double amount, doubl
     return;
   }
 
-  name_ = name;
-  amount_ = amount;
-  price_ = price;
+  name_     = name;
+  amount_   = amount;
+  price_    = price;
   income_.reserve(income.capacity());
   for (auto el : income) {
     income_.push_back(el);
@@ -23,7 +23,7 @@ Active::Active(std::string& name, std::vector<int>& income, double amount, doubl
 
 Active::~Active() {
   name_ 	= "";
-  amount_ = 0.0;
+  amount_   = 0.0;
   price_ 	= 0.0;
   
   income_.clear();
