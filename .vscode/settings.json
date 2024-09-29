@@ -81,5 +81,6 @@
         "ios": "cpp",
         "locale": "cpp",
         "stack": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "/Users/impelix/InvestManagment/backend"
 }
