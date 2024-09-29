@@ -23,6 +23,8 @@ int main() {
     JSON_RESPONSE(response);
   });
 
+  // kKostya tesk
+
   std::cout << "Server started" << std::endl;
   srv.listen("localhost", 8080);
 
