@@ -1,27 +1,16 @@
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
+cmake_minimum_required(VERSION 3.26)  
+project(backend)               
 
-cmake_minimum_required(VERSION 3.18)
-project(backend)
+set(CMAKE_CXX_STANDARD 11)            
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+file(GLOB SOURCES "src/*.cpp")
 
-include_directories(
-    "${PROJECT_SOURCE_DIR}/include"
-    "${PROJECT_SOURCE_DIR}/lib"
-)
+file(GLOB HEADERS "headers/*.h")
 
-file(
-    GLOB
-    SOURCES
-    "src/**/*.cpp"
-    "src/*.cpp"
-)
+file(GLOB LIBS_SOURCES "libs/*.cpp")
+file(GLOB LIBS_HEADERS "libs/*.h")
 
-set(
-    PROJECT_LINK_LIBS
-)
+set(ALL_SOURCES ${SOURCES} ${HEADERS} ${LIBS_SOURCES} ${LIBS_HEADERS})
 
-add_executable("${PROJECT_NAME}" ${SOURCES})
-target_link_libraries("${PROJECT_NAME}" ${PROJECT_LINK_LIBS})
+
+add_executable(backend ${ALL_SOURCES})
