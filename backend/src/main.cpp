@@ -16,7 +16,7 @@ int main() {
     res.set_header("Access-Control-Allow-Headers", "*");
   });
 
-  // Fedor code
+  // Fedor code loser
 
   app.listen("0.0.0.0", 8080);
 
