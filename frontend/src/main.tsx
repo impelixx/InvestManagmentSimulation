@@ -8,6 +8,6 @@ import { HelloPage } from './pages/Hello/HelloPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
 	<div className='h-100 w-700'>
-		<TradingViewWidget />
+		<a>Hello world</a>
 	</div>
 )
