@@ -2,3 +2,7 @@ backend/build
 frontend/node_modules
 tests/node_modules
 data/
+main
+main.dSYM/
+build
+.vscode
