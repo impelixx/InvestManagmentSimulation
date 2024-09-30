@@ -16,6 +16,7 @@ int main() {
     res.set_header("Access-Control-Allow-Headers", "*");
   });
 
+  
 
   std::cout << "Starting server on port 8080" << std::endl;
   app.listen("0.0.0.0", 8080);
