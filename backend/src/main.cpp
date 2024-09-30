@@ -18,7 +18,6 @@ int main() {
 
   
 
-  std::cout << "Starting server on port 8080" << std::endl;
   app.listen("0.0.0.0", 8080);
 
   return 0;
