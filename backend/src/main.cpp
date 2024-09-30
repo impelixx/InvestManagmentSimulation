@@ -1,6 +1,6 @@
 #include <iostream>
-#include <httplib.h>
-#include <json.h>
+#include "../lib/httplib.h"
+#include "../lib/json.h"
 
 #define JSON_RESPONSE(json) res.set_content(json.dump(), "application/json")
 

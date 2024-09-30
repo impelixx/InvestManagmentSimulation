@@ -81,5 +81,6 @@
         "ios": "cpp",
         "locale": "cpp",
         "stack": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "/home/jkey/Work/git/InvestSimulator/InvestManagerSimulator/InvestManagmentSimulation/backend"
 }

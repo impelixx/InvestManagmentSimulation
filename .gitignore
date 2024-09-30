@@ -6,3 +6,4 @@ main
 main.dSYM/
 build
 .vscode
+settings.h
