@@ -5,5 +5,8 @@ data/
 main
 main.dSYM/
 build
+.vscode
+=======
 .vscode/
 a.out
+
