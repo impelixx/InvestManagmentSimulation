@@ -6,7 +6,5 @@ main
 main.dSYM/
 build
 .vscode
-=======
-.vscode/
+settings.h
 a.out
-
