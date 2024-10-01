@@ -12,10 +12,10 @@ public:
 	~Active();
 
 	// setters
-	void setIncomeGraph	(std::vector<int>& income);
-	void setName (std::string& name);
-	void setAmount (double amount);
-	void setPrice (double price);
+	void setIncomeGraph(std::vector<int>& income);
+	void setName(std::string& name);
+	void setAmount(double amount);
+	void setPrice(double price);
 
 	// getters
 	std::vector<int> getIncomeGraph() const { return income_; }

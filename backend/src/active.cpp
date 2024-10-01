@@ -30,7 +30,7 @@ Active::~Active() {
 }
 
 
-// sets
+// setters
 void Active::setIncomeGraph(std::vector<int>& income) {
   if (income.empty()) {
     throw std::length_error("Income graph is empty!");
