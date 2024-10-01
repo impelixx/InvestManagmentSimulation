@@ -4,7 +4,7 @@
 // constructor / destructor
 Active::Active(std::string& name, std::vector<int>& income, double amount, double price) {
   if (name.empty()) { // will better to rewrite this to try/catch
-    throw std::length_error("No any name!");
+    throw std::length_error("Kill you");
     return;
   }
   if (income.empty()) {
