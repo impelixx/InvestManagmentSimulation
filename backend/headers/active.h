@@ -11,13 +11,13 @@ public:
 	Active(std::string& name, std::vector<int>& income, double amount, double price);
 	~Active();
 
-	// sets
+	// setters
 	void setIncomeGraph	(std::vector<int>& income);
 	void setName (std::string& name);
 	void setAmount (double amount);
 	void setPrice (double price);
 
-	// get
+	// getters
 	std::vector<int> getIncomeGraph() const { return income_; }
 	std::string getName() const { return name_; }
 	double getAmount() const { return amount_; }
