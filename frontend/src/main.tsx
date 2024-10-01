@@ -1,13 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import TradingViewWidget from './components/TradingViewWidget.tsx'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './app'
+import { ThemeProvider } from './components/ThemeProvider' // Импортируйте ThemeProvider
 
-import './style.css'
-import { HelloPage } from './pages/Hello/HelloPage.tsx'
-// import axios from 'axios';
-
-createRoot(document.getElementById('root')!).render(
-	<div className='h-100 w-700'>
-		<a>Hello world</a>
-	</div>
+ReactDOM.render(
+	<React.StrictMode>
+		<ThemeProvider>
+			<App />
+		</ThemeProvider>
+	</React.StrictMode>,
+	document.getElementById('root')
 )

@@ -5,3 +5,6 @@ data/
 build/
 main.dSYM
 main
+.vscode/
+.vscode/settings.json
+
