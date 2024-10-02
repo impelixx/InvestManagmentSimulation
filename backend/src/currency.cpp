@@ -1,17 +1,17 @@
-#include "../headers/active.h"
+#include "../headers/currency.h"
 
 
 // constructors / destructor
-Active::Active(std::string& name, std::vector<int>& income, double amount, double price) {
-  if (name.empty()) { // will better to rewrite this to try/catch
-    throw std::length_error("Kill you");
+Currency::Currency(std::string& name, std::vector<int>& income, double amount, double price) {
+  if (name.empty()) {
+    throw std::length_error("No any name!");
     return;
   }
   if (income.empty()) {
     throw std::length_error("Income graph is empty!");
     return;
   }
-
+  
   name_ = name;
   amount_ = amount;
   price_ = price;
@@ -21,14 +21,15 @@ Active::Active(std::string& name, std::vector<int>& income, double amount, doubl
   }
 }
 
-Active::Active(Active& rhs) {
+
+Currency::Currency(Currency& rhs) {
   name_ = rhs.name_;
   amount_ = rhs.amount_;
   price_ = rhs.price_;
   income_ = rhs.income_; // ??
 }
 
-Active::~Active() {
+Currency::~Currency() {
   name_ = "";
   amount_ = 0.0;
   price_ = 0.0;
@@ -37,7 +38,7 @@ Active::~Active() {
 
 
 // setters
-void Active::setIncomeGraph(std::vector<int>& income) {
+void Currency::setIncomeGraph(std::vector<int>& income) {
   if (income.empty()) {
     throw std::length_error("Income graph is empty!");
     return;
@@ -49,7 +50,7 @@ void Active::setIncomeGraph(std::vector<int>& income) {
   }
 }
 
-void Active::setName(std::string& name) { 
+void Currency::setName(std::string& name) {
   if (name.empty()) {
     throw std::length_error("No any name!");
     return;
@@ -58,10 +59,10 @@ void Active::setName(std::string& name) {
   name_ = name;
 }
 
-void Active::setAmount(double amount) {
+void Currency::setAmount(double amount) {
   amount_ = amount;
 }
 
-void Active::setPrice(double price) {
+void Currency::setPrice(double price) {
   price_ = price;
 }
