@@ -6,7 +6,7 @@
 #include "active.h"
 
 
-// its probably bad, better to fix it
+// better to fix it
 class Currency : public Active {
 public:
   Currency() : name_(""), income_(std::vector<int>()), amount_(0.0), price_(0.0) {}
