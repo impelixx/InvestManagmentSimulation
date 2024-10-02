@@ -1,0 +1,2 @@
+#include "../headers/stock.h"
+
