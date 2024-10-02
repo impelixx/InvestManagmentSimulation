@@ -1,7 +1,7 @@
 #include "../headers/active.h"
 
 
-// constructor / destructor
+// constructors / destructor
 Active::Active(std::string& name, std::vector<int>& income, double amount, double price) {
   if (name.empty()) { // will better to rewrite this to try/catch
     throw std::length_error("Kill you");
@@ -21,11 +21,17 @@ Active::Active(std::string& name, std::vector<int>& income, double amount, doubl
   }
 }
 
+Active::Active(Active& rhs) {
+  name_ = rhs.name_;
+  amount_ = rhs.amount_;
+  price_ = rhs.price_;
+  income_ = rhs.income_; // ??
+}
+
 Active::~Active() {
   name_ = "";
   amount_ = 0.0;
   price_ = 0.0;
-  
   income_.clear();
 }
 

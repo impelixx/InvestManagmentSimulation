@@ -9,7 +9,8 @@ class Active {
 public:
 	Active() : name_(""), income_(std::vector<int>()), amount_(0.0), price_(0.0) {}
 	Active(std::string& name, std::vector<int>& income, double amount, double price);
-	~Active();
+	Active(Active& rhs);
+	virtual ~Active();
 
 	// setters
 	void setIncomeGraph(std::vector<int>& income);
@@ -18,10 +19,10 @@ public:
 	void setPrice(double price);
 
 	// getters
-	std::vector<int> getIncomeGraph() const { return income_; }
-	std::string getName() const { return name_; }
-	double getAmount() const { return amount_; }
-	double getPrice() const { return price_; }
+	virtual std::vector<int> getIncomeGraph() const { return income_; }
+	virtual std::string getName() const { return name_; }
+	virtual double getAmount() const { return amount_; }
+	virtual double getPrice() const { return price_; }
 	
 	
 private:
