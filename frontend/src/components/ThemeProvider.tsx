@@ -1,32 +1,35 @@
 import React, { createContext, useContext, useState } from 'react'
 
-interface ThemeContextType {
-	isDarkMode: boolean
-	toggleTheme: () => void
-}
+const ThemeContext = createContext()
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+export const useTheme = () => useContext(ThemeContext)
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
-	children,
-}) => {
+export const ThemeProvider = ({ children }) => {
 	const [isDarkMode, setIsDarkMode] = useState(false)
 
 	const toggleTheme = () => {
-		setIsDarkMode(prevMode => !prevMode)
+		setIsDarkMode(prev => !prev)
+	}
+
+	const themeStyles = {
+		background: isDarkMode
+			? 'linear-gradient(to bottom, #3c3c3c, #1c1c1c)'
+			: 'linear-gradient(to bottom, #ffffff, #e0e0e0)',
+		color: isDarkMode ? '#ffffff' : '#000000',
 	}
 
 	return (
-		<ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
-			{children}
+		<ThemeContext.Provider value={{ isDarkMode, toggleTheme, themeStyles }}>
+			<div
+				style={{
+					background: themeStyles.background,
+					color: themeStyles.color,
+					minHeight: '200vh',
+					minWidth: '200vh'
+				}}
+			>
+				{children}
+			</div>
 		</ThemeContext.Provider>
 	)
-}
-
-export const useTheme = () => {
-	const context = useContext(ThemeContext)
-	if (!context) {
-		throw new Error('useTheme must be used within a ThemeProvider')
-	}
-	return context
 }

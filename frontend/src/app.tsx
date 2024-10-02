@@ -9,9 +9,8 @@ import Help from './pages/Help'
 const App: React.FC = () => {
 	return (
 		<Router>
-			<div>
 				<HamburgerMenu />
-				<main style={{ padding: '20px' }}>
+				<main>
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/markets' element={<Markets />} />
@@ -19,7 +18,7 @@ const App: React.FC = () => {
 						<Route path='/help' element={<Help />} />
 					</Routes>
 				</main>
-			</div>
+
 		</Router>
 	)
 }

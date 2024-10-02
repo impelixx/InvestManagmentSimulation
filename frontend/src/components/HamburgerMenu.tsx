@@ -10,10 +10,15 @@ import {
 	Divider,
 	Typography,
 	Switch,
+	IconButton as MuiIconButton,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useNavigate } from 'react-router-dom'
 import { useTheme } from './ThemeProvider'
+import MoonIcon from '@mui/icons-material/Brightness2'
+import SunIcon from '@mui/icons-material/WbSunny'
+
+
 
 const HamburgerMenu: React.FC = () => {
 	const [isOpen, setIsOpen] = React.useState(false)
@@ -43,6 +48,7 @@ const HamburgerMenu: React.FC = () => {
 				edge='start'
 				color='inherit'
 				aria-label='menu'
+				size='large'
 				onClick={toggleDrawer(true)}
 			>
 				<MenuIcon />
@@ -55,9 +61,8 @@ const HamburgerMenu: React.FC = () => {
 					style: {
 						width: 250,
 						background: isDarkMode
-							? 'linear-gradient(to bottom, #f2b50b, #584ccd)'
-							: 'linear-gradient(to bottom, #3f51b5, #e0e0e0)',
-						color: '#ffffff',
+							? 'linear-gradient(to bottom, #3c3c3c, #1c1c1c)'
+							: 'linear-gradient(to bottom, #ffffff, #e0e0e0)',
 						boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
 					},
 				}}
@@ -75,7 +80,10 @@ const HamburgerMenu: React.FC = () => {
 					/>
 					<Typography
 						variant='h6'
-						style={{ marginTop: '8px', color: '#ffffff' }}
+						style={{
+							marginTop: '8px',
+							color: isDarkMode ? '#ffffff' : '#000000',
+						}}
 					>
 						Impelix
 					</Typography>
@@ -93,11 +101,11 @@ const HamburgerMenu: React.FC = () => {
 								onClick={() => handleNavigation(item.path)}
 								sx={{
 									'&:hover': {
-										backgroundColor: isDarkMode ? '#ffffff' : '#ffffff',
-										color: isDarkMode ? '#3f51b5' : '#3f51b5',
+										backgroundColor: isDarkMode ? '#444444' : '#cce7ff',
 										transform: 'scale(1.05)',
 										transition: 'transform 0.2s ease-in-out',
 									},
+									textAlign: 'center',
 									padding: '12px 24px',
 									borderRadius: '8px',
 									margin: '8px 0',
@@ -109,7 +117,7 @@ const HamburgerMenu: React.FC = () => {
 									primaryTypographyProps={{
 										style: {
 											fontWeight: 'bold',
-											color: 'white',
+											color: isDarkMode ? '#ffffff' : '#000000', // Text color based on theme
 										},
 									}}
 								/>
@@ -121,13 +129,19 @@ const HamburgerMenu: React.FC = () => {
 				<ListItem>
 					<ListItemButton
 						sx={{ display: 'flex', justifyContent: 'space-between' }}
+						onClick={toggleTheme}
 					>
-						<ListItemText primary='Темная тема' style={{ color: '#ffffff' }} />
-						<Switch
-							checked={isDarkMode}
-							onChange={toggleTheme}
-							color='default'
+						<ListItemText
+							primary='Темная тема'
+							style={{ color: isDarkMode ? '#ffffff' : '#000000' }}
 						/>
+						<MuiIconButton>
+							{isDarkMode ? (
+								<SunIcon style={{ color: '#ffeb3b' }} />
+							) : (
+								<MoonIcon style={{ color: '#ffffff' }} />
+							)}
+						</MuiIconButton>
 					</ListItemButton>
 				</ListItem>
 			</Drawer>
