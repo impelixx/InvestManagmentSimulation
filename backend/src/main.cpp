@@ -16,7 +16,11 @@ int main() {
     res.set_header("Access-Control-Allow-Headers", "*");
   });
 
-  // sosat amerika
+  app.Post("/api", [](const auto& req, auto& res) {
+    json response;
+    response["counter"] = counter++;
+    JSON_RESPONSE(response);
+  });
 
   app.listen("0.0.0.0", 8080);
 
