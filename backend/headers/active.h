@@ -13,7 +13,7 @@ public:
 	virtual ~Active();
 
 	// setters
-	void setIncomeGraph(std::vector<double>& income);
+	void setIncomeGraph(std::vector<int>& income);
 	void setName(std::string& name);
 	void setAmount(double amount);
 	void setAmount(double price, int count);
@@ -22,7 +22,7 @@ public:
 	void setRisk(int risk);
 
 	// getters
-	virtual std::vector<double> getIncomeGraph() const { return income_; }
+	virtual std::vector<int> getIncomeGraph() const { return income_; }
 	virtual std::string getName() const { return name_; }
 	virtual double getAmount() const { return amount_; }
 	virtual double getPrice() const { return price_; }
@@ -34,13 +34,14 @@ public:
 	virtual void changePrice(int risk);
 	
 	
-protected:
+private:
 	std::string name_;
-	std::vector<double> income_;
+	std::vector<int> income_;
 	double amount_;
 	double price_;
 	int count_;
 	int risk_;
 };
+
 
 #endif // ACTIVE_H
