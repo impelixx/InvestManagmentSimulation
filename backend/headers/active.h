@@ -7,40 +7,34 @@
 
 class Active {
 public:
-	Active() : name_(""), income_(std::vector<int>()), amount_(0.0), price_(0.0), risk_(1) {}
-	Active(std::string& name, std::vector<int>& income, double amount, double price, int count, int risk);
+	Active() : name_(""), income_(std::vector<double>()), amount_(0.0), price_(0.0), risk_(0) {}
+	Active(std::string& name, std::vector<double>& income, double amount, double price, double risk);
 	Active(Active& rhs);
 	virtual ~Active();
 
 	// setters
-	void setIncomeGraph(std::vector<int>& income);
-	void setName(std::string& name);
+	void setIncomeGraph(std::vector<double>& income);
+	void setName(std::string name);
 	void setAmount(double amount);
-	void setAmount(double price, int count);
 	void setPrice(double price);
-	void setCount(int count);
-	void setRisk(int risk);
+	void setRisk(double risk);
 
 	// getters
-	virtual std::vector<int> getIncomeGraph() const { return income_; }
-	virtual std::string getName() const { return name_; }
-	virtual double getAmount() const { return amount_; }
-	virtual double getPrice() const { return price_; }
-	virtual int getCount() const { return count_; }
-	virtual int getRisk() const { return risk_; }
+	std::vector<double> getIncomeGraph() const { return income_; }
+	std::string getName() const { return name_; }
+	double getAmount() const { return amount_; }
+	double getPrice() const { return price_; }
+	double getRisk() const { return risk_; }
 
-	virtual int generateRisk();
-	virtual bool plusMinus();
-	virtual void changePrice(int risk);
+	virtual void changePrice();
 	
 	
-private:
+protected:
 	std::string name_;
-	std::vector<int> income_;
+	std::vector<double> income_;
 	double amount_;
 	double price_;
-	int count_;
-	int risk_;
+	double risk_;
 };
 
 
