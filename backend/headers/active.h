@@ -26,7 +26,7 @@ public:
 	double getPrice() const { return price_; }
 	double getRisk() const { return risk_; }
 
-	void changePrice();
+	virtual void changePrice();
 	
 	
 protected:
