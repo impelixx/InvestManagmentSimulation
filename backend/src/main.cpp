@@ -1,12 +1,12 @@
 #include <iostream>
-//? #include "../lib/httplib.h"
-//? #include "../lib/json.h"
+#include "../lib/httplib.h"
+#include "../lib/json.h"
 #include "../headers/active.h"
 #include "../include/includes.h"
 
 #define JSON_RESPONSE(json) res.set_content(json.dump(), "application/json")
 
-// * using json = nlohmann::json;
+using json = nlohmann::json;
 
 int counter = 0;
 int main() {
