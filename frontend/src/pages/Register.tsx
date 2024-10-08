@@ -122,7 +122,6 @@ const Register: React.FC = () => {
 	}, [openSnackbar])
 
 	return (
-
 		<Container maxWidth='sm'>
 			<Box
 				sx={{
@@ -281,5 +280,4 @@ const Register: React.FC = () => {
 	)
 	}
 		
-
 export default Register

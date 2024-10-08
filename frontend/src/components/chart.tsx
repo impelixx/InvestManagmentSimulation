@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactECharts from 'echarts-for-react'
 
-const FinancialChart: React.FC = () => {
+interface FinancialChartProps {
+	chartData: number[][]
+}
+
+const FinancialChart: React.FC<FinancialChartProps> = ({ chartData }) => {
+	const [dataZoomStart, setDataZoomStart] = useState(50)
+	const [dataZoomEnd, setDataZoomEnd] = useState(100)
+
 	const getOption = () => {
 		return {
-			title: {
-				text: 'Тест',
-			},
 			tooltip: {
 				trigger: 'axis',
 				axisPointer: {
@@ -16,26 +20,12 @@ const FinancialChart: React.FC = () => {
 			xAxis: {
 				type: 'category',
 				data: [
-					'2024-09-20',
-					'2024-09-21',
-					'2024-09-22',
-					'2024-09-23',
-					'2024-09-24',
-					'2024-09-25',
-					'2024-09-26',
-					'2024-09-27',
-					'2024-09-28',
-					'2024-09-29',
-					'2024-09-30',
-					'2024-10-01',
-					'2024-10-02',
-					'2024-10-03',
-					'2024-10-04',
-					'2024-10-05',
-					'2024-10-06',
-					'2024-10-07',
-					'2024-10-08',
-					'2024-10-09',
+					'2024-09',
+					'2024-10',
+					'2024-11',
+					'2024-12',
+					'2025-01',
+					'2025-02',
 				],
 				boundaryGap: true,
 			},
@@ -46,68 +36,58 @@ const FinancialChart: React.FC = () => {
 			grid: {
 				left: '10%',
 				right: '10%',
-				bottom: '15%',
+				bottom: '10%',
+				top: '5%',
 			},
 			dataZoom: [
 				{
 					type: 'inside',
-					start: 50,
-					end: 70,
-					zoomOnMouseWheel: false,
-					zoomOnTouch: true,
+					start: dataZoomStart,
+					end: dataZoomEnd,
+					zoomOnMouseWheel: true,
+					zoomOnPinch: true,
+					moveOnMouseMove: true,
+					moveOnTouch: true,
+					preventDefaultMouseMove: true,
 				},
 				{
-					show: true,
 					type: 'slider',
-					top: '90%',
-					start: 50,
-					end: 100,
-					handleSize: '100%',
+					start: dataZoomStart,
+					end: dataZoomEnd,
 				},
 			],
 			series: [
 				{
-					name: 'Свечи',
+					name: 'Candlestick',
 					type: 'candlestick',
-					data: [
-						[220, 232, 210, 215],
-						[230, 235, 220, 230],
-						[220, 225, 215, 220],
-						[215, 222, 210, 225],
-						[220, 215, 200, 220],
-						[230, 240, 225, 235],
-						[240, 250, 230, 245],
-						[250, 260, 240, 255],
-						[260, 270, 250, 265],
-						[265, 280, 260, 275],
-						[275, 285, 265, 280],
-						[285, 290, 275, 285],
-						[290, 300, 280, 295],
-						[295, 305, 285, 300],
-						[300, 310, 290, 305],
-						[305, 315, 295, 310],
-						[310, 320, 300, 315],
-						[315, 325, 305, 320],
-						[320, 330, 310, 325],
-						[325, 335, 315, 330],
-					],
+					data: chartData,
 					itemStyle: {
 						color: '#06B800',
 						color0: '#FF0000',
 						borderColor: '#06B800',
 						borderColor0: '#FF0000',
 					},
-					barWidth: '100%',
+					barWidth: '80%',
 				},
 			],
 		}
 	}
 
+	const handleChartEvents = (e: any) => {
+		if (e.type === 'datazoom') {
+			setDataZoomStart(e.batch[0].start)
+			setDataZoomEnd(e.batch[0].end)
+		}
+	}
+
 	return (
-		<div style={{ width: '100vw', height: '100vh' }}>
+		<div style={{ width: '100%', height: '400px' }}>
 			<ReactECharts
 				option={getOption()}
 				style={{ width: '100%', height: '100%' }}
+				onEvents={{
+					datazoom: handleChartEvents,
+				}}
 			/>
 		</div>
 	)

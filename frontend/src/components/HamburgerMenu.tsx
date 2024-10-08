@@ -25,7 +25,7 @@ const HamburgerMenu: React.FC = () => {
 	const { isDarkMode, toggleTheme } = useTheme()
 
 	React.useEffect(() => {
-		const storedUsername = localStorage.getItem('username')
+		const storedUsername = "Лудоман"
 		setUsername(storedUsername)
 	}, [])
 

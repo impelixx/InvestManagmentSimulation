@@ -18,8 +18,8 @@ const App: React.FC = () => {
 				<main style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
 					<Routes>
 						<Route path='/' element={<Register />} />
-						<Route path='/Start' element={<Start />} />
-						<Route path='/Home' element={<Home />} />
+						<Route path='/start' element={<Start />} />
+						<Route path='/home' element={<Home />} />
 						<Route path='/markets' element={<Markets />} />
 						<Route path='/assets' element={<Assets />} />
 						<Route path='/help' element={<Help />} />
