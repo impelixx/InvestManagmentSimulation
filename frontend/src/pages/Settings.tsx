@@ -1,47 +1,69 @@
-import React from 'react'
-import '../style.css'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-const handleButtonClick = () => {
-	navigate('/Home')
-}
+import '../style.css'
 
 const Settings: React.FC = () => {
+	const navigate = useNavigate()
+
+	const [username, setUsername] = useState('')
+	const [email, setEmail] = useState('')
+	const [notificationsEnabled, setNotificationsEnabled] = useState(false)
+
+	const handleSave = () => {
+		console.log('Настройки сохранены:', {
+			username,
+			email,
+			notificationsEnabled,
+		})
+		localStorage.setItem('username', username)
+		navigate('/Home')
+	}
+
 	return (
 		<div className='flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100'>
-			<div className='max-w-3xl p-8 text-center bg-white rounded-lg shadow-lg'>
-				<h1 className='mb-6 text-4xl font-bold text-gray-800'>
-					Инвестируй в говно
-				</h1>
-				<p className='mb-6 text-lg text-gray-600'>
-					Добро пожаловать в игру <strong>Инвестируй в говно</strong>! Ваш путь
-					к вершинам финансового успеха начинается с 100$, которые вы заработали
-					разгрузив 20 фур, кажется Вас обманули, но это уже не важно, ведь
-					скоро вы станете <strong>КРИПТОДОЛЛАРОВЫМ МИЛЛИОНЕРОМ</strong>.
-					Управляйте деньгами, принимайте решения и смотрите, как ваши деньги
-					сгорают. Готовы бросить вызов рынку и стать настоящим финансовым как{' '}
-					<strong>Артем Дедов?</strong>?
-				</p>
-				<div className='flex justify-center space-x-4'>
-					<button
-						className='px-6 py-3 font-semibold text-white transition bg-blue-500 rounded-lg hover:bg-blue-600'
-						onClick={handleButtonClick}
-					>
-						Начать игру
-					</button>
-					<a
-						href='https://journal.tinkoff.ru/pro/fingram/intro-fingram/'
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						<button className='px-6 py-3 font-semibold text-white transition bg-green-500 rounded-lg hover:bg-green-600'>
-							Учебник
-						</button>
-					</a>
-					<button className='px-6 py-3 font-semibold text-white transition bg-gray-500 rounded-lg hover:bg-gray-600'>
-						Настройки
-					</button>
+			<h1 className='mb-4 text-2xl font-bold'>Настройки</h1>
+			<div className='w-full max-w-md p-6 bg-white rounded shadow-md'>
+				<div className='mb-4'>
+					<label className='block text-sm font-medium text-gray-700'>
+						Имя пользователя
+					</label>
+					<input
+						type='text'
+						value={username}
+						onChange={e => setUsername(e.target.value)}
+						className='block w-full p-2 mt-1 border border-gray-300 rounded'
+						placeholder='Введите имя пользователя'
+					/>
 				</div>
+				<div className='mb-4'>
+					<label className='block text-sm font-medium text-gray-700'>
+						Электронная почта
+					</label>
+					<input
+						type='email'
+						value={email}
+						onChange={e => setEmail(e.target.value)}
+						className='block w-full p-2 mt-1 border border-gray-300 rounded'
+						placeholder='Введите адрес электронной почты'
+					/>
+				</div>
+				<div className='mb-4'>
+					<label className='flex items-center'>
+						<input
+							type='checkbox'
+							checked={notificationsEnabled}
+							onChange={() => setNotificationsEnabled(!notificationsEnabled)}
+							className='mr-2'
+						/>
+						Включить уведомления
+					</label>
+				</div>
+				<button
+					onClick={handleSave}
+					className='w-full py-2 text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600'
+				>
+					Сохранить настройки
+				</button>
 			</div>
 		</div>
 	)

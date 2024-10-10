@@ -1,7 +1,163 @@
-import React from 'react'
+import React, { useState } from 'react'
+import {
+	Container,
+	Typography,
+	Grid,
+	Card,
+	CardContent,
+	Button,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogActions,
+	TextField,
+	IconButton,
+	Box,
+} from '@mui/material'
+import ReactECharts from 'echarts-for-react'
+import SellIcon from '@mui/icons-material/AttachMoney'
 
-const Help: React.FC = () => {
-	return <div>Хз чего</div>
+interface Asset {
+	name: string
+	value: number
 }
 
-export default Help
+const userAssets: Asset[] = [
+	{ name: 'Tesla', value: 1337 },
+	{ name: 'Apple', value: 1488 },
+	{ name: 'Bitcoin', value: 5252 },
+]
+
+const UserAssets: React.FC = () => {
+	const [open, setOpen] = useState(false)
+	const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
+	const [sellAmount, setSellAmount] = useState<number>(0)
+
+	const totalValue = userAssets.reduce((sum, asset) => sum + asset.value, 0)
+
+	const pieChartOptions = {
+		title: {
+			text: 'Процентное распределение активов',
+			subtext: 'Общая стоимость: $' + totalValue,
+			left: 'center',
+		},
+		tooltip: {
+			trigger: 'item',
+		},
+		series: [
+			{
+				name: 'Активы',
+				type: 'pie',
+				radius: '50%',
+				data: userAssets.map(asset => ({
+					value: asset.value,
+					name: asset.name,
+				})),
+				anchor: 'center',
+				itemStyle: {
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(0, 0, 0, 0.5)',
+					},
+				},
+			},
+		],
+	}
+
+	const handleClickOpen = (asset: Asset) => {
+		setSelectedAsset(asset)
+		setOpen(true)
+	}
+
+	const handleClose = () => {
+		setOpen(false)
+		setSellAmount(0)
+		setSelectedAsset(null)
+	}
+
+	const handleSell = () => {
+		if (selectedAsset) {
+			console.log('Selling:', selectedAsset.name, 'Amount:', sellAmount)
+			handleClose()
+		}
+	}
+
+	return (
+		<Container>
+			<Typography
+				variant='h4'
+				align='center'
+				style={{ margin: '20px 0', fontWeight: 'bold' }}
+			>
+				Активы пользователя
+			</Typography>
+
+			<Grid container spacing={4}>
+				{userAssets.map((asset, index) => (
+					<Grid item xs={12} sm={6} md={4} key={index}>
+						<Card elevation={3} style={{ borderRadius: '15px' }}>
+							<CardContent>
+								<Typography variant='h6' style={{ fontWeight: 'bold' }}>
+									{asset.name}
+								</Typography>
+								<Typography variant='body1'>
+									Текущая стоимость: <strong>${asset.value}</strong>
+								</Typography>
+								<Box display='flex' justifyContent='flex-end' mt={2}>
+									<IconButton
+										color='secondary'
+										onClick={() => handleClickOpen(asset)}
+										aria-label={`Продать часть ${asset.name}`}
+									>
+										<SellIcon />
+									</IconButton>
+								</Box>
+							</CardContent>
+						</Card>
+					</Grid>
+				))}
+			</Grid>
+
+			<Typography
+				variant='h5'
+				align='center'
+				style={{ marginTop: '40px', fontWeight: 'bold' }}
+			>
+				Процентное распределение активов
+			</Typography>
+
+			<ReactECharts
+				option={pieChartOptions}
+				style={{ height: '400px', width: '100%' }}
+			/>
+
+			{/* Sell Asset Dialog */}
+			<Dialog open={open} onClose={handleClose}>
+				<DialogTitle>Продать часть {selectedAsset?.name}</DialogTitle>
+				<DialogContent>
+					<TextField
+						autoFocus
+						margin='dense'
+						label='Сумма для продажи'
+						type='number'
+						fullWidth
+						value={sellAmount}
+						onChange={e => setSellAmount(Number(e.target.value))}
+						inputProps={{ min: 0, step: 0.01 }} // Ensure positive values
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} color='primary'>
+						Отмена
+					</Button>
+					<Button onClick={handleSell} color='secondary'>
+						Продать
+					</Button>
+				</DialogActions>
+			</Dialog>
+		</Container>
+	)
+}
+
+export default UserAssets

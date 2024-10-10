@@ -8,3 +8,5 @@ main
 .vscode/
 .vscode/settings.json
 
+python/app.log
+app.log

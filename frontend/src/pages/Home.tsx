@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Grid, Paper, Typography, Button, IconButton } from '@mui/material'
-import { PlayArrow, VideoLabel } from '@mui/icons-material' // Import icons for toggle
-import PhaserGame from '../components/PhaserGame'
+import { PlayArrow, VideoLabel } from '@mui/icons-material'
 import AssetPieChart from '../components/PieChart.tsx'
 import StockQuotes from '../components/StockQuotes'
 import NewsFeed from '../components/NewsFeed'

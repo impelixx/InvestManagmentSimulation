@@ -17,6 +17,7 @@ import { useTheme } from './ThemeProvider'
 import MoonIcon from '@mui/icons-material/DarkMode'
 import SunIcon from '@mui/icons-material/WbSunny'
 import SettingsIcon from '@mui/icons-material/Settings'
+import { render } from 'react-dom'
 
 const HamburgerMenu: React.FC = () => {
 	const [isOpen, setIsOpen] = React.useState(false)
@@ -25,7 +26,7 @@ const HamburgerMenu: React.FC = () => {
 	const { isDarkMode, toggleTheme } = useTheme()
 
 	React.useEffect(() => {
-		const storedUsername = "Лудоман"
+		const storedUsername = localStorage.getItem('username')
 		setUsername(storedUsername)
 	}, [])
 
@@ -47,20 +48,43 @@ const HamburgerMenu: React.FC = () => {
 	}
 
 	const handleSettingsButtonClick = () => {
-		navigate('/Settings')
+		navigate('/settings')
+	}
+
+	const handleMouseEnter = () => {
+		setUsername(localStorage.getItem('username'))
+		setIsOpen(true)
+	}
+
+	const handleMouseLeave = () => {
+		setIsOpen(false)
 	}
 
 	return (
-		<div>
-			<IconButton
+		<div
+			style={{
+				position: 'absolute',
+				top: 0,
+				left: 0,
+				width: '100px',
+				height: '100vh',
+				zIndex: 1000,
+			}}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+		>
+			{/* <IconButton
 				edge='end'
 				color='inherit'
 				aria-label='menu'
-				onClick={toggleDrawer(true)}
-				style={{ fontSize: '2.5rem', marginLeft: '10px' }}
+				style={{
+					fontSize: '2.5rem',
+					marginLeft: '10px',
+					display: isOpen ? 'none' : 'block',
+				}}
 			>
 				<MenuIcon fontSize='inherit' />
-			</IconButton>
+			</IconButton> */}
 			<Drawer
 				anchor='left'
 				open={isOpen}
@@ -108,7 +132,7 @@ const HamburgerMenu: React.FC = () => {
 				<Divider style={{ backgroundColor: '#ffffff' }} />
 				<List>
 					{[
-						{ text: 'Домашняя страница', path: '/Home' },
+						{ text: 'Домашняя страница', path: '/home' },
 						{ text: 'Рынки', path: '/markets' },
 						{ text: 'Активы', path: '/assets' },
 						{ text: 'Помощь', path: '/help' },
@@ -151,27 +175,27 @@ const HamburgerMenu: React.FC = () => {
 					<ListItemButton
 						sx={{ display: 'flex', justifyContent: 'space-between' }}
 						onClick={handleSettingsButtonClick}
-					></ListItemButton>
-					<MuiIconButton>
-						{isDarkMode ? (
-							<SettingsIcon
-								style={{
-									fontSize: '2rem',
-									color: '#ffffff',
-									transition: 'color 0.5s ease',
-								}}
-							/>
-						) : (
-							<SettingsIcon
-								style={{
-									fontSize: '2rem',
-									color: '#000000',
-									transition: 'color 0.5s ease',
-									
-								}}
-							/>
-						)}
-					</MuiIconButton>
+					>
+						<MuiIconButton>
+							{isDarkMode ? (
+								<SettingsIcon
+									style={{
+										fontSize: '2rem',
+										color: '#ffffff',
+										transition: 'color 0.5s ease',
+									}}
+								/>
+							) : (
+								<SettingsIcon
+									style={{
+										fontSize: '2rem',
+										color: '#000000',
+										transition: 'color 0.5s ease',
+									}}
+								/>
+							)}
+						</MuiIconButton>
+					</ListItemButton>
 					<ListItemButton
 						sx={{ display: 'flex', justifyContent: 'space-between' }}
 						onClick={toggleTheme}

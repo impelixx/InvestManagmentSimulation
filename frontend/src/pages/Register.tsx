@@ -51,7 +51,7 @@ const Register: React.FC = () => {
 		}
 
 		try {
-			const response = await fetch('http://localhost:5001/api/register', {
+			const response = await fetch('http://localhost:5001/db/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -62,10 +62,11 @@ const Register: React.FC = () => {
 			if (!response.ok) {
 				throw new Error('Ошибка регистрации')
 			}
-
+			
 			setSnackbarMessage('Регистрация прошла успешно!')
 			setSnackbarSeverity('success')
 			setOpenSnackbar(true)
+			localStorage.setItem('username', username)
 			navigate('/start')
 		} catch (error) {
 			setSnackbarMessage('Ошибка регистрации. Повторите попытку!')
@@ -84,7 +85,7 @@ const Register: React.FC = () => {
 		}
 
 		try {
-			const response = await fetch('http://localhost:5001/api/login', {
+			const response = await fetch('http://localhost:5001/db/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
