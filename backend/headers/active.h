@@ -25,9 +25,9 @@ public:
 	double getAmount() const { return amount_; }
 	double getPrice() const { return price_; }
 	double getRisk() const { return risk_; }
-
-	void changePrice();
-	json returnCandleInfo();
+  
+  void changePrice();
+  json returnCandleInfo();
 	
 	
 protected:
