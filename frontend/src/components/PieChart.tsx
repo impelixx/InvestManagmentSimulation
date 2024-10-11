@@ -16,6 +16,15 @@ const GetData = async (): Promise<AssetData[]> => {
 			},
 			body: JSON.stringify({ userId: '1' }),
 		})
+		try {
+			const data = await fetch('http://localhost:5252/assets/getPrices', {
+				method: 'GET',
+			})
+			const prices = await data.json()
+			console.log('Prices:', k)
+		} catch (error) {
+			console.error('Error fetching prices')
+		}
 
 		const data = await response.json()
 		console.log('Data:', data)

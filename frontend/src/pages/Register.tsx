@@ -108,6 +108,7 @@ const Register: React.FC = () => {
 			const data = await response.json()
 			console.log(data)
 			console.log('Вход выполнен успешно:', data)
+			console.log(data.user.username)
 			if (data.status == 'error') {
 				console.log('Ошибка входа:', data.error)
 				setSnackbarMessage(data.error)
@@ -117,9 +118,9 @@ const Register: React.FC = () => {
 			} else {
 				setSnackbarMessage('Вход выполнен успешно!')
 				setSnackbarSeverity('success')
-				localStorage.setItem('token', data.id)
-				localStorage.setItem('email', data.email)
-				localStorage.setItem('username', data.username)
+				localStorage.setItem('token', data.user.id)
+				localStorage.setItem('email', data.user.email)
+				localStorage.setItem('username', data.user.username)
 				navigate('/start')
 
 			}

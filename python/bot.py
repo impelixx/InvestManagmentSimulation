@@ -7,29 +7,54 @@ from psycopg2.extras import RealDictCursor
 from bcrypt import hashpw, gensalt, checkpw
 import requests
 from pymongo import MongoClient
+import random
 
 asset_document = {
-        'userId': 1,
-        'assets': {
-            'stocks': [
-                {'name': 'Apple', 'quantity': 10, 'value': 1500},
-                {'name': 'Nvidia', 'quantity': 5, 'value': 1200},
-                {'name': 'Facebook', 'quantity': 8, 'value': 1000}
-            ],
-            'cryptocurrencies': [
-                {'name': 'Bitcoin', 'quantity': 0.5, 'value': 25000},
-                {'name': 'Ethereum', 'quantity': 2, 'value': 4000}
-            ],
-            'cash': {'currency': 'USD', 'amount': 5000},
-            'metals': [
-                {'type': 'Gold', 'quantity': 1.5, 'value': 3000}
-            ]
-        }
+    'userId': 1,
+    'assets': {
+        'stocks': [
+            {'name': 'Apple', 'quantity': 10, 'price': 1500},
+            {'name': 'Nvidia', 'quantity': 5, 'price': 1200},
+            {'name': 'Facebook', 'quantity': 8, 'price': 1000}
+        ],
+        'cryptocurrencies': [
+            {'name': 'Bitcoin', 'quantity': 0.5, 'price': 25000},
+            {'name': 'Ethereum', 'quantity': 2, 'price': 4000}
+        ],
+        'cash': {'currency': 'USD', 'amount': 5000},
+        'metals': [
+            {'type': 'Gold', 'quantity': 1.5, 'price': 3000}
+        ]
     }
-
+}
+StockPrices = {
+    "Apple": 150,
+    "Nvidia": 300,
+    "Facebook": 250,
+    "Bitcoin": 50000,
+    "Ethereum": 2000,
+    "Gold": 2000,
+    "USD": 1,
+    "TON": 5.5,
+    "YNDX": 20,
+    "GOOGL": 2000,
+    "AMZN": 3000,
+    "VKontakte": 100,
+    "Tesla": 600,
+    "Microsoft": 250,
+    "Netflix": 500,
+    "Twitter": 100,
+    "Snapchat": 50,
+    "Silver": 25,
+    "Platinum": 1000,
+    "Palladium": 500,
+    "Oil": 50,
+}
 
 log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 log_file = 'app.log'
+#clear log file
+open(log_file, 'w').close()
 
 file_handler = logging.handlers.RotatingFileHandler(log_file, maxBytes=10 * 1024 * 1024, backupCount=5)
 file_handler.setFormatter(log_formatter)
@@ -56,10 +81,11 @@ def create_finance_table(): #mongo database
     
     if 'financial_assets' in db.list_collection_names():
         logger.info('Коллекция уже существует')
-    else:
-        logger.info('Создание коллекции')
-        db.create_collection('financial_assets')
-        logger.info('Коллекция создана')
+        db.drop_collection('financial_assets')
+        logger.info('Коллекция удалена')
+    logger.info('Создание коллекции')
+    db.create_collection('financial_assets')
+    logger.info('Коллекция создана')
     
     global financial_assets
     financial_assets = db['financial_assets']
@@ -67,6 +93,45 @@ def create_finance_table(): #mongo database
         logger.info('Добавление активов в базу данных')
         financial_assets.insert_one(asset_document)
         logger.info('Активы добавлены в базу данных')
+
+def create_stock_prices_table():
+    client = MongoClient('localhost', 6969)
+    logger.info('Подключение к базе данных c ценами активов')
+    db = client['assets']
+    
+    if 'stock_prices' in db.list_collection_names():
+        logger.info('Коллекция уже существует')
+    else:
+        logger.info('Создание коллекции')
+        db.create_collection('stock_prices')
+        logger.info('Коллекция создана')
+    
+    global stock_prices
+    stock_prices = db['stock_prices']
+    if stock_prices.count_documents({}) == 0:
+        logger.info('Добавление цен активов в базу данных')
+        stock_prices.insert_one(StockPrices)
+        logger.info('Цены активов добавлены в базу данных')
+
+create_stock_prices_table()
+
+def updateStockPrices(StockPrice):
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    stock_prices = db['stock_prices']
+    stock_prices.update_one({}, {"$set": StockPrice})
+    logger.info('Цены активов обновлены')
+    #Update users assets
+    users = financial_assets.find({})
+    # print(users.json())
+    for user in users:
+        for stock in user['assets']['stocks']:
+            stock['price'] = StockPrice[stock['name']]
+        for crypto in user['assets']['cryptocurrencies']:
+            crypto['price'] = StockPrice[crypto['name']]
+        for metal in user['assets']['metals']:
+            metal['price'] = StockPrice[metal['type']]
+        financial_assets.update_one({"userId": user['userId']}, {"$set": user})
 
 def create_users_table():
     with conn.cursor() as cur:
@@ -82,6 +147,48 @@ def create_users_table():
         logger.info('Таблица users успешно создана или уже существует.')
 
 create_users_table()
+
+@app.route('/backend/updatePrices', methods=['GET'])
+def updatePrices():
+    logger.info('Обновление цен активов')
+    # data = request.json
+    data = {
+        "Apple": random.randint(100, 200),
+        "Nvidia": random.randint(200, 400),
+        "Facebook": random.randint(200, 300),
+        "Bitcoin": random.randint(40000, 60000),
+        "Ethereum": random.randint(2000, 3000),
+        "Gold": random.randint(1900, 2100),
+        "USD": 1,
+        "TON": random.uniform(5.0, 6.0),
+        "YNDX": random.randint(15, 25),
+        "GOOGL": random.randint(1900, 2200),
+        "AMZN": random.randint(2900, 3200),
+        "VKontakte": random.randint(90, 110),
+        "Tesla": random.randint(500, 700),
+        "Microsoft": random.randint(200, 300),
+        "Netflix": random.randint(400, 600),
+        "Twitter": random.randint(90, 120),
+        "Snapchat": random.randint(40, 60),
+        "Silver": random.randint(20, 30),
+        "Platinum": random.randint(900, 1100),
+        "Palladium": random.randint(400, 600),
+        "Oil": random.randint(40, 60),
+    }
+    updateStockPrices(data)
+    return jsonify({'message': 'Цены обновлены'}), 200
+
+@app.route('/assets/getPrices', methods=['GET']) 
+def getPrices():
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    stock_prices = db['stock_prices']
+    prices = stock_prices.find_one({}, {'_id': 0})  # Exclude the '_id' field from the result
+    if prices is None:
+        logger.warning('Цены активов не найдены в базе данных')
+        return jsonify({'error': 'Цены активов не найдены'}), 404
+    logger.info('Цены активов успешно получены')
+    return jsonify(prices), 200
 
 @app.route('/backend/getWallet', methods=['GET'])
 def getWallet():
@@ -210,7 +317,7 @@ def login():
     with conn.cursor(cursor_factory=RealDictCursor) as cur:
         logger.info(f'Поиск пользователя с адресом {email}')
         cur.execute('SELECT * FROM users WHERE email = %s', (email,))
-        cur.execute('SELECT * FROM users WHERE user = %s', (email,))
+        # cur.execute('SELECT * FROM users WHERE user = %s', (email,))
         user = cur.fetchone()
 
         if not user:
@@ -243,7 +350,7 @@ def getUser():
     if not user_id:
         return jsonify({"error": "userId is required"}), 400
     
-    assets = list(financial_assets.find({"userId": user_id}))
+    assets = list(financial_assets.find({"userId": int(user_id)}))
     print(assets)
     if not assets:
         logger.warning(f'Активы не найдены для пользователя с ID: {user_id}')
@@ -269,7 +376,7 @@ def addUser():
         "userId": user_id,
         "assets": {
             "stocks": [],
-            "cryptocurrencies": [],
+            "cryptocurrencies": {'name': 'Bitcoin', 'quantity': 0.5, 'value': 25000},
             'cash': {'currency': 'USD', 'amount': cash},
             "metals": []
         }

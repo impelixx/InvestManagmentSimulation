@@ -1,8 +1,5 @@
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
-
-cmake_minimum_required(VERSION 3.18)
-project(backend)
+cmake_minimum_required(VERSION 3.26)  
+project(backend)               
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
@@ -19,9 +16,11 @@ file(
     "src/*.cpp"
 )
 
+set(ALL_SOURCES ${SOURCES} ${HEADERS} ${LIBS_SOURCES} ${LIBS_HEADERS})
+
+
+add_executable(backend ${ALL_SOURCES})
 set(
     PROJECT_LINK_LIBS
 )
-
-add_executable("${PROJECT_NAME}" ${SOURCES})
 target_link_libraries("${PROJECT_NAME}" ${PROJECT_LINK_LIBS})

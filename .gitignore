@@ -10,3 +10,5 @@ main
 
 python/app.log
 app.log
+json.h
+httplib.h

@@ -52,6 +52,7 @@ const HamburgerMenu: React.FC = () => {
 	}
 
 	const handleMouseEnter = () => {
+		console.log('localStorage.getItem(username):', localStorage.getItem('username'))
 		setUsername(localStorage.getItem('username'))
 		setIsOpen(true)
 	}
