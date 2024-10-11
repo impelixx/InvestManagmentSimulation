@@ -1,8 +1,6 @@
 #include <iostream>
-#include "../lib/json.h"
-#include "../lib/httplib.h"
-
-using json = nlohmann::json;
+#include "httplib.h"
+#include <json.h>
 
 #define JSON_RESPONSE(json) res.set_content(json.dump(), "application/json")
 
@@ -23,10 +21,27 @@ int main() {
     JSON_RESPONSE(response);
   });
 
-  // kKostya tesk
+  app.Post("/increment", [](const auto& req, auto& res) {
+    json response = {
+      {"ok", true},
+      {"counter", ++counter}
+    };
 
-  std::cout << "Server started" << std::endl;
-  srv.listen("localhost", 8080);
+    JSON_RESPONSE(response);
+  });
+
+  app.Get("/GetWallet", [](const auto& req, auto& res) {
+    std::cout << "GetWallet" << std::endl;
+    json response = {
+      {"ok", true},
+      {"wallet", "0x1234567890"}
+    };
+    JSON_RESPONSE(response);
+  });
+
+  std::cout << "Server started at http://localhost:8080" << std::endl;
+
+  app.listen("localhost", 8080);
 
   return 0;
 }
