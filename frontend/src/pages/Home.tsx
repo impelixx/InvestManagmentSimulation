@@ -20,6 +20,19 @@ const Home: React.FC = () => {
 		setShowGame(prev => !prev)
 	}
 
+	const NextStepButton = async () => {
+		await fetch('Http://localhost:5252/backend/updatePrices')
+			.then(response => response.json())
+			.then(data => {
+				console.log(data)
+			})
+			.catch(error => {
+				console.error('Error:', error)
+			})
+		// reload page
+		window.location.reload()
+	}
+
 	return (
 		<Box p={3} style={{ height: '100vh', overflow: 'hidden' }}>
 			<Grid container spacing={1} style={{ height: '100%' }}>
@@ -45,9 +58,10 @@ const Home: React.FC = () => {
 								<Button
 									variant='contained'
 									color='primary'
-									style={{ height: '100%', width: '100%' }}
+									style={{ width: '100%' }}
+									onClick={NextStepButton}
 								>
-									Пополнить
+									Следующий шаг
 								</Button>
 							</Grid>
 						</Grid>

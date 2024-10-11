@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
 	Container,
 	Typography,
@@ -22,16 +22,63 @@ interface Asset {
 	value: number
 }
 
-const userAssets: Asset[] = [
-	{ name: 'Tesla', value: 1337 },
-	{ name: 'Apple', value: 1488 },
-	{ name: 'Bitcoin', value: 5252 },
-]
+const GetData = async (): Promise<Asset[]> => {
+	try {
+		const response = await fetch('http://localhost:5252/assets/getUser', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ userId: localStorage.getItem('id') }),
+		})
+		const data = await response.json()
+		console.log('Data:', data)
+
+		if (!data || data.length === 0) return []
+
+		const assets = data[0].assets
+		console.log('Assets:', assets)
+		const assetData: Asset[] = []
+
+		const cashAmount = assets.cash.amount
+		assetData.push({ name: assets.cash.currency, value: cashAmount })
+
+		for (const stock of assets.stocks) {
+			console.log('Stock:', stock)
+			assetData.push({ name: stock.name, value: stock.price * stock.quantity })
+		}
+
+		for (const crypto of assets.cryptocurrencies) {
+			console.log('Crypto:', crypto)
+			assetData.push({
+				name: crypto.name,
+				value: crypto.price * crypto.quantity,
+			})
+		}
+
+		for (const metal of assets.metals) {
+			console.log('Metal:', metal)
+			assetData.push({ name: metal.type, value: metal.price * metal.quantity })
+		}
+		console.log('Asset data:', assetData)
+		return assetData
+	} catch (error) {
+		console.error('Error fetching data:', error)
+		return []
+	}
+}
 
 const UserAssets: React.FC = () => {
+	const [userAssets, setUserAssets] = useState<Asset[]>([])
 	const [open, setOpen] = useState(false)
 	const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
 	const [sellAmount, setSellAmount] = useState<number>(0)
+
+	useEffect(() => {
+		GetData().then(data => {
+			setUserAssets(data)
+		})
+	}, [])
 
 	const totalValue = userAssets.reduce((sum, asset) => sum + asset.value, 0)
 
@@ -92,7 +139,6 @@ const UserAssets: React.FC = () => {
 			>
 				Активы пользователя
 			</Typography>
-
 			<Grid container spacing={4}>
 				{userAssets.map((asset, index) => (
 					<Grid item xs={12} sm={6} md={4} key={index}>
@@ -139,12 +185,12 @@ const UserAssets: React.FC = () => {
 					<TextField
 						autoFocus
 						margin='dense'
-						label='Сумма для продажи'
+						label='Количество для продажи' 
 						type='number'
 						fullWidth
 						value={sellAmount}
 						onChange={e => setSellAmount(Number(e.target.value))}
-						inputProps={{ min: 0, step: 0.01 }} // Ensure positive values
+						inputProps={{ min: 0, step: 0.01 }}
 					/>
 				</DialogContent>
 				<DialogActions>

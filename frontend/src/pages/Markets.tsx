@@ -1,14 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTheme } from '../components/ThemeProvider'
-import {
-	Box,
-	Typography,
-	List,
-	ListItem,
-	Button,
-	Grid,
-	Paper,
-} from '@mui/material'
+import { Box, Typography, List, ListItem, Button, Grid } from '@mui/material'
 import FinancialChart from '../components/chart.tsx'
 
 interface Asset {
@@ -18,155 +10,62 @@ interface Asset {
 	chartData: number[][]
 }
 
+const convertJsonToStocks = (data: Record<string, number>): Asset[] => {
+	return Object.entries(data).map(([name, price]) => ({
+		name,
+		price,
+		change: 0,
+		chartData: [
+			[230, 240, 220, 235],
+			[240, 250, 230, 245],
+			[250, 260, 240, 255],
+			[260, 270, 250, 265],
+			[270, 280, 260, 275],
+			[280, 290, 270, 285],
+		],
+	}))
+}
+
 const SomeComponent = () => {
 	const theme = useTheme()
+	const [assets, setAssets] = useState<Asset[]>([])
+	const [error, setError] = useState<string | null>(null)
 	const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
 
-	const assets: Asset[] = [
-		{
-			name: 'AAPL',
-			price: 145.09,
-			change: -1.2,
-			chartData: [
-				[230, 240, 220, 235],
-				[240, 250, 230, 245],
-				[250, 260, 240, 255],
-				[260, 270, 250, 265],
-				[270, 280, 260, 275],
-				[280, 290, 270, 285],
-			],
-		},
-		{
-			name: 'TSLA',
-			price: 752.29,
-			change: 2.5,
-			chartData: [
-				[240, 250, 230, 245],
-				[250, 260, 240, 255],
-				[260, 270, 250, 265],
-				[270, 280, 260, 275],
-				[280, 290, 270, 285],
-				[290, 300, 280, 295],
-			],
-		},
-		{
-			name: 'AMZN',
-			price: 3450.99,
-			change: 0.8,
-			chartData: [
-				[250, 260, 240, 255],
-				[260, 270, 250, 265],
-				[270, 280, 260, 275],
-				[280, 290, 270, 285],
-				[290, 300, 280, 295],
-				[300, 310, 290, 305],
-			],
-		},
-		{
-			name: 'GOOGL',
-			price: 2748.59,
-			change: -0.5,
-			chartData: [
-				[260, 270, 250, 265],
-				[270, 280, 260, 275],
-				[280, 290, 270, 285],
-				[290, 300, 280, 295],
-				[300, 310, 290, 305],
-				[310, 320, 300, 315],
-			],
-		},
-		{
-			name: 'MSFT',
-			price: 289.67,
-			change: 0.3,
-			chartData: [
-				[270, 280, 260, 275],
-				[280, 290, 270, 285],
-				[290, 300, 280, 295],
-				[300, 310, 290, 305],
-				[310, 320, 300, 315],
-				[320, 330, 310, 325],
-			],
-		},
-		{
-			name: 'NFLX',
-			price: 513.97,
-			change: -0.7,
-			chartData: [
-				[280, 290, 270, 285],
-				[290, 300, 280, 295],
-				[300, 310, 290, 305],
-				[310, 320, 300, 315],
-				[320, 330, 310, 325],
-				[330, 340, 320, 335],
-			],
-		},
-		{
-			name: 'FB',
-			price: 354.7,
-			change: 0.1,
-			chartData: [
-				[290, 300, 280, 295],
-				[300, 310, 290, 305],
-				[310, 320, 300, 315],
-				[320, 330, 310, 325],
-				[330, 340, 320, 335],
-				[340, 350, 330, 345],
-			],
-		},
-		{
-			name: 'NVDA',
-			price: 197.45,
-			change: 0.9,
-			chartData: [
-				[300, 310, 290, 305],
-				[310, 320, 300, 315],
-				[320, 330, 310, 325],
-				[330, 340, 320, 335],
-				[340, 350, 330, 345],
-				[350, 360, 340, 355],
-			],
-		},
-		{
-			name: 'PYPL',
-			price: 286.5,
-			change: -0.4,
-			chartData: [
-				[310, 320, 300, 315],
-				[320, 330, 310, 325],
-				[330, 340, 320, 335],
-				[340, 350, 330, 345],
-				[350, 360, 340, 355],
-				[360, 370, 350, 365],
-			],
-		},
-		{
-			name: 'INTC',
-			price: 55.68,
-			change: 0.2,
-			chartData: [
-				[320, 330, 310, 325],
-				[330, 340, 320, 335],
-				[340, 350, 330, 345],
-				[350, 360, 340, 355],
-				[360, 370, 350, 365],
-				[370, 380, 360, 375],
-			],
-		},
-		{
-			name: 'CSCO',
-			price: 55.55,
-			change: -0.6,
-			chartData: [
-				[330, 340, 320, 335],
-				[340, 350, 330, 345],
-				[350, 360, 340, 355],
-				[360, 370, 350, 365],
-				[370, 380, 360, 375],
-				[380, 390, 370, 385],
-			],
-		},
-	]
+	const getData = async () => {
+		console.log('Getting data')
+		try {
+			const response = await fetch('http://localhost:5252/assets/getPrices', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+
+			if (!response.ok) {
+				throw new Error('Network response was not ok')
+			}
+
+			const data = await response.json()
+			console.log('Fetched data:', data)
+
+			// Convert JSON data to Asset array
+			const datastocks: Asset[] = convertJsonToStocks(data)
+			console.log('Stock data:', datastocks)
+			setAssets(datastocks)
+		} catch (error) {
+			console.error('Error:', error)
+			if (error instanceof Error) {
+				setError(error.message)
+			} else {
+				setError('An unknown error occurred')
+			}
+		}
+	}
+
+	useEffect(() => {
+		getData()
+	}, [])
 
 	const handleAssetClick = (asset: Asset) => {
 		setSelectedAsset(asset)
@@ -182,12 +81,15 @@ const SomeComponent = () => {
 				<Grid item xs={12} md={8}>
 					{selectedAsset ? (
 						<Box>
-							<Button
-								onClick={handleBackClick}
-								style={{ marginBottom: '20px' }}
-							>
-								Back
-							</Button>
+							<Box display='flex' justifyContent='flex-end'>
+								<Button
+									onClick={handleBackClick}
+									variant='contained'
+									color='primary'
+								>
+									Back
+								</Button>
+							</Box>
 							<Typography variant='h6' style={{ marginBottom: '15px' }}>
 								{selectedAsset.name} Stock Details
 							</Typography>
@@ -202,6 +104,11 @@ const SomeComponent = () => {
 							<Typography variant='h5' style={{ marginBottom: '20px' }}>
 								Assets Overview
 							</Typography>
+							{error && (
+								<Typography variant='body1' color='error'>
+									Ошибка: {error}
+								</Typography>
+							)}
 							<List>
 								{assets.map(asset => (
 									<ListItem
@@ -212,7 +119,7 @@ const SomeComponent = () => {
 											display: 'flex',
 											justifyContent: 'space-between',
 											padding: '10px 20px',
-											background: 'f9f9f9',
+											backgroundColor: '#f9f9f9',
 											marginBottom: '20px',
 											borderRadius: '8px',
 										}}
@@ -239,7 +146,7 @@ const SomeComponent = () => {
 						</Box>
 					)}
 				</Grid>
-				<Grid>
+				<Grid item xs={12} md={4}>
 					<Box display='flex' justifyContent='right'>
 						<Box>
 							<iframe

@@ -14,18 +14,8 @@ const GetData = async (): Promise<AssetData[]> => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ userId: '1' }),
+			body: JSON.stringify({ userId: localStorage.getItem('id') }),
 		})
-		try {
-			const data = await fetch('http://localhost:5252/assets/getPrices', {
-				method: 'GET',
-			})
-			const prices = await data.json()
-			console.log('Prices:', k)
-		} catch (error) {
-			console.error('Error fetching prices')
-		}
-
 		const data = await response.json()
 		console.log('Data:', data)
 
@@ -39,17 +29,20 @@ const GetData = async (): Promise<AssetData[]> => {
 		assetData.push({ name: assets.cash.currency, value: cashAmount })
 
 		for (const stock of assets.stocks) {
-			assetData.push({ name: stock.name, value: stock.value * stock.quantity })
+			console.log('Stock:', stock)
+			assetData.push({ name: stock.name, value: stock.price * stock.quantity })
 		}
 
 		for (const crypto of assets.cryptocurrencies) {
-			assetData.push({ name: crypto.name, value: crypto.value })
+			console.log('Crypto:', crypto)
+			assetData.push({ name: crypto.name, value: crypto.price * crypto.quantity })
 		}
 
 		for (const metal of assets.metals) {
-			assetData.push({ name: metal.type, value: metal.value })
+			console.log('Metal:', metal)
+			assetData.push({ name: metal.type, value: metal.price * metal.quantity })
 		}
-
+		console.log('Asset data:', assetData)
 		return assetData
 	} catch (error) {
 		console.error('Error fetching data:', error)
@@ -121,6 +114,7 @@ const AssetPieChart: React.FC = () => {
 			backgroundColor: isDarkMode ? '#424242' : '#ffffff',
 		}
 	}
+	
 
 	return (
 		<div style={{ width: '100%', height: '400px' }}>

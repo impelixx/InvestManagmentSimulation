@@ -1,37 +1,90 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Typography, List, ListItem, Divider } from '@mui/material'
 
-const StockQuotes: React.FC = () => {
-	const stocks = [
-		{ name: 'AAPL', price: 145.09, change: -1.2 },
-		{ name: 'TSLA', price: 752.29, change: 2.5 },
-		{ name: 'AMZN', price: 3450.99, change: 0.8 },
-		{ name: 'GOOGL', price: 2767.39, change: -0.5 },
-		{ name: 'MSFT', price: 299.72, change: 1.3 },
-		{ name: 'FB', price: 343.18, change: -0.8 },
-	]
 
+interface Stock {
+	name: string
+	price: number
+}
+
+const convertJsonToStocks = (data: Record<string, number>): Stock[] => {
+	return Object.entries(data).map(([name, price]) => ({
+		name,
+		price,
+	}))
+}
+
+const StockQuotes: React.FC = () => {
+	const [stocks, setStocks] = useState<Stock[]>([
+		{ name: 'AAPL', price: 50 },
+		{ name: 'TSLA', price: 30 },
+		{ name: 'AMZN', price: 20 },
+		{ name: 'GOOGL', price: 10 },
+		{ name: 'MSFT', price: 5 },
+		{ name: 'FB', price: 2 },
+	])
+	const [loading, setLoading] = useState<boolean>(true)
+	const [error, setError] = useState<string | null>(null)
+
+	const getData = async () => {
+		console.log('Getting data')
+		try {
+			const response = await fetch('http://localhost:5252/assets/getPrices', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+
+			if (!response.ok) {
+				throw new Error('Network response was not ok')
+			}
+
+			const data = await response.json()
+			
+			console.log('Fetched data:', data)
+			console.log('Stocks:', stocks)
+			// translate data to stock classes
+			const datastocks: Stock[] = convertJsonToStocks(data)
+			console.log('Stock data:', datastocks)
+			setStocks(datastocks)
+		} catch (error) {
+			console.error('Error:', error)
+			setError(error.message)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	useEffect(() => {
+		getData()
+	}, [])
+
+	if (loading) {
+		return <Typography variant='body1'>Загрузка...</Typography> // Сообщение о загрузке
+	}
+
+	if (error) {
+		return (
+			<Typography variant='body1' color='error'>
+				Ошибка: {error}
+			</Typography>
+		)
+	}
+	console.log('Stocks:', stocks)
 	return (
-		<Box>
-			<List>
-				{stocks.map(stock => (
-					<React.Fragment key={stock.name}>
-						<ListItem>
-							<Box>
-								<Typography variant='h6'>{stock.name}</Typography>
-								<Typography>
-									Price: ${stock.price.toFixed(2)}{' '}
-									<span style={{ color: stock.change >= 0 ? 'green' : 'red' }}>
-										({stock.change >= 0 ? '+' : ''}
-										{stock.change}%)
-									</span>
-								</Typography>
-							</Box>
-						</ListItem>
-						<Divider />
-					</React.Fragment>
-				))}
-			</List>
+		<Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
+			{stocks.map(stock => (
+				<React.Fragment key={stock.name}>
+					<ListItem>
+						<Box>
+							<Typography variant='h6'>{stock.name}</Typography>
+							<Typography>Price: ${stock.price.toFixed(2)}</Typography>
+						</Box>
+					</ListItem>
+					<Divider />
+				</React.Fragment>
+			))}
 		</Box>
 	)
 }

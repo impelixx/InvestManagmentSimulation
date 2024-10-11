@@ -126,11 +126,11 @@ def updateStockPrices(StockPrice):
     # print(users.json())
     for user in users:
         for stock in user['assets']['stocks']:
-            stock['price'] = StockPrice[stock['name']]
+            stock['price'] = StockPrice.get(stock['name'], stock['price'])
         for crypto in user['assets']['cryptocurrencies']:
-            crypto['price'] = StockPrice[crypto['name']]
+            crypto['price'] = StockPrice.get(crypto['name'], crypto['price'])
         for metal in user['assets']['metals']:
-            metal['price'] = StockPrice[metal['type']]
+            metal['price'] = StockPrice.get(metal['type'], metal['price'])
         financial_assets.update_one({"userId": user['userId']}, {"$set": user})
 
 def create_users_table():
@@ -156,7 +156,7 @@ def updatePrices():
         "Apple": random.randint(100, 200),
         "Nvidia": random.randint(200, 400),
         "Facebook": random.randint(200, 300),
-        "Bitcoin": random.randint(40000, 60000),
+        "Bitcoin": random.randint(1000, 60000),
         "Ethereum": random.randint(2000, 3000),
         "Gold": random.randint(1900, 2100),
         "USD": 1,
@@ -180,10 +180,11 @@ def updatePrices():
 
 @app.route('/assets/getPrices', methods=['GET']) 
 def getPrices():
+    logger.info('Получение цен активов')
     client = MongoClient('localhost', 6969)
     db = client['assets']
     stock_prices = db['stock_prices']
-    prices = stock_prices.find_one({}, {'_id': 0})  # Exclude the '_id' field from the result
+    prices = stock_prices.find_one({}, {'_id': 0})
     if prices is None:
         logger.warning('Цены активов не найдены в базе данных')
         return jsonify({'error': 'Цены активов не найдены'}), 404

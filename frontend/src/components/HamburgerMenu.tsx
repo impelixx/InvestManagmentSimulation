@@ -137,6 +137,7 @@ const HamburgerMenu: React.FC = () => {
 						{ text: 'Рынки', path: '/markets' },
 						{ text: 'Активы', path: '/assets' },
 						{ text: 'Помощь', path: '/help' },
+						{ text: 'Выйти', path: '/' },
 					].map((item, index) => (
 						<ListItem key={index}>
 							<ListItemButton
