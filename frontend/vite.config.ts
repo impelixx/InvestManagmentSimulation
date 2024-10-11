@@ -7,8 +7,10 @@ export default defineConfig({
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',
-      // globalModulePaths: [/index\.module\.scss/]
     }
+  },
+  server: {
+    port: 3000
   },
   build: {
     minify: "terser",
