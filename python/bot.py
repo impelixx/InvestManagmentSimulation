@@ -6,6 +6,26 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from bcrypt import hashpw, gensalt, checkpw
 import requests
+from pymongo import MongoClient
+
+asset_document = {
+        'userId': 1,
+        'assets': {
+            'stocks': [
+                {'name': 'Apple', 'quantity': 10, 'value': 1500},
+                {'name': 'Nvidia', 'quantity': 5, 'value': 1200},
+                {'name': 'Facebook', 'quantity': 8, 'value': 1000}
+            ],
+            'cryptocurrencies': [
+                {'name': 'Bitcoin', 'quantity': 0.5, 'value': 25000},
+                {'name': 'Ethereum', 'quantity': 2, 'value': 4000}
+            ],
+            'cash': {'currency': 'USD', 'amount': 5000},
+            'metals': [
+                {'type': 'Gold', 'quantity': 1.5, 'value': 3000}
+            ]
+        }
+    }
 
 
 log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -29,6 +49,25 @@ conn = psycopg2.connect(
     port="5432"
 )
 
+def create_finance_table(): #mongo database
+    client = MongoClient('localhost', 6969)
+    logger.info('Подключение к базе данных c активами')
+    db = client['assets']
+    
+    if 'financial_assets' in db.list_collection_names():
+        logger.info('Коллекция уже существует')
+    else:
+        logger.info('Создание коллекции')
+        db.create_collection('financial_assets')
+        logger.info('Коллекция создана')
+    
+    global financial_assets
+    financial_assets = db['financial_assets']
+    if financial_assets.count_documents({}) == 0:
+        logger.info('Добавление активов в базу данных')
+        financial_assets.insert_one(asset_document)
+        logger.info('Активы добавлены в базу данных')
+
 def create_users_table():
     with conn.cursor() as cur:
         cur.execute("""
@@ -47,11 +86,11 @@ create_users_table()
 @app.route('/backend/getWallet', methods=['GET'])
 def getWallet():
     logger.info('Получение кошелька')
-    url = 'http://localhost:8080/back/wallet'
+    url = 'http://localhost:8080/GetWallet'
     try:
         response = requests.get(url)
         response.raise_for_status()
-        logger.info('Кошелек получен')
+        logger.info('Кошелек получен', response.json())
         return jsonify(response.json()), response.status_code
     
     except requests.exceptions.RequestException as e:
@@ -162,19 +201,27 @@ def login():
     data = request.json
     email = data.get('email')
     password = data.get('password')
+    logger.info(f'Вход пользователя с адресом {email}')
 
     if not email or not password:
+        logger.info(f'Пользователь не ввел адрес электронной почты или пароль.')
         return jsonify({'error': 'Пожалуйста, заполните все поля.'}), 400
 
     with conn.cursor(cursor_factory=RealDictCursor) as cur:
+        logger.info(f'Поиск пользователя с адресом {email}')
         cur.execute('SELECT * FROM users WHERE email = %s', (email,))
+        cur.execute('SELECT * FROM users WHERE user = %s', (email,))
         user = cur.fetchone()
 
         if not user:
-            return jsonify({'error': 'Пользователь с таким адресом электронной почты не найден.'}), 400
+            logger.warning(f'Пользователь с адресом {email} не найден.')
+            return jsonify({'error': 'Пользователь с таким адресом электронной почты не найден.',
+                            'status': 'error'}), 400
 
         if not checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-            return jsonify({'error': 'Неверный пароль.'}), 400
+            logger.warning(f'Неверный пароль для пользователя с адресом {email}.')
+            return jsonify({'error': 'Неверный пароль.',
+                            'status': "error"}), 400
 
         logger.info(f'Пользователь {email} успешно вошел в систему.')
         return jsonify({
@@ -186,5 +233,69 @@ def login():
             }
         }), 200
 
+@app.route('/assets/getUser', methods=['POST'])
+def getUser():
+    # get user id from json
+    user_id = request.json.get('userId')
+    print(type(user_id))
+    logger.info(f'Получение активов для пользователя с ID: {user_id}')
+    
+    if not user_id:
+        return jsonify({"error": "userId is required"}), 400
+    
+    assets = list(financial_assets.find({"userId": user_id}))
+    print(assets)
+    if not assets:
+        logger.warning(f'Активы не найдены для пользователя с ID: {user_id}')
+        return jsonify({"message": "No assets found for this user"}), 404
+    for asset in assets:
+        logger.info(f'Актив найден: {asset}')
+        asset["_id"] = str(asset["_id"])
+    
+    return jsonify(assets), 200
+
+@app.route('/assets/addUser', methods=['POST'])
+def addUser():
+    data = request.json
+    user_id = data.get('userId')
+    cash = data.get('cash')
+    print(user_id)
+    print(data)
+    if not user_id:
+        logger.error('userId is required')
+        return jsonify({"error": "userId is required"}), 400
+    logger.info(f'Добавление пользователя {data}')
+    new_user = {
+        "userId": user_id,
+        "assets": {
+            "stocks": [],
+            "cryptocurrencies": [],
+            'cash': {'currency': 'USD', 'amount': cash},
+            "metals": []
+        }
+    }
+    financial_assets.insert_one(new_user)
+    return jsonify({"message": "User added"}), 201
+
+@app.route('/assets/addStock', methods=['POST'])
+def addStock():
+    user_id = request.json["userId"]
+    StockName = request.json["StockName"]
+    StockQuantity = request.json["StockQuantity"]
+    StockValue = request.json["StockValue"]
+    data = request.json
+    logger.info(f'Юзер {user_id} добавляет акцию {data["name"]}')
+    stock = {
+        "name": data["name"],
+        "quantity": data["quantity"],
+        "value": data["value"]
+    }
+    financial_assets.update_one({"userId": user_id}, {"$push": {"assets.stocks": stock}})
+    return jsonify({"message": "Stock added"}), 201
+
+    
+
 if __name__ == '__main__':
-    app.run(port=5001)
+    create_finance_table()
+    create_users_table()
+    app.run(port=5252)

@@ -1,13 +1,65 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactECharts from 'echarts-for-react'
-import { useTheme } from '../components/ThemeProvider'
+import { useTheme } from './ThemeProvider'
 
-interface AssetPieChartProps {
-	assetData: { name: string; value: number }[]
+interface AssetData {
+	name: string
+	value: number
 }
 
-const AssetPieChart: React.FC<AssetPieChartProps> = ({ assetData }) => {
+const GetData = async (): Promise<AssetData[]> => {
+	try {
+		const response = await fetch('http://localhost:5252/assets/getUser', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ userId: '1' }),
+		})
+
+		const data = await response.json()
+		console.log('Data:', data)
+
+		if (!data || data.length === 0) return []
+
+		const assets = data[0].assets
+		console.log('Assets:', assets)
+		const assetData: AssetData[] = []
+
+		const cashAmount = assets.cash.amount
+		assetData.push({ name: assets.cash.currency, value: cashAmount })
+
+		for (const stock of assets.stocks) {
+			assetData.push({ name: stock.name, value: stock.value * stock.quantity })
+		}
+
+		for (const crypto of assets.cryptocurrencies) {
+			assetData.push({ name: crypto.name, value: crypto.value })
+		}
+
+		for (const metal of assets.metals) {
+			assetData.push({ name: metal.type, value: metal.value })
+		}
+
+		return assetData
+	} catch (error) {
+		console.error('Error fetching data:', error)
+		return []
+	}
+}
+
+const AssetPieChart: React.FC = () => {
 	const { isDarkMode } = useTheme()
+	const [assetData, setAssetData] = useState<AssetData[]>([])
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const data = await GetData()
+			setAssetData(data)
+		}
+
+		fetchData()
+	}, [])
 
 	const getOption = () => {
 		return {
@@ -16,11 +68,7 @@ const AssetPieChart: React.FC<AssetPieChartProps> = ({ assetData }) => {
 				formatter: '{a} <br/>{b}: {c} ({d}%)',
 			},
 			legend: {
-				orient: 'vertical',
-				left: 'left',
-				textStyle: {
-					color: isDarkMode ? '#ffffff' : '#000000', 
-				},
+				show: false, // Hide legend
 			},
 			series: [
 				{
@@ -38,8 +86,24 @@ const AssetPieChart: React.FC<AssetPieChartProps> = ({ assetData }) => {
 					itemStyle: {
 						color: (params: { dataIndex: number }) => {
 							const colors = isDarkMode
-								? ['#f44336', '#2196F3', '#4CAF50'] 
-								: ['#FF6384', '#36A2EB', '#FFCE56']
+								? [
+										'#f44336',
+										'#2196F3',
+										'#4CAF50',
+										'#FFC107',
+										'#9C27B0',
+										'#FF9800',
+										'#3F51B5',
+								  ]
+								: [
+										'#FF6384',
+										'#36A2EB',
+										'#FFCE56',
+										'#FF5722',
+										'#795548',
+										'#607D8B',
+										'#CDDC39',
+								  ]
 							return colors[params.dataIndex % colors.length]
 						},
 					},

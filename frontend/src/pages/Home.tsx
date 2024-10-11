@@ -115,7 +115,7 @@ const Home: React.FC = () => {
 							<iframe
 								width='100%'
 								height='100%'
-								src='https://www.youtube.com/embed/3clqk2U3T9Y?si=VRCxd_zwDW3v58PQ&amp;start=120'
+								// src='https://www.youtube.com/embed/3clqk2U3T9Y?si=VRCxd_zwDW3v58PQ&amp;start=120'
 								allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 								allowFullScreen
 							></iframe>

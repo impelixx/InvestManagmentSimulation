@@ -51,7 +51,7 @@ const Register: React.FC = () => {
 		}
 
 		try {
-			const response = await fetch('http://localhost:5001/db/register', {
+			const response = await fetch('http://localhost:5252/db/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -62,11 +62,24 @@ const Register: React.FC = () => {
 			if (!response.ok) {
 				throw new Error('Ошибка регистрации')
 			}
-			
+			const data = await response.json()
 			setSnackbarMessage('Регистрация прошла успешно!')
 			setSnackbarSeverity('success')
 			setOpenSnackbar(true)
 			localStorage.setItem('username', username)
+			localStorage.setItem('email', email)
+			localStorage.setItem('id', data.user.id)
+			console.log(data.user.id)
+			fetch('http://localhost:5252/assets/addUser', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					userId: data.user.id,
+					cash: 100,
+				}),
+			})
 			navigate('/start')
 		} catch (error) {
 			setSnackbarMessage('Ошибка регистрации. Повторите попытку!')
@@ -85,24 +98,30 @@ const Register: React.FC = () => {
 		}
 
 		try {
-			const response = await fetch('http://localhost:5001/db/login', {
+			const response = await fetch('http://localhost:5252/db/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ email, password }),
 			})
-
 			const data = await response.json()
-			if (response.ok) {
+			console.log(data)
+			console.log('Вход выполнен успешно:', data)
+			if (data.status == 'error') {
+				console.log('Ошибка входа:', data.error)
+				setSnackbarMessage(data.error)
+				setSnackbarSeverity('error')
+				setOpenSnackbar(true)
+				return
+			} else {
 				setSnackbarMessage('Вход выполнен успешно!')
 				setSnackbarSeverity('success')
-				localStorage.setItem('token', data.token)
+				localStorage.setItem('token', data.id)
+				localStorage.setItem('email', data.email)
 				localStorage.setItem('username', data.username)
 				navigate('/start')
-			} else {
-				setSnackbarMessage(data)
-				setSnackbarSeverity('error')
+
 			}
 		} catch (error) {
 			console.error('Ошибка при входе:', error)
@@ -172,7 +191,7 @@ const Register: React.FC = () => {
 					<Box component='form' sx={{ mt: 3 }}>
 						<TextField
 							fullWidth
-							label='Электронная почта'
+							label='Электронная почта или имя пользователя'
 							type='email'
 							value={email}
 							onChange={e => setEmail(e.target.value)}

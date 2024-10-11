@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios, { Axios } from 'axios'
 import '../style.css'
 
 const Settings: React.FC = () => {
@@ -17,6 +18,15 @@ const Settings: React.FC = () => {
 		})
 		localStorage.setItem('username', username)
 		navigate('/Home')
+	}
+	const CheckButtonPressed = () => {
+		console.log('Кнопка нажата')
+		axios.get('http://localhost:5252/backend/getWallet').then((response) => {
+			console.log(response)
+			console.log(response.data)
+		}, (error) => {
+			console.log(error)
+		})
 	}
 
 	return (
@@ -63,6 +73,12 @@ const Settings: React.FC = () => {
 					className='w-full py-2 text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600'
 				>
 					Сохранить настройки
+				</button>
+				<button
+					onClick={CheckButtonPressed}
+					className='w-full py-2 mt-2 text-white transition duration-200 bg-red-500 rounded hover:bg-red-600'
+				>
+					Проверка запроса
 				</button>
 			</div>
 		</div>
