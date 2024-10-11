@@ -1,7 +1,7 @@
-//#include "../headers/currency.h"
-//
-//
-//// constructors / destructor
+#include "../headers/currency.h"
+
+
+// constructors / destructor
 //Currency::Currency(std::string& name, std::vector<int>& income, double amount, double price) {
 //  if (name.empty()) {
 //    throw std::length_error("No any name!");
@@ -20,8 +20,8 @@
 //    income_.push_back(el);
 //  }
 //}
-//
-//
+
+
 //Currency::Currency(Currency& rhs) {
 //  name_ = rhs.name_;
 //  amount_ = rhs.amount_;
