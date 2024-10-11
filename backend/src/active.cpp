@@ -81,3 +81,12 @@ void Active::changePrice() {
   this->setPrice(price_ + actualChange);
   this->income_.push_back(actualChange * amount_);
 }
+
+json Active::returnCandleInfo() {
+  json assetData;
+
+  assetData["name"] = name_;
+  assetData["value"] = price_;
+
+  return assetData;
+}

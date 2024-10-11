@@ -27,6 +27,7 @@ public:
 	double getRisk() const { return risk_; }
 
 	void changePrice();
+	json returnCandleInfo();
 	
 	
 protected:
