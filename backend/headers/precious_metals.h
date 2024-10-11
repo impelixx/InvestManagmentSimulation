@@ -6,10 +6,10 @@
 #include "active.h"
 
 
-class PreciousMetals : protected Active {
+class PreciousMetals : public Active {
 public:
-
-private:
+	PreciousMetals() : name_(""), income_(std::vector<double>()), amount_(0.0), price_(0.0);
+	~PreciousMetals() = default;
 };
 
 

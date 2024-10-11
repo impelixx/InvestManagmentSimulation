@@ -6,21 +6,11 @@
 #include "active.h"
 
 
-// TODO: Not ready yet
-// class Stock : public Active {
-// public:
-//   Stock() : Active() {}
-//   Stock(std::string& name, std::vector<double>& income,
-//         double amount, double price, double risk) : Active(name, income, amount, price, risk) {}
-//   Stock(Stock& rhs) : Active(rhs) {}
-//   virtual ~Stock() = default;
-
-//   virtual void changePrice() override;
-
-
-// private:
-
-// };
+class Stock : public Active {
+public:
+	Stock() : name_(""), income_(std::vector<double>()), amount_(0.0), price_(0.0) {}
+	~Stock() = default;
+};
 
 
 #endif // STOCK_H
