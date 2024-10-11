@@ -23,6 +23,4 @@ add_executable(backend ${ALL_SOURCES})
 set(
     PROJECT_LINK_LIBS
 )
-
-add_executable("${PROJECT_NAME}" ${SOURCES})
 target_link_libraries("${PROJECT_NAME}" ${PROJECT_LINK_LIBS})
