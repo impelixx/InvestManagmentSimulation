@@ -84,6 +84,7 @@ void Oil::setRisk(double risk) {
   risk_ = risk;
 }
 
+
 void Oil::changePrice() {
   double maxChange = price_ * risk_;
   std::uniform_int_distribution<> uid(1, int(maxChange * 100));

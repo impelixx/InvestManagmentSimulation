@@ -84,6 +84,7 @@ void Cryptocurrency::setRisk(double risk) {
   risk_ = risk;
 }
 
+
 void Cryptocurrency::changePrice() {
   double maxChange = price_ * risk_;
   std::uniform_int_distribution<> uid(1, int(maxChange * 100));

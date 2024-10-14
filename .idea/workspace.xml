@@ -23,95 +23,23 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95b22298-1d3a-4016-8a0a-4b51b2eb46eb" name="Changes" comment="Update classes (Антон, проверь пожалуйста)">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/cache-v2-902771709d145ec5b780.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-138e7d36f3f38824fbc9.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-46361841bfe209fe5e26.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/index-2024-10-14T15-42-52-0367.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/target-backend-Debug-dcb7aab0d4123f508524.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-8adcaa386002666f35a2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeCCompiler.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeCXXCompiler.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeRCCompiler.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeSystem.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdC/a.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdCXX/a.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/DependInfo.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/build.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/cmake_clean.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/compiler_depend.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/compiler_depend.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/depend.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/flags.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/includes_CXX.rsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/link.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/linkLibs.rsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/objects.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/objects1.rsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/progress.make" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/active.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/active.cpp.obj.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/belruble.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/belruble.cpp.obj.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/dollar.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/dollar.cpp.obj.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/euro.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/euro.cpp.obj.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/main.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/main.cpp.obj.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/wallet.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/wallet.cpp.obj.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/yen.cpp.obj.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/cmake.check_cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/backend.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/cmake_install.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/headers/bond.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/headers/cryptocurrency.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/headers/oil.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/headers/precious_metal.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/bond.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/cryptocurrency.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/oil.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/precious_metal.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/stock.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/headers/active.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/headers/active.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/headers/belruble.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/query/cache-v2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/headers/currency.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/headers/currency.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/headers/dollar.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/headers/euro.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/query/codemodel-v2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/headers/precious_metals.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/headers/stock.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/headers/stock.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/headers/yen.h" beforeDir="false" />
+    <list default="true" id="95b22298-1d3a-4016-8a0a-4b51b2eb46eb" name="Changes" comment="Write classes (without Wallet)">
+      <change afterPath="$PROJECT_DIR$/backend/headers/candle.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/candle.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/active.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/active.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj.d" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/backend.exe" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/backend.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/active.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/active.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/belruble.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/query/toolchains-v1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/bond.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/bond.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/cryptocurrency.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/cryptocurrency.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/currency.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/currency.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/dollar.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/euro.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/yen.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/oil.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/oil.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/precious_metal.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/precious_metal.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/stock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/stock.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,7 +161,11 @@
       <workItem from="1728905107345" duration="2548000" />
       <workItem from="1728918504285" duration="2528000" />
       <workItem from="1728921436294" duration="70000" />
-      <workItem from="1728921523982" duration="3681000" />
+      <workItem from="1728921523982" duration="5528000" />
+      <workItem from="1728934751558" duration="788000" />
+      <workItem from="1728935629392" duration="2795000" />
+      <workItem from="1728939684061" duration="374000" />
+      <workItem from="1728940073923" duration="2093000" />
     </task>
     <task id="LOCAL-00001" summary="Update CMakeLists.txt (now it works)">
       <option name="closed" value="true" />
@@ -267,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728906352589</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Write classes (without Wallet)">
+      <option name="closed" value="true" />
+      <created>1728925427316</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728925427316</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,7 +232,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update CMakeLists.txt (now it works)" />
     <MESSAGE value="Update classes (Антон, проверь пожалуйста)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update classes (Антон, проверь пожалуйста)" />
+    <MESSAGE value="Write classes (without Wallet)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Write classes (without Wallet)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
