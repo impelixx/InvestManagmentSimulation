@@ -9,3 +9,4 @@ build
 settings.h
 a.out
 /.vs
+*.log
