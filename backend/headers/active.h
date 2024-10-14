@@ -7,34 +7,37 @@
 
 class Active {
 public:
-	Active() : name_(""), income_(std::vector<double>()), amount_(0.0), price_(0.0), risk_(0) {}
-	Active(std::string& name, std::vector<double>& income, double amount, double price, double risk);
+	Active() : name_("Active"), income_(std::vector<double>()), amount_(0.0), price_(0.0), count_(0), risk_(0.0) {}
+	Active(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk);
 	Active(Active& rhs);
-	virtual ~Active();
+	virtual ~Active() = default;
 
 	// setters
-	void setIncomeGraph(std::vector<double>& income);
-	void setName(std::string name);
-	void setAmount(double amount);
-	void setPrice(double price);
-	void setRisk(double risk);
+  virtual void setIncomeGraph(const std::vector<double>& income);
+  virtual void setName(const std::string& name);
+  virtual void setAmount(double amount);
+  virtual void setPrice(double price);
+  virtual void setCount(int count);
+  virtual void setRisk(double risk);
 
 	// getters
-	std::vector<double> getIncomeGraph() const { return income_; }
-	std::string getName() const { return name_; }
-	double getAmount() const { return amount_; }
-	double getPrice() const { return price_; }
-	double getRisk() const { return risk_; }
+	[[nodiscard]] std::vector<double> getIncomeGraph() const { return income_; }
+	[[nodiscard]] std::string getName() const { return name_; }
+	[[nodiscard]] double getAmount() const { return amount_; }
+	[[nodiscard]] double getPrice() const { return price_; }
+  [[nodiscard]] int getCount() const { return count_; }
+	[[nodiscard]] double getRisk() const { return risk_; }
   
-  void changePrice();
-  json returnCandleInfo();
+  virtual void changePrice();
+  virtual json returnActiveInfo();
 	
 	
-protected:
+private:
 	std::string name_;
 	std::vector<double> income_;
 	double amount_;
 	double price_;
+  int count_;
 	double risk_;
 };
 

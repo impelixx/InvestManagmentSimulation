@@ -1,23 +1,28 @@
 #include "../headers/active.h"
 
 
-// constructors / destructor
-Active::Active(std::string& name, std::vector<double>& income, double amount, double price, double risk) {
-  if (name.empty()) { // will better to rewrite this to try/catch
-    throw std::length_error("Kill you");
-    return;
-  }
-  if (income.empty()) {
-    throw std::length_error("Income graph is empty!");
-    return;
-  }
+// constructors
+Active::Active(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk) {
+  try {
+    if (name.empty()) {
+      throw std::length_error("No any name!");
+    }
+    if (income.empty()) {
+      throw std::length_error("Income graph is empty!");
+    }
 
-  name_ = name;
-  amount_ = amount;
-  price_ = price;
-  risk_ = risk;
-  for (auto el : income) {
-    income_.push_back(el);
+    name_ = name;
+    amount_ = amount;
+    price_ = price;
+    count_ = count;
+    risk_ = risk;
+    income_.reserve(income.capacity());
+    for (auto el : income) {
+      income_.push_back(el);
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    throw;
   }
 }
 
@@ -25,38 +30,42 @@ Active::Active(Active& rhs) {
   name_ = rhs.name_;
   amount_ = rhs.amount_;
   price_ = rhs.price_;
+  count_ = rhs.count_;
   risk_ = rhs.risk_;
-  setIncomeGraph(rhs.income_);
-}
-
-Active::~Active() {
-  name_ = "";
-  amount_ = 0.0;
-  price_ = 0.0;
-  risk_ = -1;
-  income_.clear();
-}
-
-
-// setters
-void Active::setIncomeGraph(std::vector<double>& income) {
-  if (income.empty()) {
-    throw std::length_error("Income graph is empty!");
-    return;
-  }
-
-  for (auto el : income) {
+  income_.reserve(rhs.income_.capacity());
+  for (auto el : rhs.income_) {
     income_.push_back(el);
   }
 }
 
-void Active::setName(std::string name) { 
-  if (name.empty()) {
-    throw std::length_error("No any name!");
-    return;
-  }
 
-  name_ = name;
+// setters
+void Active::setIncomeGraph(const std::vector<double>& income) {
+  try {
+      if (income.empty()) {
+        throw std::length_error("Income graph is empty!");
+      }
+
+      for (auto el : income) {
+        income_.push_back(el);
+      }
+  } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    throw;
+  }
+}
+
+void Active::setName(const std::string& name) {
+  try {
+    if (name.empty()) {
+      throw std::length_error("No any name!");
+    }
+
+    name_ = name;
+  } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    throw;
+  }
 }
 
 void Active::setAmount(double amount) {
@@ -65,6 +74,10 @@ void Active::setAmount(double amount) {
 
 void Active::setPrice(double price) {
   price_ = price;
+}
+
+void Active::setCount(int count) {
+  count_ = count;
 }
 
 void Active::setRisk(double risk) {
@@ -82,11 +95,12 @@ void Active::changePrice() {
   this->income_.push_back(actualChange * amount_);
 }
 
-json Active::returnCandleInfo() {
-  json assetData;
+json Active::returnActiveInfo() {
+  json response;
 
-  assetData["name"] = name_;
-  assetData["value"] = price_;
+  response["name"] = name_;
+  response["price"] = price_;
+  response["change"] = income_.back();
 
-  return assetData;
+  return response;
 }

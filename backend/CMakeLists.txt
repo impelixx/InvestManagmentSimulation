@@ -21,7 +21,12 @@ file(
 
 set(
     PROJECT_LINK_LIBS
+    ws2_32
 )
 
-add_executable("${PROJECT_NAME}" ${SOURCES})
+add_executable("${PROJECT_NAME}" ${SOURCES}
+    "${PROJECT_SOURCE_DIR}/include"
+    "${PROJECT_SOURCE_DIR}/headers"
+    "${PROJECT_SOURCE_DIR}/src"
+)
 target_link_libraries("${PROJECT_NAME}" ${PROJECT_LINK_LIBS})

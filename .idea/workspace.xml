@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="backend" targetName="backend" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="95b22298-1d3a-4016-8a0a-4b51b2eb46eb" name="Changes" comment="Update classes (Антон, проверь пожалуйста)">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/cache-v2-902771709d145ec5b780.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-138e7d36f3f38824fbc9.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-46361841bfe209fe5e26.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/index-2024-10-14T15-42-52-0367.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/target-backend-Debug-dcb7aab0d4123f508524.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-8adcaa386002666f35a2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeCCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeCXXCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeRCCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CMakeSystem.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdC/a.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdCXX/a.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/DependInfo.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/build.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/cmake_clean.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/compiler_depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/compiler_depend.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/flags.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/includes_CXX.rsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/link.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/linkLibs.rsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/objects.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/objects1.rsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/progress.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/active.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/active.cpp.obj.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/belruble.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/belruble.cpp.obj.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/dollar.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/dollar.cpp.obj.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/euro.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/euro.cpp.obj.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/main.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/main.cpp.obj.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/wallet.cpp.obj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/wallet.cpp.obj.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/yen.cpp.obj.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/cmake.check_cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/backend.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/headers/bond.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/headers/cryptocurrency.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/headers/oil.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/headers/precious_metal.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/bond.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/cryptocurrency.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/oil.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/precious_metal.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/stock.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/headers/active.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/headers/active.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/headers/belruble.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/query/cache-v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/headers/currency.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/headers/currency.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/headers/dollar.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/headers/euro.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/query/codemodel-v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/headers/precious_metals.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/headers/stock.h" beforeDir="false" afterPath="$PROJECT_DIR$/backend/headers/stock.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/headers/yen.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/active.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/active.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/belruble.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/.cmake/api/v1/query/toolchains-v1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/currency.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/currency.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/dollar.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/euro.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/yen.cpp" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Active" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Jkey189&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/impelixx/InvestManagmentSimulation&quot;,
+    &quot;accountId&quot;: &quot;c190c665-c972-4e21-bef1-9e58540c89dc&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2n1eiCVozMEWvkrkotUxoMKXXKw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;CMake Application.backend.executor&quot;: &quot;Run&quot;,
+    &quot;CMake Debug.Unnamed.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;backend&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Work/Invest/InvestManagmentSimulation/backend/CMakeLists.txt&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Work\Invest\InvestManagmentSimulation\backend\src" />
+      <recent name="C:\Work\Invest\InvestManagmentSimulation\backend\headers" />
+    </key>
+  </component>
+  <component name="RunManager" selected="CMake Application.backend">
+    <configuration name="Unnamed" type="CMakeListConfigurationType" factoryName="CMakeListConfigurationFactory">
+      <method v="2" />
+    </configuration>
+    <configuration name="backend" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="backend" TARGET_NAME="backend" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="backend" RUN_TARGET_NAME="backend">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.backend" />
+      <item itemvalue="CMake Debug.Unnamed" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="95b22298-1d3a-4016-8a0a-4b51b2eb46eb" name="Changes" comment="" />
+      <created>1728145134055</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728145134055</updated>
+      <workItem from="1728145135124" duration="2717000" />
+      <workItem from="1728662413703" duration="2293000" />
+      <workItem from="1728674608421" duration="484000" />
+      <workItem from="1728677248821" duration="1031000" />
+      <workItem from="1728709538891" duration="4661000" />
+      <workItem from="1728734275152" duration="4089000" />
+      <workItem from="1728751262328" duration="4589000" />
+      <workItem from="1728758409245" duration="6312000" />
+      <workItem from="1728806646898" duration="4442000" />
+      <workItem from="1728824739789" duration="1143000" />
+      <workItem from="1728825913785" duration="511000" />
+      <workItem from="1728848729537" duration="8321000" />
+      <workItem from="1728888723596" duration="1374000" />
+      <workItem from="1728891523290" duration="122000" />
+      <workItem from="1728895807408" duration="212000" />
+      <workItem from="1728905107345" duration="2548000" />
+      <workItem from="1728918504285" duration="2528000" />
+      <workItem from="1728921436294" duration="70000" />
+      <workItem from="1728921523982" duration="3681000" />
+    </task>
+    <task id="LOCAL-00001" summary="Update CMakeLists.txt (now it works)">
+      <option name="closed" value="true" />
+      <created>1728710199826</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728710199826</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update CMakeLists.txt (now it works)">
+      <option name="closed" value="true" />
+      <created>1728905234808</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728905234808</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update classes (Антон, проверь пожалуйста)">
+      <option name="closed" value="true" />
+      <created>1728905655785</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728905655785</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update classes (Антон, проверь пожалуйста)">
+      <option name="closed" value="true" />
+      <created>1728906352589</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728906352589</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update CMakeLists.txt (now it works)" />
+    <MESSAGE value="Update classes (Антон, проверь пожалуйста)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update classes (Антон, проверь пожалуйста)" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
