@@ -1,0 +1,24 @@
+{
+  "version": 8,
+  "configurePresets": [
+    {
+      "name": "Custom configure preset",
+      "displayName": "Custom configure preset",
+      "description": "Sets Ninja generator, build and install directory",
+      "generator": "Ninja",
+      "binaryDir": "InvestManagmentSimulation/backend/src/a.out",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+      }
+    },
+    {
+      "name": "InvestManagmentSimulation",
+      "description": "",
+      "displayName": "",
+      "inherits": [
+        "Custom configure preset"
+      ]
+    }
+  ]
+}

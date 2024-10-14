@@ -7,29 +7,35 @@
 
 class Active {
 public:
-	Active() : name_(""), income_(std::vector<int>()), amount_(0.0), price_(0.0) {}
-	Active(std::string& name, std::vector<int>& income, double amount, double price);
+	Active() : name_(""), income_(std::vector<double>()), amount_(0.0), price_(0.0), risk_(0) {}
+	Active(std::string& name, std::vector<double>& income, double amount, double price, double risk);
 	Active(Active& rhs);
 	virtual ~Active();
 
 	// setters
-	void setIncomeGraph(std::vector<int>& income);
-	void setName(std::string& name);
+	void setIncomeGraph(std::vector<double>& income);
+	void setName(std::string name);
 	void setAmount(double amount);
 	void setPrice(double price);
+	void setRisk(double risk);
 
 	// getters
-	virtual std::vector<int> getIncomeGraph() const { return income_; }
-	virtual std::string getName() const { return name_; }
-	virtual double getAmount() const { return amount_; }
-	virtual double getPrice() const { return price_; }
+	std::vector<double> getIncomeGraph() const { return income_; }
+	std::string getName() const { return name_; }
+	double getAmount() const { return amount_; }
+	double getPrice() const { return price_; }
+	double getRisk() const { return risk_; }
+  
+  void changePrice();
+  json returnCandleInfo();
 	
 	
-private:
+protected:
 	std::string name_;
-	std::vector<int> income_;
+	std::vector<double> income_;
 	double amount_;
 	double price_;
+	double risk_;
 };
 
 
