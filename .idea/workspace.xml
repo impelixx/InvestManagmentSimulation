@@ -23,23 +23,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95b22298-1d3a-4016-8a0a-4b51b2eb46eb" name="Changes" comment="Write classes (without Wallet)">
-      <change afterPath="$PROJECT_DIR$/backend/headers/candle.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/candle.cpp" afterDir="false" />
+    <list default="true" id="95b22298-1d3a-4016-8a0a-4b51b2eb46eb" name="Changes" comment="add class Candle (still unfinished)">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/compiler_depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/objects.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/active.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/active.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj.d" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/CMakeFiles/backend.dir/src/currency.cpp.obj.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/cmake-build-debug/backend.exe" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cmake-build-debug/backend.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/active.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/active.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/bond.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/bond.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/cryptocurrency.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/cryptocurrency.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/currency.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/currency.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/oil.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/oil.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/precious_metal.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/precious_metal.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/stock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/stock.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/candle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/candle.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +152,8 @@
       <workItem from="1728934751558" duration="788000" />
       <workItem from="1728935629392" duration="2795000" />
       <workItem from="1728939684061" duration="374000" />
-      <workItem from="1728940073923" duration="2093000" />
+      <workItem from="1728940073923" duration="2448000" />
+      <workItem from="1728977480076" duration="216000" />
     </task>
     <task id="LOCAL-00001" summary="Update CMakeLists.txt (now it works)">
       <option name="closed" value="true" />

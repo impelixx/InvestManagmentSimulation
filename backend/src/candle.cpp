@@ -87,11 +87,11 @@ void Candle::setRisk(int risk) {
 json Candle::returnCandleInfo() {
   json response;
 
-  response["name"] = candles.back().name_; // std::string
-  response["min"] = candles.back().min_; // double (why not)
-  response["open"] = candles.back().open_; // double (why not)
-  response["close"] = candles.back().close_; // double (why not)
-  response["max"] = candles.back().max_; // double (why not)
+  response["name"] = candles_.back().name_; // std::string
+  response["min"] = candles_.back().min_; // double (why not)
+  response["open"] = candles_.back().open_; // double (why not)
+  response["close"] = candles_.back().close_; // double (why not)
+  response["max"] = candles_.back().max_; // double (why not)
 
   return response;
 }

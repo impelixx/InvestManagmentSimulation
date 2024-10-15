@@ -10,3 +10,4 @@ settings.h
 a.out
 /.vs
 *.log
+.idea/workspace.xml
