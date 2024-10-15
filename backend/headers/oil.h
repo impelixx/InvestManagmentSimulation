@@ -1,5 +1,5 @@
-#ifndef BACKEND_OIL_H
-#define BACKEND_OIL_H
+#ifndef OIL_H
+#define OIL_H
 
 
 //#include "../include/includes.h"
@@ -43,4 +43,4 @@ private:
 };
 
 
-#endif //BACKEND_OIL_H
+#endif //OIL_H

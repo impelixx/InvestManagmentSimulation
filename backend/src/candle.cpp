@@ -4,9 +4,9 @@
 // "CanleInfo" constructors
 CandleInfo::CandleInfo(const std::string& name, double min, double max, double open, double close) {
   try {
-    if (name.empty()) {
+    /*if (name.empty()) {
       throw std::length_error("No any name!");
-    }
+    }*/
 
     name_ = name;
     min_ = min;
@@ -31,17 +31,17 @@ CandleInfo::CandleInfo(const CandleInfo& rhs) {
 // constructors
 Candle::Candle(const std::string& name, int risk, const std::vector<CandleInfo>& candles) {
   try {
-    if (name.empty()) {
+    /*if (name.empty()) {
       throw std::length_error("No any name!");
     }
     if (candles.empty()) {
       throw std::length_error("Candles vector is empty! No any candles!");
-    }
+    }*/
 
     name_ = name;
     risk_ = risk;
     candles_.reserve(candles.capacity());
-    for (auto el : candles) {
+    for (const auto& el : candles) {
       candles_.push_back(el);
     }
   } catch (const std::exception& e) {
@@ -54,7 +54,7 @@ Candle::Candle(const Candle& rhs) {
   name_ = rhs.name_;
   risk_ = rhs.risk_;
   candles_.reserve(rhs.candles_.capacity());
-  for (auto el : rhs.candles_) {
+  for (const auto& el : rhs.candles_) {
     candles_.push_back(el);
   }
 }
@@ -66,12 +66,12 @@ void Candle::setName(std::string& name) {
 
 void Candle::setCandlesVector(std::vector<CandleInfo>& candles) {
   try {
-    if (candles.empty()) {
+    /*if (candles.empty()) {
       throw std::length_error("Candles vector is empty! No any candles!");
-    }
+    }*/
 
     candles_.reserve(candles.capacity());
-    for (auto el : candles) {
+    for (const auto& el : candles) {
       candles_.push_back(el);
     }
   } catch (const std::exception& e) {

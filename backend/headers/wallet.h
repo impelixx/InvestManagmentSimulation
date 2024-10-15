@@ -1,11 +1,28 @@
-#include "../include/includes.h"
+#ifdefn WALLET_H
+#define WALLET_H
+
+
+//#include "../include/includes.h"
+#include "active.h"
+
 
 class Wallet {
 public:
-	Wallet() = default;
-	~Wallet() = default;
-	std::vector<Active> getActive() { return this->Active; }
-	void addActive(Active& active) { this->Active.push_back(active); }
+  Wallet() : actives_(std::vector<Active>()) {}
+  Wallet(std::vector<Active>& actives);
+  Wallet(const Wallet& rhs);
+  ~Wallet() = default;
+
+  // setters
+  void setActives(std::vector<Active>& actives); // bruh
+
+  // getters
+  // ...
+
+
 private:
-	std::vector<Active> = {};
+  std::vector<Active> actives_;
 };
+
+
+#endif // WALLET_H

@@ -1,5 +1,5 @@
-#ifndef BACKEND_PRECIOUS_METAL_H
-#define BACKEND_PRECIOUS_METAL_H
+#ifndef PRECIOUS_METAL_H
+#define PRECIOUS_METAL_H
 
 
 //#include "../include/includes.h"
@@ -43,4 +43,4 @@ private:
 };
 
 
-#endif //BACKEND_PRECIOUS_METAL_H
+#endif //PRECIOUS_METAL_H

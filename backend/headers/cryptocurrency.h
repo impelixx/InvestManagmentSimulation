@@ -1,5 +1,5 @@
-#ifndef BACKEND_CRYPTOCURRENCY_H
-#define BACKEND_CRYPTOCURRENCY_H
+#ifndef CRYPTOCURRENCY_H
+#define CRYPTOCURRENCY_H
 
 
 //#include "includes.h"
@@ -43,4 +43,4 @@ private:
 };
 
 
-#endif //BACKEND_CRYPTOCURRENCY_H
+#endif //CRYPTOCURRENCY_H

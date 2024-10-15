@@ -1,5 +1,5 @@
-#ifndef BACKEND_CANDLE_H
-#define BACKEND_CANDLE_H
+#ifndef CANDLE_H
+#define CANDLE_H
 
 
 #include "../include/includes.h"
@@ -52,4 +52,4 @@ private:
 };
 
 
-#endif //BACKEND_CANDLE_H
+#endif //CANDLE_H

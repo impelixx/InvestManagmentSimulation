@@ -1,5 +1,5 @@
-#ifndef BACKEND_BOND_H
-#define BACKEND_BOND_H
+#ifndef BOND_H
+#define BOND_H
 
 
 //#include "../include/includes.h"
@@ -43,4 +43,4 @@ private:
 };
 
 
-#endif //BACKEND_BOND_H
+#endif //BOND_H

@@ -4,12 +4,12 @@
 // constructors
 Oil::Oil(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk) {
   try {
-    if (name.empty()) {
+    /*if (name.empty()) {
       throw std::length_error("No any name!");
     }
     if (income.empty()) {
       throw std::length_error("Income graph is empty!");
-    }
+    }*/
 
     name_ = name;
     amount_ = amount;
@@ -42,9 +42,9 @@ Oil::Oil(Oil& rhs) : Active(rhs) {
 // setters
 void Oil::setIncomeGraph(const std::vector<double>& income) {
   try {
-    if (income.empty()) {
+    /*if (income.empty()) {
       throw std::length_error("Income graph is empty!");
-    }
+    }*/
 
     for (auto el : income) {
       income_.push_back(el);
@@ -57,9 +57,9 @@ void Oil::setIncomeGraph(const std::vector<double>& income) {
 
 void Oil::setName(const std::string& name) {
   try {
-    if (name.empty()) {
+    /*if (name.empty()) {
       throw std::length_error("No any name!");
-    }
+    }*/
 
     name_ = name;
   } catch (const std::exception& e) {
