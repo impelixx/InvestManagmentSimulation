@@ -1,27 +1,29 @@
-#ifdefn WALLET_H
+#ifndef WALLET_H
 #define WALLET_H
 
 
-//#include "../include/includes.h"
-#include "active.h"
+#include "currency.h"
+#include "precious_metal.h"
+#include "cryptocurrency.h"
+#include "oil.h"
+#include "stock.h"
+#include "bond.h"
+
+#include "../include/includes.h"
+
+// #include "active.h"
 
 
 class Wallet {
 public:
-  Wallet() : actives_(std::vector<Active>()) {}
-  Wallet(std::vector<Active>& actives);
-  Wallet(const Wallet& rhs);
+  Wallet();
   ~Wallet() = default;
-
-  // setters
-  void setActives(std::vector<Active>& actives); // bruh
-
-  // getters
-  // ...
-
+  json doCycle();
 
 private:
-  std::vector<Active> actives_;
+  Currency* Dollar;
+  Currency* Euro;
+  Currency* Yuan;
 };
 
 

@@ -1,31 +1,25 @@
 #include "../headers/wallet.h"
+  
 
+Wallet::Wallet() {
+  Dollar = new Currency("Dollar", {1.0, 1.0, 1.0, 1.0, 1.0, 1.0}, 100.0, 1.0, 1, 0.0);
+  Euro = new Currency("Euro", {1.0, 1.0, 1.0, 1.0, 1.0, 1.0}, 100.0, 1.0, 1, 0.0);
+  Yuan = new Currency("Yuan", {1.0, 1.0, 1.0, 1.0, 1.0, 1.0}, 100.0, 1.0, 1, 0.0);
+} 
 
-// constructors
-Wallet::Wallet(std::vector<Active>& actives) {
-  try {
-    // ...
-  } catch (const std::exception& e) {
-    std::cerr << e.what() << std::endl;
-    throw;
+json Wallet::doCycle() {
+  double open, close, max, min;
+  open = Dollar->getPrice();
+  json response;
+  std::vector <double> tmp;
+  for (int i = 0; i < 30; ++i) {
+    tmp.push_back(Dollar->getPrice());
+    Dollar->changePrice();
   }
-}
-
-Wallet::Wallet(const Wallet& rhs) {
-  // boss-shit
-}
-
-
-// setters
-void Wallet::setActives(std::vector<Active> &actives) {
-  try {
-    /*if (actives.empty()) {
-      throw std::logic_error("No any Actives!");
-    }*/
-
-    // shit
-  } catch (const std::exception& e) {
-    std::cerr << e.what() << std::endl;
-    throw;
-  }
+  close = Dollar->getPrice();
+  std::sort(tmp.begin(), tmp.end());
+  min = tmp[0];
+  max = tmp[29];
+  response["Dollar"] = {open, close, max, min};
+  return response;
 }

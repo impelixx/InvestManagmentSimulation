@@ -1,8 +1,11 @@
 #include "../include/includes.h"
+#include "../headers/wallet.h"
+
 
 #define JSON_RESPONSE(json) res.set_content(json.dump(), "application/json")
 
 int counter = 0;
+// Wallet* wallet = new Wallet;
 
 int main() {
   httplib::Server app;
@@ -12,9 +15,9 @@ int main() {
     res.set_header("Access-Control-Allow-Headers", "*");
   });
 
-  app.Post("/api", [](const auto& req, auto& res) {
+  app.Get("/api", [](const auto& req, auto& res) {
     json response;
-    response["counter"] = counter++;
+    // response.push_back(wallet->doCycle());
     JSON_RESPONSE(response);
   });
 
