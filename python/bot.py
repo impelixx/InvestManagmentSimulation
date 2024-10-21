@@ -113,8 +113,6 @@ def create_stock_prices_table():
         stock_prices.insert_one(StockPrices)
         logger.info('Цены активов добавлены в базу данных')
 
-create_stock_prices_table()
-
 def updateStockPrices(StockPrice):
     client = MongoClient('localhost', 6969)
     db = client['assets']
@@ -146,7 +144,58 @@ def create_users_table():
         conn.commit()
         logger.info('Таблица users успешно создана или уже существует.')
 
-create_users_table()
+def createPnLTable():
+    client = MongoClient('localhsot', 6969)
+    logger.info('Подключение к базе данных c PnL пользователей')
+    db = client['assets']
+
+    if 'user_pnl' in db.list_collection_names():
+        logger.info('Коллекция уже существует')
+    else:
+        logger.info('Создание коллекции')
+        db.create_collection('user_pnl')
+        logger.info('Коллекция создана')
+
+def addUserPnL(user_id):
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    user_pnl = db['user_pnl']
+    user_pnl.insert_one({'userId': user_id, 'pnl': [5000,]})
+    logger.info(f'Добавлен пользователь с ID {user_id} в коллекцию PnL')
+
+def updatePnL(user_id):
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    user_pnl = db['user_pnl']
+    user = financial_assets.find_one({'userId': user_id})
+    pnl = user_pnl.find_one({'userId': user_id})
+    if pnl is None:
+        addUserPnL(user_id)
+        pnl = user_pnl.find_one({'userId': user_id})
+    pnl = pnl['pnl']
+    total = GetUserActivePrices(user_id)
+    pnl.append(total)
+    user_pnl.update_one({'userId': user_id}, {"$set": {'pnl': pnl}})
+    logger.info(f'PnL пользователя {user_id} обновлен')
+
+def GetUserActivePrices(user_id): # get all money and assets of user and calculate total value
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    user = db['financial_assets'].find_one({'userId': user_id})
+    total = user['assets']['cash']['amount']
+    for stock in user['assets']['stocks']:
+        total += stock['quantity'] * stock['price']
+    for crypto in user['assets']['cryptocurrencies']:
+        total += crypto['quantity'] * crypto['price']
+    for metal in user['assets']['metals']:
+        total += metal['quantity'] * metal['price']
+    return total
+
+def updateUserPnL(): # create mongo db userPnl and update on nextstep step invoke
+    client = MongoClient('localhost', 6969)
+    logger.info('Подключение к базе данных c PnL пользователей')
+    db = client['assets']
+    
 
 @app.route('/backend/updatePrices', methods=['GET'])
 def updatePrices():
@@ -184,7 +233,7 @@ def getPrices():
     client = MongoClient('localhost', 6969)
     db = client['assets']
     stock_prices = db['stock_prices']
-    prices = stock_prices.find_one({}, {'_id': 0})
+    prices = stock_prices.find_one({}, {'_id': 0}) or {}
     if prices is None:
         logger.warning('Цены активов не найдены в базе данных')
         return jsonify({'error': 'Цены активов не найдены'}), 404
@@ -406,4 +455,5 @@ def addStock():
 if __name__ == '__main__':
     create_finance_table()
     create_users_table()
+    createPnLTable()
     app.run(port=5252)
