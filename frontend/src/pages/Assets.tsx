@@ -129,7 +129,12 @@ const UserAssets: React.FC = () => {
 			handleClose()
 		}
 	}
-
+	const handleBuy = () => {
+		if (selectedAsset) {
+			console.log('Buy:', selectedAsset.name, 'Amount:', sellAmount)
+			handleClose()
+		}
+	}
 	return (
 		<Container>
 			<Typography
@@ -177,27 +182,31 @@ const UserAssets: React.FC = () => {
 				option={pieChartOptions}
 				style={{ height: '400px', width: '100%' }}
 			/>
-
-			{/* Sell Asset Dialog */}
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Продать часть {selectedAsset?.name}</DialogTitle>
 				<DialogContent>
-					<TextField
-						autoFocus
-						margin='dense'
-						label='Количество для продажи' 
-						type='number'
-						fullWidth
-						value={sellAmount}
-						onChange={e => setSellAmount(Number(e.target.value))}
-						inputProps={{ min: 0, step: 0.01 }}
-					/>
+					<Box display='flex' flexDirection='column' alignItems='center'>
+						<TextField
+							autoFocus
+							margin='dense'
+							label='Количество для продажи'
+							fullWidth
+							value={sellAmount}
+							onChange={e => setSellAmount(Number(e.target.value))}
+							inputProps={{ min: 0, step: 0.01 }}
+							style={{ marginBottom: '20px' }}
+							variant='outlined'
+						/>
+					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} color='primary'>
+					<Button onClick={handleClose} color='primary' style={{ fontWeight: 'bold' }}>
 						Отмена
 					</Button>
-					<Button onClick={handleSell} color='secondary'>
+					<Button onClick={handleBuy} style={{ fontWeight: 'bold', color: 'green' }}>
+						Купить
+					</Button>
+					<Button onClick={handleSell} color='secondary' style={{ fontWeight: 'bold', color: 'red' }}>
 						Продать
 					</Button>
 				</DialogActions>
