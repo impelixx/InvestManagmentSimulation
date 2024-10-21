@@ -28,20 +28,27 @@ const GetData = async (): Promise<AssetData[]> => {
 		const cashAmount = assets.cash.amount
 		assetData.push({ name: assets.cash.currency, value: cashAmount })
 
-		for (const stock of assets.stocks) {
-			console.log('Stock:', stock)
-			assetData.push({ name: stock.name, value: stock.price * stock.quantity })
+		if (Array.isArray(assets.stocks)) {
+			for (const stock of assets.stocks) {
+				console.log('Stock:', stock)
+				assetData.push({ name: stock.name, value: stock.price * stock.quantity })
+			}
 		}
 
-		for (const crypto of assets.cryptocurrencies) {
-			console.log('Crypto:', crypto)
-			assetData.push({ name: crypto.name, value: crypto.price * crypto.quantity })
+		if (Array.isArray(assets.cryptocurrencies)) {
+			for (const crypto of assets.cryptocurrencies) {
+				console.log('Crypto:', crypto)
+				assetData.push({ name: crypto.name, value: crypto.price * crypto.quantity })
+			}
 		}
 
-		for (const metal of assets.metals) {
-			console.log('Metal:', metal)
-			assetData.push({ name: metal.type, value: metal.price * metal.quantity })
+		if (Array.isArray(assets.metals)) {
+			for (const metal of assets.metals) {
+				console.log('Metal:', metal)
+				assetData.push({ name: metal.type, value: metal.price * metal.quantity })
+			}
 		}
+
 		console.log('Asset data:', assetData)
 		return assetData
 	} catch (error) {
@@ -96,7 +103,7 @@ const AssetPieChart: React.FC = () => {
 										'#9C27B0',
 										'#FF9800',
 										'#3F51B5',
-								  ]
+									]
 								: [
 										'#FF6384',
 										'#36A2EB',
@@ -105,7 +112,7 @@ const AssetPieChart: React.FC = () => {
 										'#795548',
 										'#607D8B',
 										'#CDDC39',
-								  ]
+									]
 							return colors[params.dataIndex % colors.length]
 						},
 					},
