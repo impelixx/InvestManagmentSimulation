@@ -15,8 +15,8 @@ include_directories(
 file(
     GLOB
     SOURCES
-    "src/**/*.cpp"
-    "src/*.cpp"
+    "src/**/*"
+    "src/*"
 )
 
 set(

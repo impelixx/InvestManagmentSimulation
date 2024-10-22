@@ -7,10 +7,10 @@
 
 class Active {
 public:
-	Active() : name_("Active"), income_(std::vector<double>()), amount_(0.0), price_(0.0), count_(0), risk_(0.0) {}
+	Active() : name_("Active"), amount_(0.0), price_(0.0), count_(0), risk_(0.0) {}
 	Active(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk);
 	Active(Active& rhs);
-	virtual ~Active() = default;
+	~Active() = default;
 
 	// setters
   virtual void setIncomeGraph(const std::vector<double>& income);
@@ -32,7 +32,7 @@ public:
   virtual json returnActiveInfo();
 	
 	
-private:
+protected:
 	std::string name_;
 	std::vector<double> income_;
 	double amount_;

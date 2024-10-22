@@ -11,7 +11,7 @@ public:
   Cryptocurrency() : name_("Cryptocurrency"), income_(std::vector<double>()), amount_(0.0), price_(0.0), count_(0), risk_(0.0) {}
   Cryptocurrency(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk);
   Cryptocurrency(Cryptocurrency& rhs);
-  ~Cryptocurrency() override = default;
+  ~Cryptocurrency() = default;
 
   // setters
   void setIncomeGraph(const std::vector<double>& income) override;

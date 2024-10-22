@@ -16,7 +16,7 @@ Active::Active(const std::string& name, const std::vector<double>& income, doubl
     price_ = price;
     count_ = count;
     risk_ = risk;
-    income_.reserve(income.capacity());
+    // income_.reserve(income.capacity());
     for (auto el : income) {
       income_.push_back(el);
     }
@@ -47,7 +47,7 @@ void Active::setIncomeGraph(const std::vector<double>& income) {
       }*/
 
       income_.clear();
-      income_.resize(income.capacity());
+      // income_.resize(income.capacity());
       for (auto el : income) {
         income_.push_back(el);
       }

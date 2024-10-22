@@ -12,3 +12,5 @@ a.out
 *.log
 .idea
 cmake-build-debug
+/.vscode
+/.idea

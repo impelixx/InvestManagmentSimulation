@@ -5,7 +5,7 @@
 #define JSON_RESPONSE(json) res.set_content(json.dump(), "application/json")
 
 int counter = 0;
-// Wallet* wallet = new Wallet;
+Wallet* wallet = new Wallet;
 
 int main() {
   httplib::Server app;
