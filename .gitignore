@@ -10,5 +10,6 @@ settings.h
 a.out
 /.vs
 *.log
-.idea
+.idea/
+
 cmake-build-debug
