@@ -5,10 +5,10 @@ data/
 main
 main.dSYM/
 build
-.vscode
+.vscode/
 settings.h
 a.out
 /.vs
 *.log
-.idea
-cmake-build-debug
+.idea/
+cmake-build-debug/
