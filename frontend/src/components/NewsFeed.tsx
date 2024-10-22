@@ -5,15 +5,15 @@ const NewsFeed: React.FC = () => {
 	const news = [
 		{
 			title: 'Ф',
-			summary: 'Олег лох',
+			summary: 'Олег',
 		},
 		{
-			title: 'Hui',
-			summary: 'Федор лох',
+			title: 'Т',
+			summary: 'Федор',
 		},
 		{
-			title: 'Антон',
-			summary: 'Антон сигма',
+			title: 'Л',
+			summary: 'Антон',
 		},
 	]
 

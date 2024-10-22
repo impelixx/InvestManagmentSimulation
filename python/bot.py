@@ -53,7 +53,6 @@ StockPrices = {
 
 log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 log_file = 'app.log'
-#clear log file
 open(log_file, 'w').close()
 
 file_handler = logging.handlers.RotatingFileHandler(log_file, maxBytes=10 * 1024 * 1024, backupCount=5)
@@ -81,18 +80,13 @@ def create_finance_table(): #mongo database
     
     if 'financial_assets' in db.list_collection_names():
         logger.info('Коллекция уже существует')
-        db.drop_collection('financial_assets')
-        logger.info('Коллекция удалена')
-    logger.info('Создание коллекции')
-    db.create_collection('financial_assets')
-    logger.info('Коллекция создана')
+    else:
+        logger.info('Создание коллекции')
+        db.create_collection('financial_assets')
+        logger.info('Коллекция создана')
     
     global financial_assets
     financial_assets = db['financial_assets']
-    if financial_assets.count_documents({}) == 0:
-        logger.info('Добавление активов в базу данных')
-        financial_assets.insert_one(asset_document)
-        logger.info('Активы добавлены в базу данных')
 
 def create_stock_prices_table():
     client = MongoClient('localhost', 6969)
@@ -113,8 +107,6 @@ def create_stock_prices_table():
         stock_prices.insert_one(StockPrices)
         logger.info('Цены активов добавлены в базу данных')
 
-create_stock_prices_table()
-
 def updateStockPrices(StockPrice):
     client = MongoClient('localhost', 6969)
     db = client['assets']
@@ -126,12 +118,19 @@ def updateStockPrices(StockPrice):
     # print(users.json())
     for user in users:
         for stock in user['assets']['stocks']:
-            stock['price'] = StockPrice[stock['name']]
+            stock['price'] = StockPrice.get(stock['name'], stock['price'])
         for crypto in user['assets']['cryptocurrencies']:
-            crypto['price'] = StockPrice[crypto['name']]
+            crypto['price'] = StockPrice.get(crypto['name'], crypto['price'])
         for metal in user['assets']['metals']:
-            metal['price'] = StockPrice[metal['type']]
+            metal['price'] = StockPrice.get(metal['type'], metal['price'])
         financial_assets.update_one({"userId": user['userId']}, {"$set": user})
+
+def GetUsersActives(user_id):
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    user = db['financial_assets'].find_one({'userId': user_id})
+    return user
+
 
 def create_users_table():
     with conn.cursor() as cur:
@@ -146,17 +145,95 @@ def create_users_table():
         conn.commit()
         logger.info('Таблица users успешно создана или уже существует.')
 
-create_users_table()
+def createPnLTable():
+    client = MongoClient('localhost', 6969)
+    logger.info('Подключение к базе данных c PnL пользователей')
+    db = client['assets']
+
+    if 'user_pnl' in db.list_collection_names():
+        logger.info('Коллекция уже существует')
+    else:
+        logger.info('Создание коллекции')
+        db.create_collection('user_pnl')
+        logger.info('Коллекция создана')
+
+def addUserPnL(user_id):
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    user_pnl = db['user_pnl']
+    user_pnl.insert_one({'userId': int(user_id), 'pnl': [50000,]})
+    logger.info(f'Добавлен пользователь с ID {user_id} в коллекцию PnL')
+
+def addUserWithId(user_id):
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    financial_assets = db['financial_assets']
+    new_user = {
+        "userId": int(user_id),
+        "assets": {
+            "stocks": [],
+            "cryptocurrencies": [],
+            'cash': {'currency': 'USD', 'amount': 50000},
+            "metals": []
+        }
+    }
+    financial_assets.insert_one(new_user)
+    addUserPnL(user_id)
+    logger.info(f'Добавлен пользователь с ID {user_id} в коллекцию активов')
+
+def updatePnL(user_id):
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    user_pnl = db['user_pnl']
+    user = financial_assets.find_one({'userId': user_id})
+    pnl = user_pnl.find_one({'userId': user_id})
+    if pnl is None:
+        addUserPnL(user_id)
+        pnl = user_pnl.find_one({'userId': user_id})
+    pnl = pnl['pnl']
+    total = GetUserActivePrices(user_id)
+    pnl.append(total)
+    user_pnl.update_one({'userId': user_id}, {"$set": {'pnl': pnl}})
+    logger.info(f'PnL пользователя {user_id} обновлен')
+
+def updatePnLAll():
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    user_pnl = db['user_pnl']
+    users = financial_assets.find({})
+    print(users)
+    for user in users:
+        logger.info(f'Обновление PnL пользователя {user["userId"]}')
+        updatePnL(user['userId'])
+
+def GetUserActivePrices(user_id): # get all money and assets of user and calculate total value
+    client = MongoClient('localhost', 6969)
+    db = client['assets']
+    user = db['financial_assets'].find_one({'userId': user_id})
+    total = user['assets']['cash']['amount']
+    for stock in user['assets']['stocks']:
+        total += stock['quantity'] * stock['price']
+    for crypto in user['assets']['cryptocurrencies']:
+        total += crypto['quantity'] * crypto['price']
+    for metal in user['assets']['metals']:
+        total += metal['quantity'] * metal['price']
+    print(total)
+    return total
+
+def updateUserPnL(): # create mongo db userPnl and update on nextstep step invoke
+    client = MongoClient('localhost', 6969)
+    logger.info('Подключение к базе данных c PnL пользователей')
+    db = client['assets']
+    
 
 @app.route('/backend/updatePrices', methods=['GET'])
 def updatePrices():
     logger.info('Обновление цен активов')
-    # data = request.json
     data = {
         "Apple": random.randint(100, 200),
         "Nvidia": random.randint(200, 400),
         "Facebook": random.randint(200, 300),
-        "Bitcoin": random.randint(40000, 60000),
+        "Bitcoin": random.randint(1000, 60000),
         "Ethereum": random.randint(2000, 3000),
         "Gold": random.randint(1900, 2100),
         "USD": 1,
@@ -176,14 +253,16 @@ def updatePrices():
         "Oil": random.randint(40, 60),
     }
     updateStockPrices(data)
+    updatePnLAll()
     return jsonify({'message': 'Цены обновлены'}), 200
 
 @app.route('/assets/getPrices', methods=['GET']) 
 def getPrices():
+    logger.info('Получение цен активов')
     client = MongoClient('localhost', 6969)
     db = client['assets']
     stock_prices = db['stock_prices']
-    prices = stock_prices.find_one({}, {'_id': 0})  # Exclude the '_id' field from the result
+    prices = stock_prices.find_one({}, {'_id': 0}) or {}
     if prices is None:
         logger.warning('Цены активов не найдены в базе данных')
         return jsonify({'error': 'Цены активов не найдены'}), 404
@@ -207,31 +286,159 @@ def getWallet():
 @app.route('/backend/buyActive', methods=['POST'])
 def buyActive():
     logger.info('Запрос на покупку актива')
-    url = 'http://localhost:8080/back/buyActive'
+    data = request.json
+    user_id = data.get('userId')
+    asset = data.get('assetName')
+    amount = data.get('amount')
+    print(user_id, asset, amount)
+    logger.info(f'Пользователь {user_id} хочет купить {amount} единиц актива {asset}')
+
+    if not user_id or not asset or not amount:
+        logger.error('userId, asset и amount обязательны')
+        return jsonify({'error': 'userId, asset и amount обязательны'}), 400
     try:
-        data = request.json
-        response = requests.post(url, json=data)
-        response.raise_for_status()
-        logger.info('Актив куплен')
-        return jsonify(response.json()), response.status_code
-    
-    except requests.exceptions.RequestException as e:
+        client = MongoClient('localhost', 6969)
+        db = client['assets']
+        financial_assets = db['financial_assets']
+        user = financial_assets.find_one({'userId': int(user_id)})
+        
+        if not user:
+            logger.warning(f'Пользователь с ID {user_id} не найден')
+            return jsonify({'error': 'Пользователь не найден'}), 404
+        
+        stock_price = StockPrices.get(asset)
+        if not stock_price:
+            logger.warning(f'Актив {asset} не найден')
+            return jsonify({'error': 'Актив не найден'}), 404
+        
+        total_value = amount * stock_price
+        if user['assets']['cash']['amount'] < total_value:
+            logger.warning(f'Недостаточно средств у пользователя {user_id}')
+            return jsonify({'error': 'Недостаточно средств'}), 400
+        
+        stock_found = False
+        for i in range(len(user['assets']['stocks'])):
+            if user['assets']['stocks'][i]['name'] == asset:
+                stock_found = True
+                user['assets']['stocks'][i]['quantity'] += amount
+                user['assets']['cash']['amount'] -= total_value
+                logger.info(f'Пользователь {user_id} купил {amount} единиц актива {asset} по цене {stock_price} за единицу')
+                break
+            if user['assets']['cryptocurrencies'][i]['name'] == asset:
+                stock_found = True
+                user['assets']['cryptocurrencies'][i]['quantity'] += amount
+                user['assets']['cash']['amount'] -= total_value
+                logger.info(f'Пользователь {user_id} купил {amount} единиц актива {asset} по цене {stock_price} за единицу')
+                break
+            if user['assets']['metals'][i]['type'] == asset:
+                stock_found = True
+                user['assets']['metals'][i]['quantity'] += amount
+                user['assets']['cash']['amount'] -= total_value
+                logger.info(f'Пользователь {user_id} купил {amount} единиц актива {asset} по цене {stock_price} за единицу')
+                break
+        
+        if not stock_found:
+            stock = {
+                'name': asset,
+                'quantity': amount,
+                'price': stock_price
+            }
+            user['assets']['stocks'].append(stock)
+            user['assets']['cash']['amount'] -= total_value
+            logger.info(f'Пользователь {user_id} купил {amount} единиц актива {asset} по цене {stock_price} за единицу')
+        
+        financial_assets.delete_one({'userId': int(user_id)})
+        financial_assets.insert_one(user)
+        logger.info(f'Актив {asset} куплен и долларовый баланс пользователя {user_id} обновлён до {user["assets"]["cash"]["amount"]}')
+        return jsonify({'message': 'Актив успешно куплен', 'new_balance_usd': user['assets']['cash']['amount']}), 200
+
+    except Exception as e:
         logger.error(f'Ошибка при покупке актива: {str(e)}')
         return jsonify({'error': str(e)}), 500
-
+        
 @app.route('/backend/sellActive', methods=['POST'])
 def sellActive():
     logger.info('Запрос на продажу актива')
-    url = 'http://localhost:8080/back/sellActive'
-    try:
-        data = request.json
-        response = requests.post(url, json=data)
-        response.raise_for_status()
-        logger.info('Актив продан')
-        return jsonify(response.json()), response.status_code
+    data = request.json
+    user_id = data.get('userId')
+    asset = data.get('assetName')
+    amount = data.get('amount')
+    type = "stocks"
+    logger.info(f'Пользователь {user_id} хочет продать {amount} единиц актива {asset}')
     
-    except requests.exceptions.RequestException as e:
-        logger.error(f'Ошибка при продаже актива: {str(e)}')
+    if not user_id or not asset or not amount:
+        logger.error('userId, asset и amount обязательны')
+        return jsonify({'error': 'userId, asset и amount обязательны'}), 400
+
+    try:
+        client = MongoClient('localhost', 6969)
+        db = client['assets']
+        financial_assets = db['financial_assets']
+        user = financial_assets.find_one({'userId': int(user_id)})
+        
+        if not user:
+            logger.warning(f'Пользователь с ID {user_id} не найден')
+            return jsonify({'error': 'Пользователь не найден'}), 404
+        
+        stock_found = False
+        stock_price = 0
+        total_value = 0
+
+        # Check stocks
+        for i in range(len(user['assets']['stocks'])):
+            if user['assets']['stocks'][i]['name'] == asset:
+                stock_found = True
+                stock_price = user['assets']['stocks'][i]['price']
+                if user['assets']['stocks'][i]['quantity'] < amount:
+                    logger.warning(f'Недостаточно акций для продажи у пользователя {user_id}')
+                    return jsonify({'error': 'Недостаточно актива для продажи'}), 400
+                total_value = amount * stock_price
+                user['assets']['stocks'][i]['quantity'] -= amount
+                user['assets']['cash']['amount'] += total_value
+                logger.info(f'Пользователь {user_id} продал {amount} акций {asset} по цене {stock_price} за единицу')
+                break
+
+        # Check cryptocurrencies
+        for i in range(len(user['assets']['cryptocurrencies'])):
+            if user['assets']['cryptocurrencies'][i]['name'] == asset:
+                stock_found = True
+                stock_price = user['assets']['cryptocurrencies'][i]['price']
+                if user['assets']['cryptocurrencies'][i]['quantity'] < amount:
+                    logger.warning(f'Недостаточно криптовалюты для продажи у пользователя {user_id}')
+                    return jsonify({'error': 'Недостаточно актива для продажи'}), 400
+                total_value = amount * stock_price
+                user['assets']['cryptocurrencies'][i]['quantity'] -= amount
+                user['assets']['cash']['amount'] += total_value
+                logger.info(f'Пользователь {user_id} продал {amount} криптовалюты {asset} по цене {stock_price} за единицу')
+                break
+
+        # Check metals
+        for i in range(len(user['assets']['metals'])):
+            if user['assets']['metals'][i]['type'] == asset:
+                stock_found = True
+                stock_price = user['assets']['metals'][i]['price']
+                if user['assets']['metals'][i]['quantity'] < amount:
+                    logger.warning(f'Недостаточно металла для продажи у пользователя {user_id}')
+                    return jsonify({'error': 'Недостаточно актива для продажи'}), 400
+                total_value = amount * stock_price
+                user['assets']['metals'][i]['quantity'] -= amount
+                user['assets']['cash']['amount'] += total_value
+                logger.info(f'Пользователь {user_id} продал {amount} металла {asset} по цене {stock_price} за единицу')
+                break
+
+        if not stock_found:
+            logger.warning(f'Актив {asset} не найден у пользователя {user_id}')
+            return jsonify({'error': 'Актив не найден у пользователя'}), 404
+        
+        # Update user's assets
+        financial_assets.delete_one({'userId': int(user_id)})
+        financial_assets.insert_one(user)
+        logger.info(f'Актив {asset} продан. Новый долларовый баланс пользователя {user_id}: {user["assets"]["cash"]["amount"]}')
+        
+        return jsonify({'message': 'Актив успешно продан', 'new_balance_usd': user['assets']['cash']['amount']}), 200
+
+    except Exception as e:
+        logger.error(f'Ошибка: {str(e)}')
         return jsonify({'error': str(e)}), 500
 
 @app.route('/backend/getPrices', methods=['GET'])
@@ -342,18 +549,18 @@ def login():
 
 @app.route('/assets/getUser', methods=['POST'])
 def getUser():
-    # get user id from json
+    global financial_assets  # Ensure financial_assets is defined globally
+    financial_assets = financial_assets
     user_id = request.json.get('userId')
-    print(type(user_id))
     logger.info(f'Получение активов для пользователя с ID: {user_id}')
     
     if not user_id:
         return jsonify({"error": "userId is required"}), 400
-    
+    print(int(user_id))
     assets = list(financial_assets.find({"userId": int(user_id)}))
-    print(assets)
     if not assets:
         logger.warning(f'Активы не найдены для пользователя с ID: {user_id}')
+        addUserWithId(user_id)
         return jsonify({"message": "No assets found for this user"}), 404
     for asset in assets:
         logger.info(f'Актив найден: {asset}')
@@ -376,11 +583,12 @@ def addUser():
         "userId": user_id,
         "assets": {
             "stocks": [],
-            "cryptocurrencies": {'name': 'Bitcoin', 'quantity': 0.5, 'value': 25000},
-            'cash': {'currency': 'USD', 'amount': cash},
+            "cryptocurrencies": {},
+            'cash': {'currency': 'USD', 'amount': 50000},
             "metals": []
         }
     }
+    addUserPnL(user_id)
     financial_assets.insert_one(new_user)
     return jsonify({"message": "User added"}), 201
 
@@ -405,4 +613,5 @@ def addStock():
 if __name__ == '__main__':
     create_finance_table()
     create_users_table()
+    createPnLTable()
     app.run(port=5252)

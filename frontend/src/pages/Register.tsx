@@ -118,7 +118,7 @@ const Register: React.FC = () => {
 			} else {
 				setSnackbarMessage('Вход выполнен успешно!')
 				setSnackbarSeverity('success')
-				localStorage.setItem('token', data.user.id)
+				localStorage.setItem('id', data.user.id)
 				localStorage.setItem('email', data.user.email)
 				localStorage.setItem('username', data.user.username)
 				navigate('/start')

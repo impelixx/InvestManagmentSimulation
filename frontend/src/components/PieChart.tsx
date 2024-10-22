@@ -14,18 +14,8 @@ const GetData = async (): Promise<AssetData[]> => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ userId: '1' }),
+			body: JSON.stringify({ userId: localStorage.getItem('id') }),
 		})
-		try {
-			const data = await fetch('http://localhost:5252/assets/getPrices', {
-				method: 'GET',
-			})
-			const prices = await data.json()
-			console.log('Prices:', k)
-		} catch (error) {
-			console.error('Error fetching prices')
-		}
-
 		const data = await response.json()
 		console.log('Data:', data)
 
@@ -38,18 +28,28 @@ const GetData = async (): Promise<AssetData[]> => {
 		const cashAmount = assets.cash.amount
 		assetData.push({ name: assets.cash.currency, value: cashAmount })
 
-		for (const stock of assets.stocks) {
-			assetData.push({ name: stock.name, value: stock.value * stock.quantity })
+		if (Array.isArray(assets.stocks)) {
+			for (const stock of assets.stocks) {
+				console.log('Stock:', stock)
+				assetData.push({ name: stock.name, value: stock.price * stock.quantity })
+			}
 		}
 
-		for (const crypto of assets.cryptocurrencies) {
-			assetData.push({ name: crypto.name, value: crypto.value })
+		if (Array.isArray(assets.cryptocurrencies)) {
+			for (const crypto of assets.cryptocurrencies) {
+				console.log('Crypto:', crypto)
+				assetData.push({ name: crypto.name, value: crypto.price * crypto.quantity })
+			}
 		}
 
-		for (const metal of assets.metals) {
-			assetData.push({ name: metal.type, value: metal.value })
+		if (Array.isArray(assets.metals)) {
+			for (const metal of assets.metals) {
+				console.log('Metal:', metal)
+				assetData.push({ name: metal.type, value: metal.price * metal.quantity })
+			}
 		}
 
+		console.log('Asset data:', assetData)
 		return assetData
 	} catch (error) {
 		console.error('Error fetching data:', error)
@@ -77,7 +77,7 @@ const AssetPieChart: React.FC = () => {
 				formatter: '{a} <br/>{b}: {c} ({d}%)',
 			},
 			legend: {
-				show: false, // Hide legend
+				show: false,
 			},
 			series: [
 				{
@@ -103,7 +103,7 @@ const AssetPieChart: React.FC = () => {
 										'#9C27B0',
 										'#FF9800',
 										'#3F51B5',
-								  ]
+									]
 								: [
 										'#FF6384',
 										'#36A2EB',
@@ -112,7 +112,7 @@ const AssetPieChart: React.FC = () => {
 										'#795548',
 										'#607D8B',
 										'#CDDC39',
-								  ]
+									]
 							return colors[params.dataIndex % colors.length]
 						},
 					},
@@ -121,6 +121,7 @@ const AssetPieChart: React.FC = () => {
 			backgroundColor: isDarkMode ? '#424242' : '#ffffff',
 		}
 	}
+	
 
 	return (
 		<div style={{ width: '100%', height: '400px' }}>
