@@ -123,16 +123,47 @@ const UserAssets: React.FC = () => {
 		setSelectedAsset(null)
 	}
 
-	const handleSell = () => {
-		if (selectedAsset) {
-			console.log('Selling:', selectedAsset.name, 'Amount:', sellAmount)
-			handleClose()
+	const handleSell = async () => {
+		try {
+			await fetch('http://localhost:5252/backend/sellActive', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					userId: localStorage.getItem('id'),
+					assetName: selectedAsset?.name,
+					amount: sellAmount,
+				}),
+			})
+			.then(response => {
+				console.log('Response:', response)
+				handleClose()
+			})
+		} catch (error) {
+			console.error('Error selling asset:', error)
 		}
 	}
 	const handleBuy = () => {
-		if (selectedAsset) {
-			console.log('Buy:', selectedAsset.name, 'Amount:', sellAmount)
-			handleClose()
+		try {
+			fetch('http://localhost:5252/backend/buyActive', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					userId: localStorage.getItem('id'),
+					assetName: selectedAsset?.name,
+					amount: sellAmount,
+				}),
+			})
+			.then(response => {
+				console.log('Response:', response)
+				handleClose()
+			})
+
+		} catch (error) {
+			console.error('Error buying asset:', error)
 		}
 	}
 	return (

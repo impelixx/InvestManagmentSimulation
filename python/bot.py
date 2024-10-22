@@ -53,7 +53,6 @@ StockPrices = {
 
 log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 log_file = 'app.log'
-#clear log file
 open(log_file, 'w').close()
 
 file_handler = logging.handlers.RotatingFileHandler(log_file, maxBytes=10 * 1024 * 1024, backupCount=5)
@@ -307,7 +306,13 @@ def buyActive():
 @app.route('/backend/sellActive', methods=['POST'])
 def sellActive():
     logger.info('Запрос на продажу актива')
-    url = 'http://localhost:8080/back/sellActive'
+    data = request.json
+    userId = data.get('userId')
+    asset = data.get('asset')
+    amount = data.get('amount')
+    if not userId or not asset:
+        return jsonify({'error': 'userId and asset are required'}), 400
+    
     try:
         data = request.json
         response = requests.post(url, json=data)
