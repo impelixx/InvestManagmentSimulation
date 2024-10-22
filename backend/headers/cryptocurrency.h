@@ -31,15 +31,6 @@ public:
 
   void changePrice() override;
   json returnActiveInfo() override;
-
-
-private:
-  std::string name_;
-  std::vector<double> income_;
-  double amount_;
-  double price_;
-  int count_;
-  double risk_;
 };
 
 
