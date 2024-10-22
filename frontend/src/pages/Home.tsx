@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Grid, Paper, Typography, Button, IconButton } from '@mui/material'
+import { Box, Grid, Paper, Typography, Button, IconButton, Snackbar } from '@mui/material'
 import { PlayArrow, VideoLabel } from '@mui/icons-material'
 import AssetPieChart from '../components/PieChart.tsx'
 import StockQuotes from '../components/StockQuotes'
@@ -20,6 +20,18 @@ const Home: React.FC = () => {
 		setShowGame(prev => !prev)
 	}
 
+	const [snackbarOpen, setSnackbarOpen] = useState(false)
+	const [snackbarMessage, setSnackbarMessage] = useState('')
+
+	const showSnackbar = (message: string) => {
+		setSnackbarMessage(message)
+		setSnackbarOpen(true)
+	}
+
+	const handleCloseSnackbar = () => {
+		setSnackbarOpen(false)
+	}
+
 	const NextStepButton = async () => {
 		await fetch('Http://localhost:5252/backend/updatePrices')
 			.then(response => response.json())
@@ -29,9 +41,19 @@ const Home: React.FC = () => {
 			.catch(error => {
 				console.error('Error:', error)
 			})
+		// Store snackbar message in localStorage
+		localStorage.setItem('snackbarMessage', 'Цены обновлены')
 		// reload page
 		window.location.reload()
 	}
+
+	React.useEffect(() => {
+		const message = localStorage.getItem('snackbarMessage')
+		if (message) {
+			showSnackbar(message)
+			localStorage.removeItem('snackbarMessage')
+		}
+	}, [])
 
 	return (
 		<Box p={3} style={{ height: '100vh', overflow: 'hidden' }}>
@@ -129,10 +151,15 @@ const Home: React.FC = () => {
 							<iframe
 								width='100%'
 								height='100%'
-								// src='https://www.youtube.com/embed/3clqk2U3T9Y?si=VRCxd_zwDW3v58PQ&amp;start=120'
 								allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 								allowFullScreen
 							></iframe>
+							<Snackbar
+								open={snackbarOpen}
+								autoHideDuration={6000}
+								onClose={handleCloseSnackbar}
+								message={snackbarMessage}
+							/>
 						</div>
 					</Paper>
 				</Grid>

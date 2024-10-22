@@ -391,7 +391,7 @@ def sellActive():
                 stock_price = user['assets']['stocks'][i]['price']
                 if user['assets']['stocks'][i]['quantity'] < amount:
                     logger.warning(f'Недостаточно акций для продажи у пользователя {user_id}')
-                    return jsonify({'error': 'Недостаточно акций для продажи'}), 400
+                    return jsonify({'error': 'Недостаточно актива для продажи'}), 400
                 total_value = amount * stock_price
                 user['assets']['stocks'][i]['quantity'] -= amount
                 user['assets']['cash']['amount'] += total_value
@@ -405,7 +405,7 @@ def sellActive():
                 stock_price = user['assets']['cryptocurrencies'][i]['price']
                 if user['assets']['cryptocurrencies'][i]['quantity'] < amount:
                     logger.warning(f'Недостаточно криптовалюты для продажи у пользователя {user_id}')
-                    return jsonify({'error': 'Недостаточно криптовалюты для продажи'}), 400
+                    return jsonify({'error': 'Недостаточно актива для продажи'}), 400
                 total_value = amount * stock_price
                 user['assets']['cryptocurrencies'][i]['quantity'] -= amount
                 user['assets']['cash']['amount'] += total_value
@@ -419,7 +419,7 @@ def sellActive():
                 stock_price = user['assets']['metals'][i]['price']
                 if user['assets']['metals'][i]['quantity'] < amount:
                     logger.warning(f'Недостаточно металла для продажи у пользователя {user_id}')
-                    return jsonify({'error': 'Недостаточно металла для продажи'}), 400
+                    return jsonify({'error': 'Недостаточно актива для продажи'}), 400
                 total_value = amount * stock_price
                 user['assets']['metals'][i]['quantity'] -= amount
                 user['assets']['cash']['amount'] += total_value

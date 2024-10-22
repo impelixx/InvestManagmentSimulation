@@ -13,10 +13,11 @@ import {
 	TextField,
 	IconButton,
 	Box,
+	Snackbar,
+	Alert,
 } from '@mui/material'
 import ReactECharts from 'echarts-for-react'
 import SellIcon from '@mui/icons-material/AttachMoney'
-import { json } from 'stream/consumers'
 
 interface Asset {
 	name: string
@@ -34,24 +35,24 @@ const GetData = async (): Promise<Asset[]> => {
 			body: JSON.stringify({ userId: localStorage.getItem('id') }),
 		})
 		const data = await response.json()
-		console.log('Data:', data)
+		// console.log('Data:', data)
 
 		if (!data || data.length === 0) return []
 
 		const assets = data[0].assets
-		console.log('Assets:', assets)
+		// console.log('Assets:', assets)
 		const assetData: Asset[] = []
 
 		const cashAmount = assets.cash.amount
 		assetData.push({ name: assets.cash.currency, value: cashAmount, amount: cashAmount })
 
 		for (const stock of assets.stocks) {
-			console.log('Stock:', stock)
+			// console.log('Stock:', stock)
 			assetData.push({ name: stock.name, value: stock.price * stock.quantity, amount: stock.quantity })
 		}
 
 		for (const crypto of assets.cryptocurrencies) {
-			console.log('Crypto:', crypto)
+			// console.log('Crypto:', crypto)
 			assetData.push({
 				name: crypto.name,
 				value: crypto.price * crypto.quantity,
@@ -60,10 +61,10 @@ const GetData = async (): Promise<Asset[]> => {
 		}
 
 		for (const metal of assets.metals) {
-			console.log('Metal:', metal)
+			// console.log('Metal:', metal)
 			assetData.push({ name: metal.type, value: metal.price * metal.quantity, amount: metal.quantity })
 		}
-		console.log('Asset data:', assetData)
+		// console.log('Asset data:', assetData)
 		return assetData
 	} catch (error) {
 		console.error('Error fetching data:', error)
@@ -75,7 +76,10 @@ const UserAssets: React.FC = () => {
 	const [userAssets, setUserAssets] = useState<Asset[]>([])
 	const [open, setOpen] = useState(false)
 	const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
-	const [sellAmount, setSellAmount] = useState<number>(0)
+	const [sellAmount, setSellAmount] = useState(0)
+	const [snackbarOpen, setSnackbarOpen] = useState(false)
+	const [snackbarMessage, setSnackbarMessage] = useState('')
+	const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success')
 
 	useEffect(() => {
 		GetData().then(data => {
@@ -126,6 +130,10 @@ const UserAssets: React.FC = () => {
 		setSelectedAsset(null)
 	}
 
+	const handleSnackbarClose = () => {
+		setSnackbarOpen(false)
+	}
+
 	const handleSell = async () => {
 		try {
 			await fetch('http://localhost:5252/backend/sellActive', {
@@ -139,15 +147,31 @@ const UserAssets: React.FC = () => {
 					amount: sellAmount,
 				}),
 			})
-			.then(async response => {
-				console.log('Response:', response.json())
-				handleClose()
-				setUserAssets(await GetData())
+				.then(async response => {
+				const data = await response.json()
+				console.log('Response:', data)
+				if (response.ok) {
+					setUserAssets(await GetData())
+					handleClose()
+					setSnackbarMessage('Актив успешно продан')
+					setSnackbarSeverity('success')
+					setSnackbarOpen(true)
+				}
+				else {
+					console.log(data);
+					setSnackbarMessage(data.error)
+					setSnackbarSeverity('error')
+					setSnackbarOpen(true)
+				}
 			})
 		} catch (error) {
 			console.error('Error selling asset:', error)
+			setSnackbarMessage('Error selling asset')
+			setSnackbarSeverity('error')
+			setSnackbarOpen(true)
 		}
 	}
+
 	const handleBuy = () => {
 		try {
 			fetch('http://localhost:5252/backend/buyActive', {
@@ -162,15 +186,29 @@ const UserAssets: React.FC = () => {
 				}),
 			})
 			.then(async response => {
-				console.log('penis:', response.json().then(data => console.log(data)))
-				setUserAssets(await GetData())
-				handleClose()
+				const data = await response.json()
+				console.log('Response:', data)
+				if (response.ok) {
+					setUserAssets(await GetData())
+					handleClose()
+					setSnackbarMessage('Актив успешно куплен')
+					setSnackbarSeverity('success')
+					setSnackbarOpen(true)
+				} else {
+					console.log(data)
+					setSnackbarMessage(data.error)
+					setSnackbarSeverity('error')
+					setSnackbarOpen(true)
+				}
 			})
-
 		} catch (error) {
 			console.error('Error buying asset:', error)
+			setSnackbarMessage('Error buying asset')
+			setSnackbarSeverity('error')
+			setSnackbarOpen(true)
 		}
 	}
+
 	return (
 		<Container>
 			<Typography
@@ -230,26 +268,51 @@ const UserAssets: React.FC = () => {
 							margin='dense'
 							label='Количество для продажи'
 							fullWidth
-							value={sellAmount}
-							onChange={e => setSellAmount(Number(e.target.value))}
-							inputProps={{ min: 0, step: 0.01 }}
+							value={sellAmount === 0 ? '' : sellAmount}
+							type='number'
+							onChange={e => {
+								const value = e.target.value
+								if (/^\d*\.?\d*$/.test(value)) {
+									setSellAmount(Number(value))
+								}
+							}}
 							style={{ marginBottom: '20px' }}
 							variant='outlined'
 						/>
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} color='primary' style={{ fontWeight: 'bold' }}>
+					<Button
+						onClick={handleClose}
+						color='primary'
+						style={{ fontWeight: 'bold' }}
+					>
 						Отмена
 					</Button>
-					<Button onClick={handleBuy} style={{ fontWeight: 'bold', color: 'green' }}>
+					<Button
+						onClick={handleBuy}
+						style={{ fontWeight: 'bold', color: 'green' }}
+					>
 						Купить
 					</Button>
-					<Button onClick={handleSell} color='secondary' style={{ fontWeight: 'bold', color: 'red' }}>
+					<Button
+						onClick={handleSell}
+						color='secondary'
+						style={{ fontWeight: 'bold', color: 'red' }}
+					>
 						Продать
 					</Button>
 				</DialogActions>
 			</Dialog>
+			<Snackbar
+				open={snackbarOpen}
+				autoHideDuration={6000}
+				onClose={handleSnackbarClose}
+			>
+				<Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+					{snackbarMessage}
+				</Alert>
+			</Snackbar>
 		</Container>
 	)
 }
