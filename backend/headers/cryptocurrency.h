@@ -8,18 +8,18 @@
 
 class Cryptocurrency : public Active {
 public:
-  Cryptocurrency() : name_("Cryptocurrency"), income_(std::vector<double>()), amount_(0.0), price_(0.0), count_(0), risk_(0.0) {}
+  Cryptocurrency() = default;
   Cryptocurrency(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk);
   Cryptocurrency(Cryptocurrency& rhs);
   ~Cryptocurrency() = default;
 
   // setters
-  void setIncomeGraph(const std::vector<double>& income) override;
-  void setName(const std::string& name) override;
-  void setAmount(double amount) override;
-  void setPrice(double price) override;
-  void setCount(int count) override;
-  void setRisk(double risk) override;
+  // void setIncomeGraph(const std::vector<double>& income) override;
+  // void setName(const std::string& name) override;
+  // void setAmount(double amount) override;
+  // void setPrice(double price) override;
+  // void setCount(int count) override;
+  // void setRisk(double risk) override;
 
   // getters
   /*[[nodiscard]] std::vector<double> getIncomeGraph() const { return income_; }
@@ -29,8 +29,8 @@ public:
   [[nodiscard]] int getCount() const { return count_; }
   [[nodiscard]] double getRisk() const { return risk_; }*/
 
-  void changePrice() override;
-  json returnActiveInfo() override;
+  // void changePrice() override;
+  // json returnActiveInfo() override;
 };
 
 

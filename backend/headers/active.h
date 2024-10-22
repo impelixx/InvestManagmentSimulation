@@ -13,12 +13,12 @@ public:
 	~Active() = default;
 
 	// setters
-  virtual void setIncomeGraph(const std::vector<double>& income);
-  virtual void setName(const std::string& name);
-  virtual void setAmount(double amount);
-  virtual void setPrice(double price);
-  virtual void setCount(int count);
-  virtual void setRisk(double risk);
+  void setIncomeGraph(const std::vector<double>& income);
+  void setName(const std::string name);
+  void setAmount(double amount);
+  void setPrice(double price);
+  void setCount(int count);
+  void setRisk(double risk);
 
 	// getters
 	[[nodiscard]] std::vector<double> getIncomeGraph() const { return income_; }
@@ -28,8 +28,8 @@ public:
   [[nodiscard]] int getCount() const { return count_; }
 	[[nodiscard]] double getRisk() const { return risk_; }
   
-  virtual void changePrice();
-  virtual json returnActiveInfo();
+  void changePrice();
+  json returnActiveInfo();
 	
 	
 protected:

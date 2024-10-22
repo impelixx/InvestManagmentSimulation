@@ -12,7 +12,7 @@ public:
            double amount, double price, int count, double risk) :
            Active(name, income, amount, price, count, risk) {}
   Currency(Currency& rhs) = default;
-  ~Currency() override = default;
+  ~Currency() = default;
 
   // setters
   // void setIncomeGraph(const std::vector<double>& income) override;
@@ -30,8 +30,8 @@ public:
   [[nodiscard]] int getCount() const { return count_; }
   [[nodiscard]] double getRisk() const { return risk_; }*/
 
-  void changePrice() override;
-  json returnActiveInfo() override;
+  // void changePrice() override;
+  // json returnActiveInfo() override;
 };
 
 

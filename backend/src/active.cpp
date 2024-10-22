@@ -57,7 +57,7 @@ void Active::setIncomeGraph(const std::vector<double>& income) {
   }
 }
 
-void Active::setName(const std::string& name) {
+void Active::setName(const std::string name) {
   try {
     /*if (name.empty()) {
       throw std::length_error("No any name!");
@@ -68,6 +68,7 @@ void Active::setName(const std::string& name) {
     std::cerr << "Error: " << e.what() << std::endl;
     throw;
   }
+  name_ = name;
 }
 
 void Active::setAmount(double amount) {

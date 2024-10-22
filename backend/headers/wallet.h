@@ -11,7 +11,7 @@
 
 #include "../include/includes.h"
 
-// #include "active.h"
+#include "active.h"
 
 
 class Wallet {
@@ -20,7 +20,7 @@ public:
     Dollar = new Currency;
     Euro = new Currency;
     Yuan = new Currency;
-    Dollar->setName("USD");
+    // Dollar->setName("USD");
   } 
   ~Wallet() = default;
   json doCycle() {
@@ -33,7 +33,7 @@ public:
       Dollar->changePrice();
   }
   close = Dollar->getPrice();
-  std::sort(tmp.begin(), tmp.end());
+    std::sort(tmp.begin(), tmp.end());
   min = tmp[0];
   max = tmp[29];
   response["Dollar"] = {open, close, max, min};
