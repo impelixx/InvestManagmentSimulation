@@ -16,10 +16,12 @@ import {
 } from '@mui/material'
 import ReactECharts from 'echarts-for-react'
 import SellIcon from '@mui/icons-material/AttachMoney'
+import { json } from 'stream/consumers'
 
 interface Asset {
 	name: string
 	value: number
+	amount?: number // Add amount property to Asset interface
 }
 
 const GetData = async (): Promise<Asset[]> => {
@@ -41,11 +43,11 @@ const GetData = async (): Promise<Asset[]> => {
 		const assetData: Asset[] = []
 
 		const cashAmount = assets.cash.amount
-		assetData.push({ name: assets.cash.currency, value: cashAmount })
+		assetData.push({ name: assets.cash.currency, value: cashAmount, amount: cashAmount })
 
 		for (const stock of assets.stocks) {
 			console.log('Stock:', stock)
-			assetData.push({ name: stock.name, value: stock.price * stock.quantity })
+			assetData.push({ name: stock.name, value: stock.price * stock.quantity, amount: stock.quantity })
 		}
 
 		for (const crypto of assets.cryptocurrencies) {
@@ -53,12 +55,13 @@ const GetData = async (): Promise<Asset[]> => {
 			assetData.push({
 				name: crypto.name,
 				value: crypto.price * crypto.quantity,
+				amount: crypto.quantity,
 			})
 		}
 
 		for (const metal of assets.metals) {
 			console.log('Metal:', metal)
-			assetData.push({ name: metal.type, value: metal.price * metal.quantity })
+			assetData.push({ name: metal.type, value: metal.price * metal.quantity, amount: metal.quantity })
 		}
 		console.log('Asset data:', assetData)
 		return assetData
@@ -136,9 +139,10 @@ const UserAssets: React.FC = () => {
 					amount: sellAmount,
 				}),
 			})
-			.then(response => {
-				console.log('Response:', response)
+			.then(async response => {
+				console.log('Response:', response.json())
 				handleClose()
+				setUserAssets(await GetData())
 			})
 		} catch (error) {
 			console.error('Error selling asset:', error)
@@ -157,8 +161,9 @@ const UserAssets: React.FC = () => {
 					amount: sellAmount,
 				}),
 			})
-			.then(response => {
-				console.log('Response:', response)
+			.then(async response => {
+				console.log('penis:', response.json().then(data => console.log(data)))
+				setUserAssets(await GetData())
 				handleClose()
 			})
 
@@ -185,6 +190,9 @@ const UserAssets: React.FC = () => {
 								</Typography>
 								<Typography variant='body1'>
 									Текущая стоимость: <strong>${asset.value}</strong>
+								</Typography>
+								<Typography variant='body2'>
+									Количество: <strong>{asset.amount}</strong>
 								</Typography>
 								<Box display='flex' justifyContent='flex-end' mt={2}>
 									<IconButton

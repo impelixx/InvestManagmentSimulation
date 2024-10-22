@@ -152,7 +152,7 @@ const SomeComponent = () => {
 							<iframe
 								width='512'
 								height='800'
-								src='https://www.youtube.com/embed/zZ7AimPACzc?si=bJRrgDIxHpFfzJmC'
+								// src='https://www.youtube.com/embed/zZ7AimPACzc?si=bJRrgDIxHpFfzJmC'
 								title='YouTube video player'
 								frameBorder='0'
 								allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'

@@ -77,7 +77,7 @@ const AssetPieChart: React.FC = () => {
 				formatter: '{a} <br/>{b}: {c} ({d}%)',
 			},
 			legend: {
-				show: false, // Hide legend
+				show: false,
 			},
 			series: [
 				{
