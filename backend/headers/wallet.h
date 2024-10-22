@@ -1,4 +1,4 @@
-#ifdefn WALLET_H
+#ifndef WALLET_H
 #define WALLET_H
 
 

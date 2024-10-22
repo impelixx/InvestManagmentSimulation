@@ -8,9 +8,11 @@
 
 class PreciousMetal : public Active {
 public:
-  PreciousMetal() : name_("PreciousMetal"), income_(std::vector<double>()), amount_(0.0), price_(0.0), count_(0), risk_(0.0) {}
-  PreciousMetal(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk);
-  PreciousMetal(PreciousMetal& rhs);
+  PreciousMetal() = default;
+  PreciousMetal(const std::string& name, const std::vector<double>& income,
+                double amount, double price, int count, double risk) :
+                Active(name, income, amount, price, count, risk) {}
+  PreciousMetal(PreciousMetal& rhs) = default;
   ~PreciousMetal() override = default;
 
   // setters
@@ -31,15 +33,6 @@ public:
 
   void changePrice() override;
   json returnActiveInfo() override;
-
-
-private:
-  std::string name_;
-  std::vector<double> income_;
-  double amount_;
-  double price_;
-  int count_;
-  double risk_;
 };
 
 

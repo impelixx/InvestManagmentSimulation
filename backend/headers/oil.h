@@ -8,9 +8,11 @@
 
 class Oil : public Active {
 public:
-  Oil() : name_("Oil"), income_(std::vector<double>()), amount_(0.0), price_(0.0), count_(0), risk_(0.0) {}
-  Oil(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk);
-  Oil(Oil& rhs);
+  Oil() = default;
+  Oil(const std::string& name, const std::vector<double>& income,
+      double amount, double price, int count, double risk) :
+      Active(name, income, amount, price, count, risk) {}
+  Oil(Oil& rhs) = default;
   ~Oil() override = default;
 
   // setters
@@ -31,15 +33,6 @@ public:
 
   void changePrice() override;
   json returnActiveInfo() override;
-
-
-private:
-  std::string name_;
-  std::vector<double> income_;
-  double amount_;
-  double price_;
-  int count_;
-  double risk_;
 };
 
 

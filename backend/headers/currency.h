@@ -7,9 +7,11 @@
 
 class Currency : public Active {
 public:
-  Currency() : name_("Currency"), income_(std::vector<double>()), amount_(0.0), price_(0.0), count_(0), risk_(0.0) {}
-  Currency(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk);
-  Currency(Currency& rhs);
+  Currency() = default;
+  Currency(const std::string& name, const std::vector<double>& income,
+           double amount, double price, int count, double risk) :
+           Active(name, income, amount, price, count, risk) {}
+  Currency(Currency& rhs) = default;
   ~Currency() override = default;
 
   // setters
@@ -30,14 +32,6 @@ public:
 
   void changePrice() override;
   json returnActiveInfo() override;
-
-private:
-  std::string name_;
-  std::vector<double> income_;
-  double amount_;
-  double price_;
-  int count_;
-  double risk_;
 };
 
 

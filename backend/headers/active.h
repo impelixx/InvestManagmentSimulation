@@ -32,7 +32,7 @@ public:
   virtual json returnActiveInfo();
 	
 	
-private:
+protected:
 	std::string name_;
 	std::vector<double> income_;
 	double amount_;
