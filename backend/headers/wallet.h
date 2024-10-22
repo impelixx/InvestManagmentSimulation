@@ -24,13 +24,13 @@ public:
   } 
   ~Wallet() = default;
   json doCycle() {
-  double open, close, max, min;
-  open = Dollar->getPrice();
-  json response;
-  std::vector <double> tmp;
-  for (int i = 0; i < 30; ++i) {
-    tmp.push_back(Dollar->getPrice());
-    Dollar->changePrice();
+    double open, close, max, min;
+    open = Dollar->getPrice();
+    json response;
+    std::vector <double> tmp;
+    for (int i = 0; i < 30; ++i) {
+      tmp.push_back(Dollar->getPrice());
+      Dollar->changePrice();
   }
   close = Dollar->getPrice();
   std::sort(tmp.begin(), tmp.end());
