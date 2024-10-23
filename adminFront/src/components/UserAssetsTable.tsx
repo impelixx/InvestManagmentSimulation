@@ -77,7 +77,7 @@ const UserAssetsTable: React.FC = () => {
 						<TableRow>
 							<TableCell>User ID</TableCell>
 							<TableCell>Active Prices</TableCell>
-							<TableCell>Отредачить</TableCell>
+							<TableCell>Edit</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -102,7 +102,6 @@ const UserAssetsTable: React.FC = () => {
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Редактировать активы пользователя</DialogTitle>
 				<DialogContent>
-					{/* Передаем только ID пользователя в EditUserAssets */}
 					<EditUserAssets userId={selectedUserId} onClose={handleClose} />
 				</DialogContent>
 				<DialogActions>

@@ -6,20 +6,62 @@ import {
 	Box,
 	IconButton,
 	Button,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogActions,
+	TextField,
 } from '@mui/material'
 import AssetGrowthChart from './components/AssetGrowthChart'
 import AssetsDistributionPieChart from './components/AssetsDistributionPieChart'
 import UserAssetsTable from './components/UserAssetsTable'
-import EditUserAssets from './components/EditUserAssets'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
 
-type FullscreenComponent = 'growth' | 'distribution' | 'table' | 'edit' | null
+type FullscreenComponent = 'growth' | 'distribution' | 'table' | null
 
 const App: React.FC = () => {
 	const [fullscreenComponent, setFullscreenComponent] =
 		useState<FullscreenComponent>(null)
+	const [openDialog, setOpenDialog] = useState(false)
+	const [steps, setSteps] = useState<number | ''>('')
+	const [data, setData] = useState<any>(null)
 
 	const exitFullscreen = () => setFullscreenComponent(null)
+
+	const nSteps = async (steps: number) => {
+		for (let i = 0; i < steps; i++) {
+			console.log(`Executing step ${i + 1}`)
+			await fetch('http://localhost:5252/backend/updatePrices')
+			const updatedData = await fetchData()
+			setData(updatedData)
+		}
+	}
+
+	const fetchData = async () => {
+		const response = await fetch('http://localhost:5252/assets/getPrices')
+		const result = await response.json()
+		return result
+	}
+
+	const handleNSteps = async () => {
+		if (steps && steps > 0) {
+			await nSteps(Number(steps))
+			setOpenDialog(false)
+			setSteps('')
+			window.location.reload()
+		} else {
+			alert('Ты реально даун')
+		}
+	}
+
+	const handleDialogOpen = () => {
+		setOpenDialog(true)
+	}
+
+	const handleDialogClose = () => {
+		setOpenDialog(false)
+		setSteps('')
+	}
 
 	return (
 		<Container className='p-8'>
@@ -49,7 +91,7 @@ const App: React.FC = () => {
 								</IconButton>
 							</Box>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<AssetGrowthChart />
+								<AssetGrowthChart data={data} />
 							</Box>
 						</Box>
 					</Grid>
@@ -75,7 +117,7 @@ const App: React.FC = () => {
 								</IconButton>
 							</Box>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<AssetsDistributionPieChart />
+								<AssetsDistributionPieChart data={data} />{' '}
 							</Box>
 						</Box>
 					</Grid>
@@ -101,7 +143,7 @@ const App: React.FC = () => {
 								</IconButton>
 							</Box>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<UserAssetsTable />
+								<UserAssetsTable data={data} />
 							</Box>
 						</Box>
 					</Grid>
@@ -124,7 +166,7 @@ const App: React.FC = () => {
 								Asset Growth (Fullscreen)
 							</Typography>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<AssetGrowthChart />
+								<AssetGrowthChart data={data} />
 							</Box>
 						</>
 					)}
@@ -134,7 +176,7 @@ const App: React.FC = () => {
 								Assets Distribution (Fullscreen)
 							</Typography>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<AssetsDistributionPieChart />
+								<AssetsDistributionPieChart data={data} />
 							</Box>
 						</>
 					)}
@@ -144,12 +186,59 @@ const App: React.FC = () => {
 								User Assets Table (Fullscreen)
 							</Typography>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<UserAssetsTable />
+								<UserAssetsTable data={data} />
 							</Box>
 						</>
 					)}
 				</Box>
 			)}
+			<Box display='flex' justifyContent='center' alignItems='center' mt={2}>
+				<Button
+					variant='contained'
+					color='primary'
+					style={{ marginRight: '10px' }}
+					onClick={async () => {
+						await fetch('http://localhost:5252/backend/updatePrices')
+						const updatedData = await fetchData()
+						setData(updatedData)
+						window.location.reload()
+					}}
+				>
+					Следующий шаг
+				</Button>
+				<Button
+					variant='contained'
+					color='secondary'
+					onClick={handleDialogOpen}
+				>
+					Набор шагов
+				</Button>
+			</Box>
+
+			<Dialog open={openDialog} onClose={handleDialogClose}>
+				<DialogTitle>Введите количество шагов</DialogTitle>
+				<DialogContent>
+					<TextField
+						autoFocus
+						margin='dense'
+						id='steps'
+						label='Количество шагов'
+						type='number'
+						fullWidth
+						value={steps}
+						onChange={e => setSteps(e.target.value)}
+						inputProps={{ min: '1' }}
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleDialogClose} color='primary'>
+						Отмена
+					</Button>
+					<Button onClick={handleNSteps} color='primary'>
+						Подтвердить
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</Container>
 	)
 }

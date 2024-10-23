@@ -87,6 +87,7 @@ def create_finance_table():
     
     global financial_assets
     financial_assets = db['financial_assets']
+    financial_assets.insert_one(asset_document)
 
 def create_stock_prices_table():
     client = MongoClient('localhost', 6969)
@@ -113,9 +114,8 @@ def updateStockPrices(StockPrice):
     stock_prices = db['stock_prices']
     stock_prices.update_one({}, {"$set": StockPrice})
     logger.info('Цены активов обновлены')
-    #Update users assets
     users = financial_assets.find({})
-    # print(users.json())
+
     for user in users:
         for stock in user['assets']['stocks']:
             stock['price'] = StockPrice.get(stock['name'], stock['price'])
@@ -367,6 +367,40 @@ def getUserAssets():
         logger.error(f'Ошибка при получении активов для пользователя {user_id}: {str(e)}')
         return jsonify({"error": "Internal server error"}), 500
 
+
+@app.route('/admin/updateUserAssets', methods=['POST'])
+def updateUserAssets():
+    data = request.json
+    user_id = data.get('userId')
+    new_assets = data.get('assets')
+    logger.info(f'Обновление активов пользователя {user_id}')
+    
+    if not user_id or not new_assets:
+        logger.error('userId и assets обязательны')
+        return jsonify({'error': 'userId и assets обязательны'}), 400
+
+    try:
+        client = MongoClient('localhost', 6969)
+        db = client['assets']
+        financial_assets = db['financial_assets']
+        print(user_id)
+        ass = {}
+        user = financial_assets.find_one({'userId': int(user_id)})
+
+        if not user:
+            logger.warning(f'Пользователь с ID {user_id} не найден')
+            return jsonify({'error': 'Пользователь не найден'}), 404
+
+        financial_assets.delete_one({'userId': int(user_id)})
+        ass['userId'] = user_id
+        ass['assets'] = new_assets
+        financial_assets.insert_one(ass)
+        logger.info(f'Активы пользователя {user_id} успешно обновлены')
+        return jsonify({'message': 'Активы успешно обновлены'}), 200
+
+    except Exception as e:
+        logger.error(f'Ошибка при обновлении активов пользователя {user_id}: {str(e)}')
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/backend/buyActive', methods=['POST'])
 def buyActive():
