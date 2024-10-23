@@ -77,14 +77,6 @@ const Home: React.FC = () => {
 								<AssetPieChart assetData={assetData} />
 							</Grid>
 							<Grid item xs={3}>
-								<Button
-									variant='contained'
-									color='primary'
-									style={{ width: '100%' }}
-									onClick={NextStepButton}
-								>
-									Следующий шаг
-								</Button>
 							</Grid>
 						</Grid>
 					</Paper>
