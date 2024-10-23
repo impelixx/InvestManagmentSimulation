@@ -1,5 +1,8 @@
 {
     "editor.tabSize": 2,
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
-    "cmake.sourceDirectory": "/Users/impelix/InvestManagment/backend"
+    "cmake.sourceDirectory": "/Users/impelix/InvestManagment/backend",
+    "cSpell.words": [
+        "Assetsdistribution"
+    ]
 }

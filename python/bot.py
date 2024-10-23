@@ -73,7 +73,7 @@ conn = psycopg2.connect(
     port="5432"
 )
 
-def create_finance_table(): #mongo database
+def create_finance_table():
     client = MongoClient('localhost', 6969)
     logger.info('Подключение к базе данных c активами')
     db = client['assets']
@@ -269,19 +269,104 @@ def getPrices():
     logger.info('Цены активов успешно получены')
     return jsonify(prices), 200
 
-@app.route('/backend/getWallet', methods=['GET'])
-def getWallet():
-    logger.info('Получение кошелька')
-    url = 'http://localhost:8080/GetWallet'
+@app.route('/admin/getUsersPnL', methods=['GET'])
+def getUsersPnL():
+    logger.info('Запрос на получение PnL всех пользователей')
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-        logger.info('Кошелек получен', response.json())
-        return jsonify(response.json()), response.status_code
-    
-    except requests.exceptions.RequestException as e:
-        logger.error(f'Ошибка при получении кошелька: {str(e)}')
+        client = MongoClient('localhost', 6969)
+        db = client['assets']
+        user_pnl = db['user_pnl']
+        users = user_pnl.find({})
+        user_list = []
+        for user in users:
+            user['_id'] = str(user['_id'])
+            user_list.append(user)
+        logger.info('PnL всех пользователей успешно получен')
+        return jsonify(user_list), 200
+    except Exception as e:
+        logger.error(f'Ошибка при получении PnL всех пользователей: {str(e)}')
         return jsonify({'error': str(e)}), 500
+
+@app.route('/admin/getAssetsDistribution', methods=['GET'])
+def getAssetsDistribution():
+    logger.info('Запрос на получение распределения активов')
+    try:
+        client = MongoClient('localhost', 6969)
+        db = client['assets']
+        financial_assets = db['financial_assets']
+        users = financial_assets.find({})
+        ans = {
+            'Apple': 0,
+            'Nvidia': 0,
+            'Facebook': 0,
+            'Ethereum': 0,
+            'Bitcoin': 0,
+            'Gold': 0,
+            'USD': 0,
+        }
+        for user in users:
+            for stock in user['assets']['stocks']:
+                ans[stock['name']] += stock['quantity'] * stock['price']
+            for crypto in user['assets']['cryptocurrencies']:
+                ans[crypto['name']] += crypto['quantity'] * crypto['price']
+            for metal in user['assets']['metals']:
+                ans[metal['type']] += metal['quantity'] * metal['price']
+            ans['USD'] += user['assets']['cash']['amount']
+        logger.info('Распределение активов успешно получено')
+        return jsonify(ans), 200
+    except Exception as e:
+        logger.error(f'Ошибка при получении распределения активов: {str(e)}')
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/admin/getUsers', methods=['GET'])
+def getUsers():
+    logger.info('Запрос на получение всех пользователей')
+    try:
+        client = MongoClient('localhost', 6969)
+        db = client['assets']
+        financial_assets = db['financial_assets']
+        users = financial_assets.find({})
+
+        user_list = []
+        for user in users:
+            user['_id'] = str(user['_id'])
+            GetUserActivePrices(user_id=user['userId'])
+            logger.info(f'Активы пользователя {user["userId"]} успешно получены, их цена: {GetUserActivePrices(user["userId"])}')
+            user_list.append({"user": user["userId"], "active_prices": GetUserActivePrices(user["userId"])})
+        logger.info('Пользователи успешно получены')
+        return jsonify(user_list), 200
+    except Exception as e:
+        logger.error(f'Ошибка при получении пользователей: {str(e)}')
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/admin/getUserAssets', methods=['GET'])
+def getUserAssets():
+    user_id = request.args.get('userId')
+    print("hui", user_id)
+    if not user_id:
+        logger.error('userId is required')
+        return jsonify({"error": "userId is required"}), 400
+
+    logger.info(f'Получение активов для пользователя с ID: {user_id}')
+    
+    try:
+        client = MongoClient('localhost', 6969)
+        db = client['assets']
+        financial_assets = db['financial_assets']
+        user_assets = financial_assets.find_one({'userId': int(user_id)})
+
+        if not user_assets:
+            logger.warning(f'Активы не найдены для пользователя с ID: {user_id}')
+            return jsonify({"error": "Активы не найдены"}), 404
+
+        user_assets['_id'] = str(user_assets['_id'])
+        logger.info(f'Активы пользователя {user_id} успешно получены')
+        return jsonify(user_assets), 200
+
+    except Exception as e:
+        logger.error(f'Ошибка при получении активов для пользователя {user_id}: {str(e)}')
+        return jsonify({"error": "Internal server error"}), 500
+
 
 @app.route('/backend/buyActive', methods=['POST'])
 def buyActive():
