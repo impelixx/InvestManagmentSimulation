@@ -6,7 +6,6 @@
 
 int counter = 0;
 Wallet* wallet = new Wallet;
-// Active* active = new Active;
 
 int main() {
   httplib::Server app;
@@ -18,7 +17,7 @@ int main() {
 
   app.Get("/api", [](const auto& req, auto& res) {
     json response;
-    // response.push_back(wallet->doCycle());
+    response.push_back(wallet->doCycle());
     JSON_RESPONSE(response);
   });
 

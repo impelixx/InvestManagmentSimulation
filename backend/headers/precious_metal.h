@@ -8,7 +8,7 @@
 
 class PreciousMetal : public Active {
 public:
-  PreciousMetal() = default;
+  PreciousMetal() { risk_ = 0.05; };
   PreciousMetal(const std::string& name, const std::vector<double>& income,
                 double amount, double price, int count, double risk) :
                 Active(name, income, amount, price, count, risk) {}

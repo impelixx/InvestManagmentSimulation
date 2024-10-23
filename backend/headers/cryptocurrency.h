@@ -8,7 +8,7 @@
 
 class Cryptocurrency : public Active {
 public:
-  Cryptocurrency() = default;
+  Cryptocurrency() { risk_ = 0.5; };
   Cryptocurrency(const std::string& name, const std::vector<double>& income, double amount, double price, int count, double risk);
   Cryptocurrency(Cryptocurrency& rhs);
   ~Cryptocurrency() = default;

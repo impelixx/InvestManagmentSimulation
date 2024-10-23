@@ -8,7 +8,7 @@
 
 class Stock : public Active {
 public:
-  Stock() = default;
+  Stock() { risk_ = 0.3; };
   Stock(const std::string& name, const std::vector<double>& income,
         double amount, double price, int count, double risk) :
         Active(name, income, amount, price, count, risk) {}

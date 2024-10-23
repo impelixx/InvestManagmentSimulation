@@ -8,7 +8,7 @@
 
 class Oil : public Active {
 public:
-  Oil() = default;
+  Oil() { risk_ = 0.1; };
   Oil(const std::string& name, const std::vector<double>& income,
       double amount, double price, int count, double risk) :
       Active(name, income, amount, price, count, risk) {}

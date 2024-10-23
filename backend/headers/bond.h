@@ -8,7 +8,7 @@
 
 class Bond : public Active {
 public:
-  Bond() = default;
+  Bond() { risk_ = 0.2; };
   Bond(const std::string& name, const std::vector<double>& income,
        double amount, double price, int count, double risk) :
        Active(name, income, amount, price, count, risk) {}
