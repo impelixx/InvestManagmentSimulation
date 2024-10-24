@@ -30,7 +30,7 @@ public:
     double maxChange = price_ * risk_;
     std::uniform_int_distribution<> uid(1, int(maxChange * 100));
     double actualChange = uid(rng) / 100;
-    if (!rng() % 2) {
+    if (rng() % 2 == 0) {
       actualChange = -actualChange;
     }
     this->setPrice(price_ + actualChange);
