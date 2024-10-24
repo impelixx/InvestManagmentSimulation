@@ -80,249 +80,50 @@ public:
   };
   ~Wallet() = default;
   json doCycle() {
-    double open, close, max, min;
-    open = Euro->getPrice();
     json response;
-    std::vector <double> tmp;
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Euro->getPrice());
-      Euro->changePrice();
-    }
-    close = Euro->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["EURO"] = {open, close, max, min};
-    tmp.clear();
 
-    open = Yuan->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Yuan->getPrice());
-      Yuan->changePrice();
-    }
-    close = Yuan->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["CNY"] = {open, close, max, min};
-    tmp.clear();
+    Euro->changePrice();
+    Yuan->changePrice();
+    Bitcoin->changePrice();
+    Ethereum->changePrice();
+    Dogecoin->changePrice();
+    Ton->changePrice();
+    Apple->changePrice();
+    Nvidia->changePrice();
+    Facebook->changePrice();
+    YNDX->changePrice();
+    GOOGL->changePrice();
+    AMZN->changePrice();
+    VKontakte->changePrice();
+    Tesla->changePrice();
+    Microsoft->changePrice();
+    Gold->changePrice();
+    Silver->changePrice();
+    Platinum->changePrice();
+    Palladium->changePrice();
+    Petrol->changePrice();
 
-    open = Bitcoin->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Bitcoin->getPrice());
-      Bitcoin->changePrice();
-    }
-    close = Bitcoin->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["BTC"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Ethereum->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Ethereum->getPrice());
-      Ethereum->changePrice();
-    }
-    close = Ethereum->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["ETH"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Dogecoin->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Dogecoin->getPrice());
-      Dogecoin->changePrice();
-    }
-    close = Dogecoin->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["DOGE"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Ton->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Ton->getPrice());
-      Ton->changePrice();
-    }
-    close = Ton->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["TON"] = {open, close, max, min};
-    tmp.clear();
-    
-    open = Apple->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Apple->getPrice());
-      Apple->changePrice();
-    }
-    close = Apple->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["AAPL"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Nvidia->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Nvidia->getPrice());
-      Nvidia->changePrice();
-    }
-    close = Nvidia->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["NVDA"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Facebook->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Facebook->getPrice());
-      Facebook->changePrice();
-    }
-    close = Facebook->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["META"] = {open, close, max, min};
-    tmp.clear();
-
-    open = YNDX->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(YNDX->getPrice());
-      YNDX->changePrice();
-    }
-    close = YNDX->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["YNDX"] = {open, close, max, min};
-    tmp.clear();
-
-    open = GOOGL->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(GOOGL->getPrice());
-      GOOGL->changePrice();
-    }
-    close = GOOGL->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["GOOGL"] = {open, close, max, min};
-    tmp.clear();
-
-    open = AMZN->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(AMZN->getPrice());
-      AMZN->changePrice();
-    }
-    close = AMZN->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["AMZN"] = {open, close, max, min};
-    tmp.clear();
-
-    open = VKontakte->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(VKontakte->getPrice());
-      VKontakte->changePrice();
-    }
-    close = VKontakte->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["VK"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Tesla->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Tesla->getPrice());
-      Tesla->changePrice();
-    }
-    close = Tesla->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["TSLA"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Microsoft->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Microsoft->getPrice());
-      Microsoft->changePrice();
-    }
-    close = Microsoft->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["MSFT"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Gold->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Gold->getPrice());
-      Gold->changePrice();
-    }
-    close = Gold->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["XAU"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Silver->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Silver->getPrice());
-      Silver->changePrice();
-    }
-    close = Silver->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["XAG"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Platinum->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Platinum->getPrice());
-      Platinum->changePrice();
-    }
-    close = Platinum->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["XPT"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Palladium->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Palladium->getPrice());
-      Palladium->changePrice();
-    }
-    close = Palladium->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["XPD"] = {open, close, max, min};
-    tmp.clear();
-
-    open = Petrol->getPrice();
-    for (int i = 0; i < 30; ++i) {
-      tmp.push_back(Petrol->getPrice());
-      Petrol->changePrice();
-    }
-    close = Petrol->getPrice();
-    std::sort(tmp.begin(), tmp.end());
-    min = tmp[0];
-    max = tmp[29];
-    response["XPD"] = {open, close, max, min};
-    tmp.clear();
-
+    response[Euro->getName()] = Euro->getPrice();
+    response[Yuan->getName()] = Yuan->getPrice();
+    response[Bitcoin->getName()] = Bitcoin->getPrice();
+    response[Ethereum->getName()] = Ethereum->getPrice();
+    response[Dogecoin->getName()] = Dogecoin->getPrice();
+    response[Ton->getName()] = Ton->getPrice();
+    response[Apple->getName()] = Apple->getPrice();
+    response[Nvidia->getName()] = Nvidia->getPrice();
+    response[Facebook->getName()] = Facebook->getPrice();
+    response[YNDX->getName()] = YNDX->getPrice();
+    response[GOOGL->getName()] = GOOGL->getPrice();
+    response[AMZN->getName()] = AMZN->getPrice();
+    response[VKontakte->getName()] = VKontakte->getPrice();
+    response[Tesla->getName()] = Tesla->getPrice();
+    response[Microsoft->getName()] = Microsoft->getPrice();
+    response[Gold->getName()] = Gold->getPrice();
+    response[Silver->getName()] = Silver->getPrice();
+    response[Platinum->getName()] = Platinum->getPrice();
+    response[Palladium->getName()] = Palladium->getPrice();
+    response[Petrol->getName()] = Petrol->getPrice();
+  
     return response;
   };
 
