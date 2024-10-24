@@ -185,7 +185,7 @@ const App: React.FC = () => {
 							<Typography variant='h6' className='mb-2'>
 								User Assets Table (Fullscreen)
 							</Typography>
-							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
+							<Box style={{ height: 'calc(100%', width: '100%' }}>
 								<UserAssetsTable data={data} />
 							</Box>
 						</>

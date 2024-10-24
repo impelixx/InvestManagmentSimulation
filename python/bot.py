@@ -82,12 +82,12 @@ def create_finance_table():
         logger.info('Коллекция уже существует')
     else:
         logger.info('Создание коллекции')
-        db.create_collection('financial_assets')
+        db.create_collectxion('financial_assets')
         logger.info('Коллекция создана')
     
     global financial_assets
     financial_assets = db['financial_assets']
-    financial_assets.insert_one(asset_document)
+    # financial_assets.insert_one(asset_document)
 
 def create_stock_prices_table():
     client = MongoClient('localhost', 6969)
@@ -394,6 +394,8 @@ def updateUserAssets():
         financial_assets.delete_one({'userId': int(user_id)})
         ass['userId'] = user_id
         ass['assets'] = new_assets
+        financial_assets.delete_one({'userId': int(user_id)})
+        logger.info("delete user")
         financial_assets.insert_one(ass)
         logger.info(f'Активы пользователя {user_id} успешно обновлены')
         return jsonify({'message': 'Активы успешно обновлены'}), 200

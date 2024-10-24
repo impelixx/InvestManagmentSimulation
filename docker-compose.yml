@@ -1,0 +1,35 @@
+services:
+
+  Adminfront:
+    image: adminfront
+    build:
+      context: ./Adminfront
+      dockerfile: Dockerfile
+    ports:
+      - "1488:1488"
+  
+  Frontendserver:
+    image: frontendserver
+    build: 
+      context: ./python
+      dockerfile: Dockerfile
+    ports:
+      - "5252:5252"
+
+  Backend:
+    image: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+
+  Frontend:
+    image: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+  
+  

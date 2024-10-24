@@ -74,7 +74,7 @@ const Home: React.FC = () => {
 						</Typography>
 						<Grid container spacing={1} alignItems='center'>
 							<Grid item xs={9}>
-								<AssetPieChart assetData={assetData} />
+								<AssetPieChart/>
 							</Grid>
 							<Grid item xs={3}>
 							</Grid>

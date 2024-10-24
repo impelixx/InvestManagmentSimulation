@@ -71,8 +71,11 @@ const UserAssetsTable: React.FC = () => {
 
 	return (
 		<>
-			<TableContainer component={Paper}>
-				<Table>
+			<TableContainer
+				component={Paper}
+				style={{ maxHeight: '200px', overflow: 'auto' }}
+			>
+				<Table stickyHeader>
 					<TableHead>
 						<TableRow>
 							<TableCell>User ID</TableCell>

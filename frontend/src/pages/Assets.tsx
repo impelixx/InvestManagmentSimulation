@@ -22,7 +22,7 @@ import SellIcon from '@mui/icons-material/AttachMoney'
 interface Asset {
 	name: string
 	value: number
-	amount?: number // Add amount property to Asset interface
+	amount?: number
 }
 
 const GetData = async (): Promise<Asset[]> => {
