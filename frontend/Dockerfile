@@ -8,4 +8,4 @@ RUN apk add npm
 RUN npm install
 
 RUN npm run build
-CMD [ "npm", "run", "preview" ]
+CMD [ "npm", "run", "dev" ]

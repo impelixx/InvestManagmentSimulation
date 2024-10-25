@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Grid, Paper, Typography, Button, IconButton, Snackbar } from '@mui/material'
 import { PlayArrow, VideoLabel } from '@mui/icons-material'
-import AssetPieChart from '../components/PieChart.tsx'
+import AssetPieChart from '../components/PieChart'
 import StockQuotes from '../components/StockQuotes'
 import NewsFeed from '../components/NewsFeed'
 import { useTheme } from '../components/ThemeProvider'

@@ -91,7 +91,7 @@ const App: React.FC = () => {
 								</IconButton>
 							</Box>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<AssetGrowthChart data={data} />
+								<AssetGrowthChart/>
 							</Box>
 						</Box>
 					</Grid>
@@ -117,7 +117,7 @@ const App: React.FC = () => {
 								</IconButton>
 							</Box>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<AssetsDistributionPieChart data={data} />{' '}
+								<AssetsDistributionPieChart/>{' '}
 							</Box>
 						</Box>
 					</Grid>
@@ -143,7 +143,7 @@ const App: React.FC = () => {
 								</IconButton>
 							</Box>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<UserAssetsTable data={data} />
+								<UserAssetsTable/>
 							</Box>
 						</Box>
 					</Grid>
@@ -166,7 +166,7 @@ const App: React.FC = () => {
 								Asset Growth (Fullscreen)
 							</Typography>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<AssetGrowthChart data={data} />
+								<AssetGrowthChart/>
 							</Box>
 						</>
 					)}
@@ -176,7 +176,7 @@ const App: React.FC = () => {
 								Assets Distribution (Fullscreen)
 							</Typography>
 							<Box style={{ height: 'calc(100% - 40px)', width: '100%' }}>
-								<AssetsDistributionPieChart data={data} />
+								<AssetsDistributionPieChart/>
 							</Box>
 						</>
 					)}
@@ -186,7 +186,7 @@ const App: React.FC = () => {
 								User Assets Table (Fullscreen)
 							</Typography>
 							<Box style={{ height: 'calc(100%', width: '100%' }}>
-								<UserAssetsTable data={data} />
+								<UserAssetsTable/>
 							</Box>
 						</>
 					)}
@@ -226,7 +226,7 @@ const App: React.FC = () => {
 						type='number'
 						fullWidth
 						value={steps}
-						onChange={e => setSteps(e.target.value)}
+						onChange={e => setSteps(e.target.value === '' ? '' : Number(e.target.value))}
 						inputProps={{ min: '1' }}
 					/>
 				</DialogContent>

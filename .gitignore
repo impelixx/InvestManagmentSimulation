@@ -17,3 +17,5 @@ main.dSYM/
 build
 .vscode/
 a.out
+adminFront/tsconfig.tsbuildinfo
+adminFront/tsconfig.node.tsbuildinfo

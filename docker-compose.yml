@@ -32,4 +32,34 @@ services:
     ports:
       - "3000:3000"
   
-  
+  mongodb:
+    image: mongo
+    ports:
+      - "6969:27017"
+    environment:
+      - MONGODB_HOSTNAME=mongodb
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+      - ADMIN_DATABASE=admin
+      - COMMON_DATABASE=commonDB
+      - COMMON_USERNAME=common
+      - COMMON_PASSWORD=password
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh -u $$COMMON_USERNAME -p $$COMMON_PASSWORD \"mongodb://$${MONGODB_HOSTNAME}\" || exit 1"]
+      interval: 20s
+      timeout: 2s
+      retries: 3
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=impelix
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 20s
+      timeout: 5s
+      retries: 3

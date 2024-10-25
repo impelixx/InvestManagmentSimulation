@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTheme } from '../components/ThemeProvider'
-import { Box, Typography, List, ListItem, Button, Grid } from '@mui/material'
-import FinancialChart from '../components/chart.tsx'
+import { Box, Typography, List, ListItem, Button, Grid, ListItemButton } from '@mui/material'
+import FinancialChart from '../components/chart'
 
 interface Asset {
 	name: string
@@ -111,8 +111,7 @@ const SomeComponent = () => {
 							)}
 							<List>
 								{assets.map(asset => (
-									<ListItem
-										button
+									<ListItemButton
 										key={asset.name}
 										onClick={() => handleAssetClick(asset)}
 										style={{
@@ -140,7 +139,7 @@ const SomeComponent = () => {
 											{asset.change >= 0 ? '+' : ''}
 											{asset.change}%
 										</Typography>
-									</ListItem>
+									</ListItemButton>
 								))}
 							</List>
 						</Box>

@@ -1,0 +1,25 @@
+services:
+  mongodb:
+    build:
+      context: ./mongodb
+    hostname: mongodb
+    environment:
+      - MONGODB_HOSTNAME=mongodb
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+      - ADMIN_DATABASE=admin
+      - COMMON_DATABASE=commonDB
+      - COMMON_USERNAME=common
+      - COMMON_PASSWORD=password
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh -u $$COMMON_USERNAME -p $$COMMON_PASSWORD \"mongodb://$${MONGODB_HOSTNAME}\" || exit 1"]
+      interval: 20s
+      timeout: 2s
+      retries: 3
+  api:
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    container_name: api
+    build:
+      context: .

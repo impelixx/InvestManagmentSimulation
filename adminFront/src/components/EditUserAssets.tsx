@@ -9,9 +9,12 @@ import {
 	Button,
 } from '@mui/material'
 
+
 interface EditUserAssetsProps {
-	userId: string
+	userId: number | null
+	onClose: () => void
 }
+
 
 interface AssetData {
 	cash?: {
@@ -64,7 +67,7 @@ const EditUserAssets: React.FC<EditUserAssetsProps> = ({ userId }) => {
 	const handleChange = (field: keyof AssetData, index: number | null, value: any) => {
 		if (index !== null) {
 			setEditedAssets(prev => {
-				const updatedField = [...(prev?.[field] || [])]
+				const updatedField = Array.isArray(prev?.[field]) ? [...(prev?.[field] || [])] : []
 				updatedField[index] = { ...updatedField[index], ...value }
 				return { ...prev, [field]: updatedField }
 			})

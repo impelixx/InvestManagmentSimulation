@@ -1,6 +1,6 @@
-FROM alpine:3.14
+FROM alpine:latest
 
-RUN apk update \
+  RUN apk update \
   && apk upgrade \
   && apk add --no-cache \
     clang \
@@ -9,12 +9,14 @@ RUN apk update \
     dpkg \
     cmake \
     ccache \
-    python3
+    python3 \
+    wget \
+    unzip
 
 RUN ln -sf /usr/bin/clang /usr/bin/cc \
   && ln -sf /usr/bin/clang++ /usr/bin/c++ \
-  && update-alternatives --install /usr/bin/cc cc /usr/bin/clang 10\
-  && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 10\
+  && update-alternatives --install /usr/bin/cc cc /usr/bin/clang 10 \
+  && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 10 \
   && update-alternatives --auto cc \
   && update-alternatives --auto c++ \
   && update-alternatives --display cc \
@@ -26,13 +28,13 @@ RUN ln -sf /usr/bin/clang /usr/bin/cc \
 WORKDIR ./app
 
 COPY ./include ./include
-COPY ./lib ./lib
 COPY ./src ./src
 COPY ./CMakeLists.txt ./CMakeLists.txt
 
 WORKDIR ./build
 
-RUN cmake ..
+# Run cmake and build
+RUN cmake .. 
 RUN cmake --build .
 
 CMD ["./backend"]
