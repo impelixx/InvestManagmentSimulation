@@ -8,5 +8,17 @@
     "files.associations": {
         "*.getkeep": "cpp"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "123",
+            "group": "123",
+            "database": "postgers",
+            "username": "impelix"
+        }
+    ]
 }
