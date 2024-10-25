@@ -16,11 +16,18 @@ int main() {
   });
 
   app.Get("/api", [](const auto& req, auto& res) {
+    std::cout << "Request #" << std::endl;
     json response;
     response.push_back(wallet->doCycle());
     JSON_RESPONSE(response);
   });
 
+  app.Get("/api/price", [](const auto& req, auto& res) {
+    json response;
+    response["price"] = "penis";
+    JSON_RESPONSE(response);
+  });
+  std::cout << "penis" << std::endl;
   app.listen("0.0.0.0", 8080);
   return 0;
 }

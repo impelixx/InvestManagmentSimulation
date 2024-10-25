@@ -4,5 +4,9 @@
     "cmake.sourceDirectory": "/Users/impelix/InvestManagment/backend",
     "cSpell.words": [
         "Assetsdistribution"
-    ]
+    ],
+    "files.associations": {
+        "*.getkeep": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

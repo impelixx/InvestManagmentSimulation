@@ -18,8 +18,7 @@ public:
   void setAmount(double amount) { amount_ = amount; };
   void setPrice(double price) { price_ = price; };
   void setRisk(double risk) { risk_ = risk;};
-
-	// getters
+  
 	[[nodiscard]] std::vector<double> getIncomeGraph() const { return income_; }
 	[[nodiscard]] std::string getName() const { return name_; }
 	[[nodiscard]] double getAmount() const { return amount_; }

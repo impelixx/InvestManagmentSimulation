@@ -29,6 +29,8 @@ WORKDIR ./app
 
 COPY ./include ./include
 COPY ./src ./src
+COPY ./headers ./headers
+COPY ./libs ./libs
 COPY ./CMakeLists.txt ./CMakeLists.txt
 
 WORKDIR ./build

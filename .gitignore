@@ -29,3 +29,6 @@ cmake-build-debug
 /.vscode
 /.idea
 /.venv
+backend/CMakeFiles/*
+python/myenv/*
+backend/backend

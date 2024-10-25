@@ -1,5 +1,6 @@
-services:
+version: '3.8'  # Specify the version of Docker Compose
 
+services:
   Adminfront:
     image: adminfront
     build:
@@ -9,6 +10,11 @@ services:
       - "1488:1488"
   
   Frontendserver:
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     image: frontendserver
     build: 
       context: ./python
@@ -37,15 +43,15 @@ services:
     ports:
       - "6969:27017"
     environment:
-      - MONGODB_HOSTNAME=mongodb
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=admin
-      - ADMIN_DATABASE=admin
-      - COMMON_DATABASE=commonDB
-      - COMMON_USERNAME=common
-      - COMMON_PASSWORD=password
+      MONGODB_HOSTNAME: mongodb
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: admin
+      ADMIN_DATABASE: admin
+      COMMON_DATABASE: commonDB
+      COMMON_USERNAME: common
+      COMMON_PASSWORD: password
     healthcheck:
-      test: ["CMD-SHELL", "mongosh -u $$COMMON_USERNAME -p $$COMMON_PASSWORD \"mongodb://$${MONGODB_HOSTNAME}\" || exit 1"]
+      test: ["CMD-SHELL", "mongosh --eval 'db.runCommand({ ping: 1 })' --username $COMMON_USERNAME --password $COMMON_PASSWORD --host $MONGODB_HOSTNAME || exit 1"]
       interval: 20s
       timeout: 2s
       retries: 3
@@ -55,11 +61,11 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=impelix
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=postgres
+      POSTGRES_USER: impelix
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: postgres
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 20s
+      test: ["CMD-SHELL", "pg_isready -U impelix -d postgres"]
+      interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 5

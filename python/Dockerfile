@@ -1,17 +1,20 @@
+FROM python:3.11-alpine
 
-FROM python:3.9-alpine
-
+COPY requirements.txt /app/requirements.txt
+COPY bot.py app/bot.py
 WORKDIR /app
 
-# Копируйте файл requirements.txt в контейнер
-COPY requirements.txt .
+RUN apk update && apk add --no-cache \
+    clang-dev \
+    alpine-sdk \
+    dpkg \
+    ccache \
+    python3 \
+    wget \
+    unzip
 
-# Установите зависимости
-RUN apk update && apk add --no-cache python3 && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt --index-url=https://pypi.org/simple
 
-# Копируем остальные файлы вашего приложения
-COPY . .
 
-# Запускаем приложение
-CMD ["python3", "your_script.py"]  # Замените на ваше приложение
+CMD ["python3", "bot.py"]
