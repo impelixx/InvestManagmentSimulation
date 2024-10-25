@@ -15,7 +15,7 @@ int main() {
     res.set_header("Access-Control-Allow-Headers", "*");
   });
 
-  app.Get("/api", [](const auto& req, auto& res) {
+  app.Get("/back/prices", [](const auto& req, auto& res) {
     std::cout << "Request #" << std::endl;
     json response;
     response.push_back(wallet->doCycle());
@@ -27,8 +27,8 @@ int main() {
     response["price"] = "penis";
     JSON_RESPONSE(response);
   });
-  std::cout << "penis" << std::endl;
-  app.listen("0.0.0.0", 8080);
+  std::cout << "start" << std::endl;
+  app.listen("localhost", 8080);
   return 0;
 }
 

@@ -31,7 +31,7 @@ const App: React.FC = () => {
 	const nSteps = async (steps: number) => {
 		for (let i = 0; i < steps; i++) {
 			console.log(`Executing step ${i + 1}`)
-			await fetch('http://localhost:5252/backend/updatePrices')
+			await fetch('http://localhost:5252/backend/getPrices')
 			const updatedData = await fetchData()
 			setData(updatedData)
 		}
@@ -66,7 +66,7 @@ const App: React.FC = () => {
 	return (
 		<Container className='p-8'>
 			<Typography variant='h4' className='mb-6 text-center'>
-				Наверстал говна
+				Н
 			</Typography>
 			{fullscreenComponent === null ? (
 				<Grid container spacing={4}>
@@ -81,7 +81,7 @@ const App: React.FC = () => {
 								alignItems='center'
 							>
 								<Typography variant='h6' className='mb-2'>
-									Говно
+									Г
 								</Typography>
 								<IconButton
 									onClick={() => setFullscreenComponent('growth')}
@@ -107,7 +107,7 @@ const App: React.FC = () => {
 								alignItems='center'
 							>
 								<Typography variant='h6' className='mb-2'>
-									Залупа
+									З
 								</Typography>
 								<IconButton
 									onClick={() => setFullscreenComponent('distribution')}
@@ -133,7 +133,7 @@ const App: React.FC = () => {
 								alignItems='center'
 							>
 								<Typography variant='h6' className='mb-2'>
-									Пенис
+									П
 								</Typography>
 								<IconButton
 									onClick={() => setFullscreenComponent('table')}

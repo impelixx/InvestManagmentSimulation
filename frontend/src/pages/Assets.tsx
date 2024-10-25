@@ -35,24 +35,23 @@ const GetData = async (): Promise<Asset[]> => {
 			body: JSON.stringify({ userId: localStorage.getItem('id') }),
 		})
 		const data = await response.json()
-		// console.log('Data:', data)
-
+		console.log('Data:', data)
 		if (!data || data.length === 0) return []
 
 		const assets = data[0].assets
-		// console.log('Assets:', assets)
+		console.log('Assets:', assets)
 		const assetData: Asset[] = []
 
 		const cashAmount = assets.cash.amount
 		assetData.push({ name: assets.cash.currency, value: cashAmount, amount: cashAmount })
 
 		for (const stock of assets.stocks) {
-			// console.log('Stock:', stock)
+			console.log('Stock:', stock)
 			assetData.push({ name: stock.name, value: stock.price * stock.quantity, amount: stock.quantity })
 		}
 
 		for (const crypto of assets.cryptocurrencies) {
-			// console.log('Crypto:', crypto)
+			console.log('Crypto:', crypto)
 			assetData.push({
 				name: crypto.name,
 				value: crypto.price * crypto.quantity,
@@ -61,10 +60,10 @@ const GetData = async (): Promise<Asset[]> => {
 		}
 
 		for (const metal of assets.metals) {
-			// console.log('Metal:', metal)
+			console.log('Metal:', metal)
 			assetData.push({ name: metal.type, value: metal.price * metal.quantity, amount: metal.quantity })
 		}
-		// console.log('Asset data:', assetData)
+		console.log('Asset data:', assetData)
 		return assetData
 	} catch (error) {
 		console.error('Error fetching data:', error)

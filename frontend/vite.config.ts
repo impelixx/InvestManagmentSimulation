@@ -10,7 +10,7 @@ export default defineConfig({
 		},
 	},
 	server: {
-		port: 5252,
+		port: 4242,
 	},
 	build: {
 		minify: 'terser',
