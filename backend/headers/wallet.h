@@ -20,60 +20,79 @@ public:
     Euro = new Currency;
     Euro->setPrice(1);
     Euro->setName("EUR");
+
     Yuan = new Currency;
     Yuan->setPrice(0.1);
     Yuan->setName("CNY");
+
     Bitcoin = new Cryptocurrency;
     Bitcoin->setPrice(50000);
     Bitcoin->setName("BTC");
+
     Ethereum = new Cryptocurrency;
     Ethereum->setPrice(2000);
     Ethereum->setName("ETH");
+
     Dogecoin = new Cryptocurrency;
     Dogecoin->setPrice(1000);
     Dogecoin->setName("DOGE");
+
     Ton = new Cryptocurrency;
     Ton->setPrice(5.5);
     Ton->setName("TON");
+
     Apple = new Stock;
     Apple->setPrice(150);
     Apple->setName("AAPL");
+
     Nvidia = new Stock;
     Nvidia->setPrice(300);
     Nvidia->setName("NVDA");
+
     Facebook = new Stock;
     Facebook->setPrice(250);
     Facebook->setName("META");
+
     YNDX = new Stock;
     YNDX->setPrice(100);
     YNDX->setName("YNDX");
+
     GOOGL = new Stock;
     GOOGL->setPrice(200);
     GOOGL->setName("GOOGL");
+
     AMZN = new Stock;
     AMZN->setPrice(300);
     AMZN->setName("AMZN");
+
     VKontakte = new Stock;
     VKontakte->setPrice(100);
     VKontakte->setName("VKCO");
+
     Tesla = new Stock;
     Tesla->setPrice(200);
     Tesla->setName("TSLA");
+
     Microsoft = new Stock;
     Microsoft->setPrice(300);
     Microsoft->setName("MSFT");
+
     Gold = new PreciousMetal;
     Gold->setPrice(100);
     Gold->setName("GOLD");
+
     Silver = new PreciousMetal;
     Silver->setPrice(200);
     Silver->setName("SILVER");
+
     Platinum = new PreciousMetal;
     Platinum->setPrice(1000);
     Platinum->setName("PLAT");
+
     Palladium = new PreciousMetal;
     Palladium->setPrice(500);
     Palladium->setName("PAL");
+
     Petrol = new Oil;
     Petrol->setPrice(100);
     Petrol->setName("OIL");
