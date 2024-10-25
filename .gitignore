@@ -20,10 +20,12 @@ settings.h
 a.out
 adminFront/tsconfig.tsbuildinfo
 adminFront/tsconfig.node.tsbuildinfo
+backend/cmake-build-debug
 
 /.vs
 *.log
-.idea
+.idea/
 cmake-build-debug
 /.vscode
 /.idea
+/.venv
