@@ -16,6 +16,14 @@ main
 main.dSYM/
 build
 .vscode/
+settings.h
 a.out
 adminFront/tsconfig.tsbuildinfo
 adminFront/tsconfig.node.tsbuildinfo
+
+/.vs
+*.log
+.idea
+cmake-build-debug
+/.vscode
+/.idea

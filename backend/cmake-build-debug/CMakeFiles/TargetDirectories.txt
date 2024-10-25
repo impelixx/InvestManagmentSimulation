@@ -1,0 +1,3 @@
+C:/Work/Invest/InvestManagmentSimulation/backend/cmake-build-debug/CMakeFiles/backend.dir
+C:/Work/Invest/InvestManagmentSimulation/backend/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Work/Invest/InvestManagmentSimulation/backend/cmake-build-debug/CMakeFiles/rebuild_cache.dir
